@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Link } from 'expo-router';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
@@ -47,8 +48,8 @@ const Index = () => {
 
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => alert('Sign Up')}>
-          <Text style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Text>
+        <TouchableOpacity>
+          <Link href="/Onbording1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
+    paddingVertical: 15,
   },
   image: {
     resizeMode: 'contain',
