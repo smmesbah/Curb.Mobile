@@ -25,7 +25,7 @@ const Onbording3 = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/Onbording4"style={[styles.buttonText, {width: '100%'}]}>
+                <Link href="/step-4"style={[styles.buttonText, {width: '100%'}]}>
                     Next
                 </Link>
             </View>

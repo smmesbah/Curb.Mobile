@@ -13,7 +13,7 @@ const SubscriptionPlan = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Link href='./Onbording4' style={{ justifyContent: 'center' }}>
+                <Link href='./signup' style={{ justifyContent: 'center' }}>
                     <Text>
                         <AntDesign name="arrowleft" size={28} color="black" />
                     </Text>

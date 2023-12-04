@@ -1,6 +1,7 @@
-import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -8,9 +9,14 @@ const TermsNdCondition = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Link href='./signup' style={{ justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 20 }}>Back</Text>
-                </Link >
+                <Pressable
+                    onPress={() => router.back()}
+                    style={{ justifyContent: 'center' }}
+                >
+                    <Text>
+                        <AntDesign name="arrowleft" size={28} color="black" />
+                    </Text>
+                </Pressable >
                 <Text style={{ fontSize: 30, textAlign: 'center' }}>Terms & Condition</Text>
             </View>
 

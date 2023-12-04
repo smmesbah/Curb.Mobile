@@ -22,7 +22,7 @@ const Onbording1 = () => {
 
             {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
             <View style={styles.button}>
-                <Link href="/Onbording-2"style={[styles.buttonText, {width: '100%'}]}>
+                <Link href="/step-2"style={[styles.buttonText, {width: '100%'}]}>
                     Get Started
                 </Link>
             </View>

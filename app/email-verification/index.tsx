@@ -2,6 +2,7 @@ import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } fr
 import React from 'react'
 import { Link } from 'expo-router'
 import OTPTextView from 'react-native-otp-textinput';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -15,8 +16,10 @@ const EmailVerification = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Link href='./Onbording4' style={{ justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 20 }}>Back</Text>
+                <Link href='./signup' style={{ justifyContent: 'center' }}>
+                    <Text>
+                        <AntDesign name="arrowleft" size={28} color="black" />
+                    </Text>
                 </Link >
 
                 <View style={styles.curb}>
