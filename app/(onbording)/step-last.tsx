@@ -8,11 +8,6 @@ const OnbordingEnd = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground source={require('../../assets/Onbording/onboardingEnd.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
-                {/* <View style={styles.curb}>
-                    <Text style={styles.curbText}>curb</Text>
-                    <View style={styles.dot}></View>
-                </View> */}
-
                 <View style={styles.flex}>
                     <Text style={styles.text1}>Thank you for your Payment. Processing....</Text>
                 </View>
@@ -27,7 +22,7 @@ const OnbordingEnd = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/signup" style={[styles.buttonText, { width: '100%' }]}>
+                <Link href="/post-payment-onboarding/step-1" style={[styles.buttonText, { width: '100%' }]}>
                     Log in
                 </Link>
             </View>

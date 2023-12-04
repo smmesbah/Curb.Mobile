@@ -1,4 +1,4 @@
-import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,7 +12,7 @@ const CardDetails = () => {
     const [cvv, setCvv] = React.useState('');
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container} automaticallyAdjustKeyboardInsets={true}>
             <View style={styles.header}>
                 <Link href='./subscription-plan' style={{ justifyContent: 'center' }}>
                     <Text>
@@ -151,7 +151,7 @@ const CardDetails = () => {
             }}>
                 <Link href='./terms-condition' style={{fontSize: 14}}>Terms and Conditions</Link>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 
