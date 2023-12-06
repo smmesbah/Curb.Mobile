@@ -146,7 +146,7 @@ const PostPaymentStep1 = () => {
                 </View>
 
                 <View style={styles.button}>
-                    <Link href="/step-3" style={[styles.buttonText, { width: '100%' }]}>
+                    <Link href="/post-payment-onboarding/step-2" style={[styles.buttonText, { width: '100%' }]}>
                         Next
                     </Link>
                 </View>

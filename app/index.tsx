@@ -1,6 +1,6 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
 
 const image = { uri: "../assets/onbording1.jpg" };
@@ -49,7 +49,7 @@ const Index = () => {
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
-          <Link href="/step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          <Link href="/post-payment-onboarding/step-3" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
