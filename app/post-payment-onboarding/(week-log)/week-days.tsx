@@ -108,6 +108,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 15,
+        marginTop: 15,
+        marginHorizontal: 5,
     },
     curb: {
         flexDirection: 'row',

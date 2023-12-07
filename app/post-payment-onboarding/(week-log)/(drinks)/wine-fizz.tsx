@@ -27,7 +27,7 @@ const WineFizz = () => {
         <SafeAreaView style={styles.container}>
             <Pressable
                 onPress={() => router.back()}
-                style={{ justifyContent: 'center', paddingVertical: 15, paddingHorizontal: 15 }}
+                style={{ justifyContent: 'center', marginTop: 25, marginLeft: 25 }}
             >
                 <Text>
                     <AntDesign name="arrowleft" size={28} color="black" />
@@ -107,6 +107,7 @@ const WineFizz = () => {
                             setItems={setItems}
                             listMode="SCROLLVIEW"
                             placeholder="Select drink"
+                            showTickIcon={false}
                             style={{
                                 width: width * 0.65,
                                 height: height * 0.05,

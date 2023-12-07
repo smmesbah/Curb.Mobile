@@ -15,7 +15,7 @@ const Day = () => {
         <SafeAreaView style={styles.container}>
             <Pressable
                 onPress={() => router.back()}
-                style={{ justifyContent: 'center', paddingVertical: 15, paddingHorizontal: 15 }}
+                style={{ justifyContent: 'center', marginTop: 25, marginLeft: 25 }}
             >
                 <Text>
                     <AntDesign name="arrowleft" size={28} color="black" />
@@ -54,7 +54,7 @@ const Day = () => {
                         }}
                     >
                         <TouchableOpacity
-                            onPress={() => router.push(`/post-payment-onboarding/beer-cider?day=${day}`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=beer-cider`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Beer.png')} style={{ height: 55, width: 25 }} />
@@ -64,7 +64,7 @@ const Day = () => {
 
                         <TouchableOpacity
                             // onPress={() => router.push('/post-payment-onboarding/wine-fizz')}
-                            onPress={() => router.push(`/post-payment-onboarding/wine-fizz?day=${day}`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=wine-fizz`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Wine.png')} style={{ height: 60, width: 25 }} />
@@ -74,7 +74,7 @@ const Day = () => {
 
                         <TouchableOpacity
                             // onPress={() => router.push('/post-payment-onboarding/spirits-shots')}
-                            onPress={() => router.push(`/post-payment-onboarding/spirits-shots?day=${day}`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=spirits-shots`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Spirits.png')} style={{ height: 55, width: 25 }} />
