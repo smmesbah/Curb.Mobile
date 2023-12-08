@@ -11,7 +11,6 @@ const DrinkDetailsContainer = () => {
     const dispatch = useDispatch();
     const { day } = useGlobalSearchParams();
     const drink = useSelector((state: any) => state.drink.drink);
-    // console.log(drink);
     const data = drink.filter((item: any) => item.day === day);
 
     return (

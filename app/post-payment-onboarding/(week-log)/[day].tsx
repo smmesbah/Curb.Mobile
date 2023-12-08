@@ -10,7 +10,7 @@ const Day = () => {
     const router = useRouter();
 
     const { day } = useGlobalSearchParams();
-    console.log(day);
+    // console.log(day);
     return (
         <SafeAreaView style={styles.container}>
             <Pressable

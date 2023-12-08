@@ -15,13 +15,30 @@ import { useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
-const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void })  => {
+const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkInformation) => void }) => {
     const drinks = useSelector((state: any) => state.drink);
-    // console.log(drinks.drink[0]);
     const { day, drink } = useLocalSearchParams();
     const [addingDrink, setAddingDrink] = React.useState<string | null>();
+    const [dayTrack, setDayTrack] = React.useState<any>([
+        { value: 'Monday', isSelected: false },
+        { value: 'Tuesday', isSelected: false },
+        { value: 'Wednesday', isSelected: false },
+        { value: 'Thursday', isSelected: false },
+        { value: 'Friday', isSelected: false },
+        { value: 'Saturday', isSelected: false },
+        { value: 'Sunday', isSelected: false },
+    ]);
 
     React.useEffect(() => {
+        // console.log(addingDrink);
+        const dayIndex = dayTrack.findIndex((item: any) => item.value === day);
+        if (dayIndex !== -1) {
+            const updatedDayTrack = [...dayTrack];
+            updatedDayTrack[dayIndex].isSelected = true;
+            // console.log(updatedDayTrack);
+            setDayTrack(updatedDayTrack);
+        }
+
         if (drink === 'beer-cider') {
             setAddingDrink('beer-cider');
         }
@@ -31,7 +48,8 @@ const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void }) 
         if (drink === 'wine-fizz') {
             setAddingDrink('wine-fizz');
         }
-    }, [])
+
+    }, [day, drink])
 
     const beerCiderFormRef = useRef<any>();
     const spiritsShotsFormRef = useRef<any>();
@@ -40,12 +58,29 @@ const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void }) 
     const handleAddDrinkPress = () => {
         setAddingDrink(null);
 
-        if(addingDrink === 'beer-cider') {
+        if (addingDrink === 'beer-cider') {
             beerCiderFormRef.current.handleAddDrinkPress()
-        }else if(addingDrink === 'spirits-shots') {
+        } else if (addingDrink === 'spirits-shots') {
             spiritsShotsFormRef.current.handleAddDrinkPress()
-        }else if(addingDrink === 'wine-fizz') {
+        } else if (addingDrink === 'wine-fizz') {
             wineFizzFormRef.current.handleAddDrinkPress()
+        }
+    }
+
+    const handleGoToNextDayPress = () => {
+        setAddingDrink(null);
+        // Find the next day that is not selected
+        const nextDay = dayTrack.find((item: any) => !item.isSelected);
+
+        if (nextDay) {
+            const nextDayValue = nextDay.value;
+            router.push(`/post-payment-onboarding/${nextDayValue}`);
+        } else {
+            // Check if all days are selected
+            const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
+            if (allDaysSelected) {
+                router.push('/post-payment-onboarding/week-in-drinking');
+            }
         }
     }
 
@@ -85,10 +120,10 @@ const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void }) 
                         addingDrink === 'beer-cider' && <BeerCiderForm ref={beerCiderFormRef} />
                     }
                     {
-                        addingDrink === 'spirits-shots' && <SpiritsShotsForm ref={spiritsShotsFormRef}/>
+                        addingDrink === 'spirits-shots' && <SpiritsShotsForm ref={spiritsShotsFormRef} />
                     }
                     {
-                        addingDrink === 'wine-fizz' && <WineFizzForm ref={wineFizzFormRef}/>
+                        addingDrink === 'wine-fizz' && <WineFizzForm ref={wineFizzFormRef} />
                     }
                 </View>
                 {
@@ -122,7 +157,8 @@ const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void }) 
                     {
                         addingDrink === null ? (
                             <Pressable
-                                onPress={() => alert('Go to next day')}
+                                // onPress={() => alert('Go to next day')}
+                                onPress={handleGoToNextDayPress}
                                 style={{
                                     flexDirection: 'row',
                                     justifyContent: 'center',
@@ -166,7 +202,7 @@ const mapStateToProps = (state: any) => ({
     drinks: state.drink,
 })
 
-export default connect(mapStateToProps, null) (BeerCider)
+export default connect(mapStateToProps, null)(BeerCider)
 
 const styles = StyleSheet.create({
     container: {
