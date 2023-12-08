@@ -3,6 +3,8 @@ import { View, Text, TextInput, StyleSheet, Dimensions, Image, FlatList, Animate
 import MotivationText from './ui/MotivationText';
 import Pagination from './ui/Pagination';
 import AddWhyCardModal from './ui/AddWhyCardModal';
+import { AddIcon } from './icons/AddIcon';
+import { EditIcon } from './icons/EditIcon';
 // import { FlatList } from 'react-native-gesture-handler';
 
 const windowHeight=Dimensions.get('screen').height;
@@ -11,7 +13,9 @@ const windowWidth=Dimensions.get('screen').width;
 
 
 let yourData = [
-    { id: 1, Question: 'What is your motivation to cut back on drinking?', Answer: 'Your want to reclaim your mornings!' },
+    { id: 1, Question: 'What is your motivation to cut back on drinking?', Answer: '' },
+    { id: 2, Question: 'What is your motivation to cut back on drinking?', Answer: '' },
+    { id: 3, Question: 'What is your motivation to cut back on drinking?', Answer: '' },
   ];
 
 
@@ -55,7 +59,7 @@ const MotivationWidget = () => {
       }).current;
     
   return (
-    <>
+    <View style={styles.container}>
     <View style={styles.why_style}>
     <Text
     style={styles.text_style}
@@ -63,32 +67,12 @@ const MotivationWidget = () => {
     <View
         style={styles.add_edit_style}
     >
-        <TouchableOpacity onPress={()=>setAddModalOpen(true)}>
-        <Image
-         source={require('../assets/icons/AddIcon.png')}
-         height={20}
-         width={20}
-         style={{
-            tintColor: '#000'
-         }}
-        />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}>
-        <Image
-         source={require('../assets/icons/EditIcon.png')}
-         height={18}
-         width={18}
-         style={{
-            tintColor: '#000'
-         }}
-        />
-        </TouchableOpacity>
     </View>
     </View>
 
     <View>
         <FlatList data={yourData}
-        renderItem={({item}) => (<MotivationText id={item.id} editOpen={editOpen} setEditOpen={setEditOpen} text={text[index]} onChangeText={onChangeText} yourData={yourData}/>)}
+        renderItem={({item}) => (<MotivationText Data={yourData} id={item.id} text={text[index]} onChangeText={onChangeText}/>)}
         horizontal={true}
         pagingEnabled={true}
         snapToAlignment='center'
@@ -96,38 +80,48 @@ const MotivationWidget = () => {
         onScroll={handleOnScroll}
         onViewableItemsChanged={handleOnViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
+        ItemSeparatorComponent={() => <View style={{width: 15}}/>}
         />
-        <Pagination data={yourData} scrollX={scrollX} index={index}/>
+        {/* <Pagination data={yourData} scrollX={scrollX} index={index}/> */}
         
     </View>
     <Modal visible={addModalOpen} transparent>
          <AddWhyCardModal addModalOpen={addModalOpen} setAddModalOpen={setAddModalOpen} yourData={yourData}/>
     </Modal>
-    </>
+    </View>
   )
 }
 
 export default MotivationWidget
 
 const styles = StyleSheet.create({
+    container: {
+      // justifyContent: 'center',
+      // alignItems: 'center',
+      
+      marginTop: 20,
+    },
     why_style: {
+        paddingLeft: windowWidth*.090,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: windowWidth-40,
+        marginBottom: windowWidth*.03,
+        // paddingHorizontal: windowWidth*.05,
+        // width: windowWidth,
     },
     add_edit_style: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        gap: 9
+        gap: 21,
     },
     text_style: {
-        marginBottom: 15,
-        flex: 2,
         height: 'auto',
-        fontSize: 16,
-        fontWeight: '500',
+        fontSize: 17,
+        fontFamily: 'Medium',
+        color: '#080D09',
+        letterSpacing: 0.8,
     },
     text_motivation: {
         fontSize: 16,
@@ -140,6 +134,7 @@ const styles = StyleSheet.create({
     },
     text_input: {
         fontSize: 20,
+        fontFamily: 'Medium',
         color: '#ffffff',
         height: windowHeight*0.12,
         width: '100%',
@@ -159,3 +154,6 @@ const styles = StyleSheet.create({
     
     }
 })
+
+
+// id={item.id} text={text[index]} onChangeText={onChangeText} yourData={yourData}

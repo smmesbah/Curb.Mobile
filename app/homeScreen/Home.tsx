@@ -1,16 +1,15 @@
-import { View, Text, Image, Keyboard, Platform, Dimensions, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Styles from './Home.style';
 import DrinkFreeDays from 'components/DrinkFreeDays';
 import CaloriesAvoidedWidget from 'components/CaloriesAvoidedWidget';
 import MotivationWidget from 'components/MotivationWidget';
 import styles from './Home.style';
 import TaskCard from 'components/TaskCard';
-import { ScrollView } from 'react-native-gesture-handler';
 import CalenderModal from 'components/CalenderModal';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Logo } from '../../components/icons/Logo';
+import { CalendarIcon } from 'components/icons/CalendarIcon';
 
 
 const windowWidth=Dimensions.get('screen').width;
@@ -19,22 +18,7 @@ const dummyValues=[
     {
         title: 'Play Basketball',
         Description: 'Play basketball with friends',
-        imageUri: require('../../assets/images/CurbLogo.png'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Play basketball with friends',
-        imageUri: require('../../assets/images/CurbLogo.png'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Play basketball with friends',
-        imageUri: require('../../assets/images/CurbLogo.png'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Play basketball with friends',
-        imageUri: require('../../assets/images/CurbLogo.png'),
+        imageUri: require('../../assets/images/BasketBall.webp'),
     }
 ]
 
@@ -67,24 +51,19 @@ const Home = () => {
 
   return (
     <SafeAreaView>
-    <ScrollView 
-    automaticallyAdjustContentInsets={true}
-    automaticallyAdjustKeyboardInsets={true}>
+    <ScrollView style={{backgroundColor: '#ecedea'}}>
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <LinearGradient
+    colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
+    locations={[0.0, 0.2, 0.6]}
+    style={Styles.container}
+    >
     
-    <View style={[Styles.container]}>
-            <Image
-                source={require('../../assets/images/CurbLogo.png')}
-                height={20}
-                width={86.62}
-                style={{
-                    marginTop: 20,
-                }}
-            />
             
-            <View style={[Styles.profile_container, {marginTop: 20}]}
-            // , {marginTop: 20}
-            >
-            <Text>c u r b <MaterialCommunityIcons name="checkbox-blank-circle" size={10} /></Text>
+            <View style={[Styles.profile_container]}>
+            <View style={Styles.curb_logo}>
+            <Logo/>
+            </View>
             
             <View style={{
                 flex: 1,
@@ -92,40 +71,47 @@ const Home = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 width: '100%',
-                gap: 30
+                marginTop: 20,
+                gap: 10
             }}>
                 <TouchableOpacity onPress={()=>setCalanderModalOpen(true)}>
-                <Image
-                    source={require('../../assets/icons/HomeCalander.png')}
-                />
+               
+                <CalendarIcon/>
                 </TouchableOpacity>
-                <Image
-                    source={require('../../assets/icons/HomeProfile.png')}
-                />
+
+                <TouchableOpacity onPress={()=>console.log("asdlkfj")}>
+                <View style={Styles.home_profile}>
+                  <Text style={Styles.home_profile_text}>CJ</Text>
+                </View>
+                </TouchableOpacity>
             </View>
             </View>
+            <View style={Styles.drinkFreeDays}>
             <DrinkFreeDays/>
-            <View style={{marginTop: 40, width: '100%'}}>
+            </View>
+            <View>
             <CaloriesAvoidedWidget/>
             </View>
-            <View style={{marginTop: 100, width: '100%'}}>
-            <MotivationWidget/>
+            <View>
+            <View style={{paddingHorizontal: 15}}>
+              <Text style={[styles.task_text, {backgroundColor: 'transparent'}]}>Today's task</Text>
+              <View>
+                {dummyValues.map((item, index)=>
+                      <TaskCard 
+                          key={index}
+                          title={item.title}
+                          description={item.Description}
+                          imageUri={item.imageUri}
+                          Width={0.83}
+                      />
+                )}
+              </View>
+              </View>
             </View>
-            
+    </LinearGradient>   
     </View>
-    <View>
-    <Text style={[styles.task_text, {backgroundColor: 'transparent'}]}>Today's task</Text>
-    <View>
-        {dummyValues.map((item, index)=>(
-            <TaskCard 
-                key={index}
-                title={item.title}
-                description={item.Description}
-                imageUri={item.imageUri}
-            />
-        ))}
-    </View>
-    </View>
+    
+    <MotivationWidget/>
     <Modal visible={calandermodalOpen} transparent>
         <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
     </Modal>
