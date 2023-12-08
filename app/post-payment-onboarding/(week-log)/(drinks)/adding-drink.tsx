@@ -9,13 +9,13 @@ import DrinkDetailsContainer from 'component/DrinkDetailsContainer';
 import SpiritsShotsForm from 'component/SpiritsShotsForm';
 import WineFizzForm from 'component/WineFizzForm';
 
-import { DrinkInformation } from 'redux/reducers/drinkReducer';
+import { DrinkDetails } from 'redux/reducers/drinkReducer';
 import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
-const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkInformation) => void }) => {
+const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) => {
     const drinks = useSelector((state: any) => state.drink);
     const { day, drink } = useLocalSearchParams();
     const [addingDrink, setAddingDrink] = React.useState<string | null>();
@@ -79,7 +79,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkInformation) => void }
             // Check if all days are selected
             const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
             if (allDaysSelected) {
-                router.push('/post-payment-onboarding/week-in-drinking');
+                router.push('/post-payment-onboarding/weekly-drink-summary');
             }
         }
     }
@@ -198,11 +198,9 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkInformation) => void }
     )
 }
 
-const mapStateToProps = (state: any) => ({
-    drinks: state.drink,
-})
 
-export default connect(mapStateToProps, null)(BeerCider)
+
+export default BeerCider;
 
 const styles = StyleSheet.create({
     container: {

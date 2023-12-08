@@ -30,9 +30,11 @@ const WineFizzForm = React.forwardRef((props,ref) => {
         handleAddDrinkPress() {
             const drink = {
                 day: Array.isArray(day) || day === undefined ? '' : day,
-                drinkQuantity: wineCount,
-                drinkType: wineFizzType,
-                drinkSize: value,
+                drinks: {
+                    drinkQuantity: wineCount,
+                    drinkType: wineFizzType,
+                    drinkSize: value,
+                }
             }
             dispatch(addDrink(drink));
         }

@@ -12,7 +12,19 @@ const DrinkDetailsContainer = () => {
     const { day } = useGlobalSearchParams();
     const drink = useSelector((state: any) => state.drink.drink);
     const data = drink.filter((item: any) => item.day === day);
+    console.log(data[0]);
 
+    const handleRemoveDrinkPress = (drink: any) => {
+        const removeableDrink = {
+            day: Array.isArray(day) ? day[0] : day || '',
+            drinks: {
+                drinkQuantity: drink.drinkQuantity,
+                drinkType: drink.drinkType,
+                drinkSize: drink.drinkSize,
+            }
+        }
+        dispatch(removeDrink(removeableDrink));
+    }
     return (
         <View
             style={{
@@ -35,7 +47,7 @@ const DrinkDetailsContainer = () => {
                     marginBottom: 30,
                 }}
             >
-                Your Monday drinks
+                Your {day} drinks
             </Text>
 
             <View
@@ -45,7 +57,7 @@ const DrinkDetailsContainer = () => {
                 }}
             >
                 {
-                    data.map((item: any, index: number) => (
+                    data[0]?.drinks.map((item: any, index: number) => (
                         <View
                             key={index}
                             style={{
@@ -69,7 +81,15 @@ const DrinkDetailsContainer = () => {
                             >
                                 <Text style={{ fontSize: 17, fontWeight: '400', color: '#27284e', width: '70%', textAlign: 'center' }}>{item.drinkQuantity} {item.drinkSize} {item.drinkType}</Text>
                                 <TouchableOpacity
-                                    onPress={() => dispatch(removeDrink(item))}
+                                    // onPress={() => dispatch(removeDrink({
+                                    //     day: Array.isArray(day) ? day[0] : day || '',
+                                    //     drinks: {
+                                    //         drinkQuantity: item.drinkQuantity,
+                                    //         drinkType: item.drinkType,
+                                    //         drinkSize: item.drinkSize,
+                                    //     }
+                                    // }))}
+                                    onPress={() => {handleRemoveDrinkPress(item)}}
                                     style={{ position: 'absolute', right: 0, }}
                                 >
                                     <AntDesign name='delete' size={20} color='#a2a2a2' />

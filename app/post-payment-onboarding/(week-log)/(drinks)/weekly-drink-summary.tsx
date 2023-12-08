@@ -2,55 +2,53 @@ import { Dimensions, FlatList, Pressable, SafeAreaView, StyleSheet, Text, View }
 import React from 'react'
 import { router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import TopSection from 'component/PostPaymentComponents/TopSection'
 import Feather from 'react-native-vector-icons/Feather'
 import HideWithKeyboard from 'react-native-hide-with-keyboard'
+import { useSelector } from 'react-redux'
 
 const { width, height } = Dimensions.get('screen');
 
 const WeeklyDrinkSummary = () => {
-    const data = [
-        {
-            day: 'Monday',
-            drinkQuantity: 1,
-            drinkType: 'lager',
-            drinkSize: 'pint',
-        },
-        {
-            day: 'Monday',
-            drinkQuantity: 2,
-            drinkType: 'Vodka',
-            drinkSize: 'pint',
-        },
-        {
-            day: 'Tuesday',
-            drinkQuantity: 2,
-            drinkType: 'wine',
-            drinkSize: 'glass',
-        },
-        {
-            day: 'Tuesday',
-            drinkQuantity: 2,
-            drinkType: 'Vodka',
-            drinkSize: 'glass',
-        },
-        {
-            day: 'Wednesday',
-            drinkQuantity: 1,
-            drinkType: 'stout',
-            drinkSize: 'bottle',
-        },
-    ];
-    // const filteredData = data.reduce((acc, curr) => {
-    //     const existingDay = acc.find((item) => item.day === curr.day);
-    //     if (!existingDay) {
-    //         acc.push({ day: curr.day, drinks: [{ ...curr }] });
-    //     } else {
-    //         existingDay.drinks.push({ ...curr });
-    //     }
-    //     return acc;
-    // }, []);
-    // console.log(drinksByDay);
+    const data = useSelector((state: any) => state.drink.drink);
+    // const data = [
+    //     {
+    //         day: 'Monday',
+    //         drinks: [
+    //             {
+    //                 drinkQuantity: 1,
+    //                 drinkType: 'lager',
+    //                 drinkSize: 'pint',
+    //             },
+    //             {
+    //                 drinkQuantity: 2,
+    //                 drinkType: 'Vodka',
+    //                 drinkSize: 'pint',
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         day: 'Tuesday',
+    //         drinks: [
+    //             {
+    //                 drinkQuantity: 1,
+    //                 drinkType: 'lager',
+    //                 drinkSize: 'pint',
+    //             },
+    //             {
+    //                 drinkQuantity: 2,
+    //                 drinkType: 'Vodka',
+    //                 drinkSize: 'pint',
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         day: 'Wednesday',
+    //         drinks: [
+                
+    //         ]
+    //     },
+    // ];
+
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -79,20 +77,22 @@ const WeeklyDrinkSummary = () => {
             <FlatList
                 style={{
                     marginTop: 25,
-                    gap: 20,
+                    // gap: 50,
                 }}
                 data={data}
                 renderItem={({ item }) => (
                     // const filteredData = data.filter()
                 <View
                     style={{
+                        height: 130,
                         position: 'relative',
                         backgroundColor: 'white',
                         paddingHorizontal: 50,
                         paddingVertical: 40,
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-start',
                         alignItems: 'center',
+                        marginBottom: 15,
                     }}
                 >
                     <Pressable
@@ -112,18 +112,25 @@ const WeeklyDrinkSummary = () => {
                         style={{
                             fontSize: 30,
                             fontWeight: '500',
-
+                            width: '20%'
                         }}
                     >
-                        Mon
+                        {item.day.slice(0, 3)}
                     </Text>
                     <View
                         style={{
                             gap: 10,
+                            marginLeft: 60,
                         }}
                     >
-                        <Text style={{ fontSize: 17, }}>1 pint of 4% lager</Text>
-                        <Text style={{ fontSize: 17, }}>1 large single of 40% spirits</Text>
+                        {
+                            item.drinks.length === 0 && <Text style={{ fontSize: 17, }}>No alcohol</Text>
+                        }
+                        {
+                            item.drinks.length !== 0 && item.drinks.map((drink: any, index: number) => (
+                                <Text key={index} style={{ fontSize: 17, }}>{drink.drinkQuantity} {drink.drinkSize} of {drink.drinkType}</Text>
+                            ))
+                        }
                     </View>
                 </View>
                 )}

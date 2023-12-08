@@ -15,9 +15,11 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
         handleAddDrinkPress() {
             const drink = {
                 day: Array.isArray(day) || day === undefined ? '' : day,
-                drinkQuantity: drinkCount,
-                drinkType: beerCiderType,
-                drinkSize: value,
+                drinks: {
+                    drinkQuantity: drinkCount,
+                    drinkType: beerCiderType,
+                    drinkSize: value,
+                }
             }
             dispatch(addDrink(drink));
         }
