@@ -1,11 +1,30 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useImperativeHandle } from 'react'
 import RadioButtonRound from './ui/RadioButtonRound';
 import DropDownPicker from 'react-native-dropdown-picker';
 
+import { useDispatch } from 'react-redux';
+import { addDrink } from 'redux/actions/drinkActions';
+import { useGlobalSearchParams } from 'expo-router';
+
 const { width, height } = Dimensions.get('screen');
 
-const SpiritsShotsForm = () => {
+const SpiritsShotsForm = React.forwardRef((props, ref) => {
+    const dispatch = useDispatch();
+    const { day } = useGlobalSearchParams();
+
+    useImperativeHandle(ref, () => ({
+        handleAddDrinkPress() {
+            const drink = {
+                day: Array.isArray(day) || day === undefined ? '' : day,
+                drinkQuantity: spiritsShotsCount,
+                drinkType: spiritsShotsType,
+                drinkSize: value,
+            }
+            dispatch(addDrink(drink));
+        }
+    }));
+
     const data = [
         { value: 'Vodka' },
         { value: 'Gin' },
@@ -14,9 +33,9 @@ const SpiritsShotsForm = () => {
         { value: 'Tequilla' },
         { value: 'Other' },
     ]
-    const [spiritsShotsType, setSpiritsShotsType] = React.useState<string | null>(null);
+    const [spiritsShotsType, setSpiritsShotsType] = React.useState<string>('');
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(null);
+    const [value, setValue] = React.useState<string>('');
     const [items, setItems] = React.useState([
         { label: 'Single', value: 'single' },
         { label: 'Double', value: 'double' },
@@ -142,7 +161,7 @@ const SpiritsShotsForm = () => {
             </View>
         </View>
     )
-}
+});
 
 export default SpiritsShotsForm
 

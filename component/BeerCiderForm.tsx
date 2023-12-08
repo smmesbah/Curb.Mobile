@@ -1,19 +1,38 @@
-import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useImperativeHandle, useRef } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import RadioButtonRound from './ui/RadioButtonRound'
 
+
+import { useDispatch } from 'react-redux'
+import { addDrink } from 'redux/actions/drinkActions'
+import { useGlobalSearchParams } from 'expo-router'
+
 const { width, height } = Dimensions.get('screen');
 
-const BeerCiderForm = () => {
-    const [beerCiderType, setBeerCiderType] = React.useState<string | null>(null);
+const BeerCiderForm = React.forwardRef((props, ref) => {
+    useImperativeHandle(ref, () => ({
+        handleAddDrinkPress() {
+            const drink = {
+                day: Array.isArray(day) || day === undefined ? '' : day,
+                drinkQuantity: drinkCount,
+                drinkType: beerCiderType,
+                drinkSize: value,
+            }
+            dispatch(addDrink(drink));
+        }
+    }));
+
+    const dispatch = useDispatch();
+    const { day } = useGlobalSearchParams();
+    const [beerCiderType, setBeerCiderType] = React.useState<string>('');
     const data = [
         { value: 'Lager' },
         { value: 'Beer' },
         { value: 'Stout' }
     ]
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(null);
+    const [value, setValue] = React.useState<string>('');
     const [items, setItems] = React.useState([
         { label: 'Pint', value: 'pint' },
         { label: 'Half Pint', value: 'half-pint' },
@@ -142,10 +161,15 @@ const BeerCiderForm = () => {
                     />
                 </View>
             </View>
+            {/* <TouchableOpacity
+                onPress={handleAddDrinkPress}
+            >
+                <Text>Click me.</Text>
+            </TouchableOpacity> */}
         </View>
     )
-}
+});
 
-export default BeerCiderForm
+export default BeerCiderForm;
 
 const styles = StyleSheet.create({})

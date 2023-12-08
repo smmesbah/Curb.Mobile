@@ -1,23 +1,19 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useGlobalSearchParams } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { removeDrink } from 'redux/actions/drinkActions';
 
 const { width, height } = Dimensions.get('screen');
 const DrinkDetailsContainer = () => {
-    const data = [
-        {
-            id: 1,
-            quantity: 1,
-            drinkSize: 'pint',
-            drinkType: 'lager',
-        },
-        {
-            id: 2,
-            quantity: 2,
-            drinkSize: 'small glass',
-            drinkType: 'wine',
-        }
-    ]
+    const dispatch = useDispatch();
+    const { day } = useGlobalSearchParams();
+    const drink = useSelector((state: any) => state.drink.drink);
+    // console.log(drink);
+    const data = drink.filter((item: any) => item.day === day);
+
     return (
         <View
             style={{
@@ -50,9 +46,9 @@ const DrinkDetailsContainer = () => {
                 }}
             >
                 {
-                    data.map((drink) => (
+                    data.map((item: any, index: number) => (
                         <View
-                            key={drink.id}
+                            key={index}
                             style={{
                                 width: '100%',
                                 paddingVertical: 22,
@@ -72,8 +68,11 @@ const DrinkDetailsContainer = () => {
                                     position: 'relative'
                                 }}
                             >
-                                <Text style={{ fontSize: 17, fontWeight: '400', color: '#27284e', width: '70%', textAlign: 'center' }}>{drink.quantity} {drink.drinkSize} {drink.drinkType}</Text>
-                                <TouchableOpacity style={{ position: 'absolute', right: 0, }}>
+                                <Text style={{ fontSize: 17, fontWeight: '400', color: '#27284e', width: '70%', textAlign: 'center' }}>{item.drinkQuantity} {item.drinkSize} {item.drinkType}</Text>
+                                <TouchableOpacity
+                                    onPress={() => dispatch(removeDrink(item))}
+                                    style={{ position: 'absolute', right: 0, }}
+                                >
                                     <AntDesign name='delete' size={20} color='#a2a2a2' />
                                 </TouchableOpacity>
                             </View>

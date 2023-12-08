@@ -1,5 +1,5 @@
 import { Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { router, useGlobalSearchParams, useLocalSearchParams, useRouter } from 'expo-router';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
@@ -9,9 +9,15 @@ import DrinkDetailsContainer from 'component/DrinkDetailsContainer';
 import SpiritsShotsForm from 'component/SpiritsShotsForm';
 import WineFizzForm from 'component/WineFizzForm';
 
+import { DrinkInformation } from 'redux/reducers/drinkReducer';
+import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 const { width, height } = Dimensions.get('screen');
 
-const BeerCider = () => {
+const BeerCider = ({addDrink }: {addDrink: (drink: DrinkInformation) => void })  => {
+    const drinks = useSelector((state: any) => state.drink);
+    // console.log(drinks.drink[0]);
     const { day, drink } = useLocalSearchParams();
     const [addingDrink, setAddingDrink] = React.useState<string | null>();
 
@@ -27,8 +33,20 @@ const BeerCider = () => {
         }
     }, [])
 
+    const beerCiderFormRef = useRef<any>();
+    const spiritsShotsFormRef = useRef<any>();
+    const wineFizzFormRef = useRef<any>();
+
     const handleAddDrinkPress = () => {
         setAddingDrink(null);
+
+        if(addingDrink === 'beer-cider') {
+            beerCiderFormRef.current.handleAddDrinkPress()
+        }else if(addingDrink === 'spirits-shots') {
+            spiritsShotsFormRef.current.handleAddDrinkPress()
+        }else if(addingDrink === 'wine-fizz') {
+            wineFizzFormRef.current.handleAddDrinkPress()
+        }
     }
 
     return (
@@ -44,6 +62,7 @@ const BeerCider = () => {
 
             <View style={{ marginTop: 15 }}>
                 <View style={{ gap: 35, }}>
+                    {/* <Text style={styles.headerText}>{drinks.drink[0].drinkType ? 'hello' : 'yes'}</Text> */}
                     <Text style={styles.headerText}>{day}</Text>
                     <Text style={styles.subheaderText}>What kind of drink would you typically have on a {day}</Text>
                 </View>
@@ -63,13 +82,13 @@ const BeerCider = () => {
             >
                 <View>
                     {
-                        addingDrink === 'beer-cider' && <BeerCiderForm />
+                        addingDrink === 'beer-cider' && <BeerCiderForm ref={beerCiderFormRef} />
                     }
                     {
-                        addingDrink === 'spirits-shots' && <SpiritsShotsForm />
+                        addingDrink === 'spirits-shots' && <SpiritsShotsForm ref={spiritsShotsFormRef}/>
                     }
                     {
-                        addingDrink === 'wine-fizz' && <WineFizzForm />
+                        addingDrink === 'wine-fizz' && <WineFizzForm ref={wineFizzFormRef}/>
                     }
                 </View>
                 {
@@ -82,7 +101,7 @@ const BeerCider = () => {
                             }}
                         >
                             <DrinkDetailsContainer />
-                            <Drink />
+                            <Drink setAddingDrink={setAddingDrink} />
                         </View>
                     )
                 }
@@ -120,6 +139,7 @@ const BeerCider = () => {
                         ) : (
                             <Pressable
                                 onPress={handleAddDrinkPress}
+                                // onPress={() => beerCiderFormRef.current.handleAddDrinkPress()}
                                 style={{
                                     flexDirection: 'row',
                                     justifyContent: 'center',
@@ -136,14 +156,17 @@ const BeerCider = () => {
                             </Pressable>
                         )
                     }
-
                 </View>
             </HideWithKeyboard>
         </SafeAreaView>
     )
 }
 
-export default BeerCider
+const mapStateToProps = (state: any) => ({
+    drinks: state.drink,
+})
+
+export default connect(mapStateToProps, null) (BeerCider)
 
 const styles = StyleSheet.create({
     container: {

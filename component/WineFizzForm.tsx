@@ -1,24 +1,43 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useImperativeHandle } from 'react'
 import RadioButtonRound from './ui/RadioButtonRound'
 import DropDownPicker from 'react-native-dropdown-picker'
 
+import { useDispatch } from 'react-redux'
+import { addDrink } from 'redux/actions/drinkActions'
+import { useGlobalSearchParams } from 'expo-router'
+
 const { width, height } = Dimensions.get('screen');
 
-const WineFizzForm = () => {
+const WineFizzForm = React.forwardRef((props,ref) => {
+    const dispatch = useDispatch();
+    const { day } = useGlobalSearchParams();
     const data = [
         { value: 'Wine' },
         { value: 'Sparkling' },
     ]
-    const [wineFizzType, setWineFizzType] = React.useState<string | null>(null);
+    const [wineFizzType, setWineFizzType] = React.useState<string>('');
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(null);
+    const [value, setValue] = React.useState<string>('');
     const [items, setItems] = React.useState([
         { label: 'Small glass', value: 'small-glass' },
         { label: 'Large glass', value: 'large-glass' },
         { label: 'Bootle', value: 'bottle' },
     ]);
     const [wineCount, setWineCount] = React.useState<number>(0);
+
+    useImperativeHandle(ref, () => ({
+        handleAddDrinkPress() {
+            const drink = {
+                day: Array.isArray(day) || day === undefined ? '' : day,
+                drinkQuantity: wineCount,
+                drinkType: wineFizzType,
+                drinkSize: value,
+            }
+            dispatch(addDrink(drink));
+        }
+    }));
+
     return (
         <View
             style={{
@@ -139,7 +158,7 @@ const WineFizzForm = () => {
             </View>
         </View>
     )
-}
+});
 
 export default WineFizzForm
 

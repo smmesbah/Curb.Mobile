@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
 
-const Drink = () => {
+const Drink = ({setAddingDrink}: {setAddingDrink: any}) => {
     return (
         <View
             style={{
@@ -39,7 +39,7 @@ const Drink = () => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => router.push(`/post-payment-onboarding/beer-cider`)}
+                    onPress={() => setAddingDrink('beer-cider')}
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Beer.png')} style={{ height: 55, width: 25 }} />
@@ -48,7 +48,7 @@ const Drink = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => router.push(`/post-payment-onboarding/wine-fizz`)}
+                    onPress={() => setAddingDrink('wine-fizz')}
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Wine.png')} style={{ height: 60, width: 25 }} />
@@ -57,7 +57,7 @@ const Drink = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => router.push(`/post-payment-onboarding/spirits-shots`)}
+                    onPress={() => setAddingDrink('spirits-shots')}
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Spirits.png')} style={{ height: 55, width: 25 }} />
