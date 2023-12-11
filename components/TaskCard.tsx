@@ -7,7 +7,7 @@ import { CheckedFilled } from './icons/checkedFilled';
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const TaskCard = ({title, description, imageUri, Width}) => {
+const TaskCard = ({title, description, imageUri, Width, focus}) => {
 
     const [checked, setChecked] = useState(false);
 
@@ -18,15 +18,20 @@ const TaskCard = ({title, description, imageUri, Width}) => {
 
   return (
     <View style={[styles.container, {width: width*Width}]}>
-        <Image source={imageUri} resizeMode='cover' style={{height: height*0.13, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
+        <View>
+            <Image source={imageUri} resizeMode='cover' style={{height: height*0.13, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
+            {focus && <View
+            style={styles.blur}
+            />}
+        </View>
         <View style={styles.text_info}>
             <View style={{flexDirection: 'column', flex: 2}}>
             {checked &&
             <View style={styles.task_completed}>
                  <Text style={{color: '#017F70', fontFamily: 'Regular', fontSize: 13}}>Task Completed</Text>
             </View>}
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{description}</Text>
+            <Text style={[styles.title,{color: focus? '#69726b': '#080D09'}]}>{title}</Text>
+            <Text style={[styles.description,{color: focus? '#9ea29f': '#080D09'}]}>{description}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity onPress={handlePress}>
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 19,
-        color: '#080D09',
+        // color: '#080D09',
         fontFamily: 'Regular',
         // letterSpacing: -0.16,
         fontStyle: 'normal',
@@ -89,6 +94,19 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         paddingHorizontal: 6,
         borderRadius: (width*.36)/2,
+    }, 
+    blur: {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        zIndex: 1,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        borderBottomLeftRadius: 12, 
+        borderTopLeftRadius: 12,
+        backgroundColor: 'rgba(50, 50, 50, 0.7)',
     }
 
 })

@@ -71,7 +71,41 @@ const Tasks = () => {
             </View>
         </View>
 
-        <View style={Styles.task_cards}>
+        {focused==='previous' && 
+            <View style={Styles.task_cards}>
+                {dummyValues.map((item, index)=>
+                    <>
+                    <TaskCard 
+                        key={index}
+                        title={item.title}
+                        description={item.Description}
+                        imageUri={item.imageUri}
+                        Width={0.89}
+                        focus={false}
+                    />
+                    <View style={{height: 20}}/>
+                    </>
+                )}
+            </View>
+        }
+        {focused==='upcoming' && 
+            <View style={Styles.task_cards}>
+                {dummyValues.map((item, index)=>
+                    <>
+                    <TaskCard 
+                        key={index}
+                        title={item.title}
+                        description={item.Description}
+                        imageUri={item.imageUri}
+                        Width={0.89}
+                        focus={true}
+                    />
+                    <View style={{height: 20}}/>
+                    </>
+                )}
+            </View>
+        }
+        {/* <View style={Styles.task_cards}>
                 {dummyValues.map((item, index)=>
                     <>
                       <TaskCard 
@@ -84,7 +118,7 @@ const Tasks = () => {
                       <View style={{height: 20}}/>
                     </>
                 )}
-        </View>
+        </View> */}
     </ScrollView>
     </SafeAreaView>
   )

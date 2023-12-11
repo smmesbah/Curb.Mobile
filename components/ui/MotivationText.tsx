@@ -3,6 +3,7 @@ import {Text, StyleSheet, View, TextInput, Dimensions, TouchableWithoutFeedback,
 import { LinearGradient } from 'expo-linear-gradient';
 import { EditIcon } from 'components/icons/EditIcon';
 import { SubmitIcon } from 'components/icons/SubmitIcon';
+import CancelIcon from 'components/icons/CancelIcon';
 
 const windowHeight=Dimensions.get('screen').height;
 const windowWidth=Dimensions.get('screen').width;
@@ -61,14 +62,18 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
         onChangeText={text=>{handleOnChangeText(text)}}
         value={itemtext}
         placeholder='Write your Answer?'
-        placeholderTextColor={'#ccc'}
+        placeholderTextColor={'#5f6f7b'}
         textAlignVertical='top'
       />}
       <View style={styles.edit_swipe_style}>
       <Text style={styles.swipe}>* Swipe left to see more goals</Text>
       {editOpen || answer===''?
-      <TouchableOpacity onPress={()=>handleSubmit()}><SubmitIcon/></TouchableOpacity>
-      : <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><EditIcon/></TouchableOpacity>}
+        <View style={{flexDirection: 'row', gap: 7}}>
+            <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><CancelIcon/></TouchableOpacity>
+            <TouchableOpacity onPress={()=>handleSubmit()}><SubmitIcon/></TouchableOpacity>
+        </View> :
+        <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><EditIcon/></TouchableOpacity>
+      }
       </View>
     {/* </View> */}
     </LinearGradient>
@@ -115,10 +120,10 @@ const styles = StyleSheet.create({
     
     },
     edit_swipe_style:{
+        width: '100%',
         flexDirection: 'row',
-        // justifyContent: 'space-between',
-        // alignItems: 'center',
-        paddingRight: 14,
+        justifyContent: 'space-between',
+        // alignItems: 'center',,
         marginBottom: 9
     },
     swipe: {
@@ -129,7 +134,6 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         letterSpacing: 1,
         height: 'auto',
-        width: '100%',
         textAlign: 'left',
     }
 })

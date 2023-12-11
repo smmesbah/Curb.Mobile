@@ -51,12 +51,15 @@ const Home = () => {
 
   return (
     <SafeAreaView>
-    <ScrollView style={{backgroundColor: '#ecedea'}}>
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <ScrollView style={{backgroundColor: '#ecedea'}}
+    automaticallyAdjustContentInsets={false}
+    automaticallyAdjustKeyboardInsets={false}
+    >
+    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 0}}>
     <LinearGradient
     colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
     locations={[0.0, 0.2, 0.6]}
-    style={Styles.container}
+    style={[Styles.container]}
     >
     
             
@@ -64,6 +67,7 @@ const Home = () => {
             <View style={Styles.curb_logo}>
             <Logo/>
             </View>
+
             
             <View style={{
                 flex: 1,
@@ -103,14 +107,28 @@ const Home = () => {
                           description={item.Description}
                           imageUri={item.imageUri}
                           Width={0.83}
+                          focus={false}
                       />
                 )}
               </View>
               </View>
             </View>
+            {keyboardOpen && (
+        <View
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(3, 53, 64, 0.80)', // semi-transparent background
+          }}
+        />
+      )}
     </LinearGradient>   
     </View>
-    
     <MotivationWidget/>
     <Modal visible={calandermodalOpen} transparent>
         <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>

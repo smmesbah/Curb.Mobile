@@ -1,30 +1,56 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from 'app/homeScreen/Home';
-import { Image, TouchableOpacity, View, Text, Dimensions } from 'react-native';
+import { Image, TouchableOpacity, View, Text, Dimensions, Keyboard } from 'react-native';
 import { HomeIcon } from './icons/HomeIcon';
 import DailyTaskIcon from './icons/DailyTaskIcon';
 import InsightsIcon from './icons/InsightsIcon';
 import AchievementsIcon from './icons/AchievementsIcon';
+import React from 'react';
 import { CheckInPlusIcon } from './icons/CheckInPlusIcon';
 import Feather from 'react-native-vector-icons/Feather';
 import Tasks from 'app/taskScreen/Tasks';
 import Insights from 'app/inSights/Insights';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import Achievements from 'app/achievementsScreen/Achievements';
 
 const Tabs=createBottomTabNavigator();
 const { width, height } = Dimensions.get("screen")
 
 const Tab = () => {
+
+    const [keyboardVisible, setKeyboardVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+
+    // Clean up listeners when component unmounts
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
     return (
-        // <View style={{
-        //     width,
-        //     height,
-        // }}>
+        // <View
+        // style={{height,width}}>
         <Tabs.Navigator
             screenOptions={{
                 tabBarHideOnKeyboard: true,
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
+                    // display: keyboardVisible? 'none': 'flex',
                     position: 'absolute',
                     elevation: 0,
                     backgroundColor: 'transparent',
@@ -43,7 +69,7 @@ const Tab = () => {
                             }}
                         />
                     )
-                }
+                },
             }}
         >
             <Tabs.Screen name="Home" component={Home}
@@ -100,7 +126,7 @@ const Tab = () => {
                     ),
                 }}
             />
-            <Tabs.Screen name="Achievements" component={Home}
+            <Tabs.Screen name="Achievements" component={Achievements}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
