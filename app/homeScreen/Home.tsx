@@ -10,7 +10,9 @@ import CalenderModal from 'components/CalenderModal';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Logo } from '../../components/icons/Logo';
 import { CalendarIcon } from 'components/icons/CalendarIcon';
-
+import MyProfile from 'app/myProfileScreen/MyProfile';
+import { useNavigation } from '@react-navigation/native';
+import {StackNavigator} from 'app/index';
 
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
@@ -26,6 +28,7 @@ const Home = () => {
 
     const [keyboardOpen, setKeyboardOpen] = useState(false);
     const [calandermodalOpen, setCalanderModalOpen] = useState(false);
+    const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -51,24 +54,20 @@ const Home = () => {
 
   return (
     <SafeAreaView>
-    <ScrollView style={{backgroundColor: '#ecedea'}}
-    automaticallyAdjustContentInsets={false}
-    automaticallyAdjustKeyboardInsets={false}
-    >
-    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 0}}>
-    <LinearGradient
-    colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
-    locations={[0.0, 0.2, 0.6]}
-    style={[Styles.container]}
-    >
-    
-            
-            <View style={[Styles.profile_container]}>
+      <ScrollView style={{backgroundColor: '#ecedea'}}
+      automaticallyAdjustContentInsets={false}
+      automaticallyAdjustKeyboardInsets={false}
+      >
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 0}}>
+          <LinearGradient
+          colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
+          locations={[0.0, 0.2, 0.6]}
+          style={[Styles.container]}
+          >
+          <View style={[Styles.profile_container]}>
             <View style={Styles.curb_logo}>
-            <Logo/>
+              <Logo/>
             </View>
-
-            
             <View style={{
                 flex: 1,
                 justifyContent: 'flex-end',
@@ -79,24 +78,22 @@ const Home = () => {
                 gap: 10
             }}>
                 <TouchableOpacity onPress={()=>setCalanderModalOpen(true)}>
-               
-                <CalendarIcon/>
+                  <CalendarIcon/>
                 </TouchableOpacity>
-
-                <TouchableOpacity onPress={()=>console.log("asdlkfj")}>
-                <View style={Styles.home_profile}>
-                  <Text style={Styles.home_profile_text}>CJ</Text>
-                </View>
+                <TouchableOpacity onPress={()=>navigation.navigate("MyProfile")}>
+                  <View style={Styles.home_profile}>
+                    <Text style={Styles.home_profile_text}>CJ</Text>
+                  </View>
                 </TouchableOpacity>
             </View>
-            </View>
-            <View style={Styles.drinkFreeDays}>
+          </View>
+          <View style={Styles.drinkFreeDays}>
             <DrinkFreeDays/>
-            </View>
-            <View>
+          </View>
+          <View>
             <CaloriesAvoidedWidget/>
-            </View>
-            <View>
+          </View>
+          <View>
             <View style={{paddingHorizontal: 15}}>
               <Text style={[styles.task_text, {backgroundColor: 'transparent'}]}>Today's task</Text>
               <View>
@@ -111,29 +108,29 @@ const Home = () => {
                       />
                 )}
               </View>
-              </View>
             </View>
-            {keyboardOpen && (
-        <View
-          style={{
-            position: 'absolute',
-            height: '100%',
-            width: '100%',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(3, 53, 64, 0.80)', // semi-transparent background
-          }}
-        />
-      )}
-    </LinearGradient>   
-    </View>
-    <MotivationWidget/>
-    <Modal visible={calandermodalOpen} transparent>
-        <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
-    </Modal>
-    </ScrollView>
+          </View>
+          {keyboardOpen && (
+          <View
+                style={{
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: 'rgba(3, 53, 64, 0.80)', // semi-transparent background
+                }}
+              />
+            )}
+          </LinearGradient>   
+        </View>
+        <MotivationWidget/>
+        <Modal visible={calandermodalOpen} transparent>
+            <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
+        </Modal>
+      </ScrollView>
     </SafeAreaView>
     
   )

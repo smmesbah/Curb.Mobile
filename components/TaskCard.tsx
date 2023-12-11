@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {Text, View, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import { CircleOutline } from './icons/CircleOutline';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { CheckedFilled } from './icons/checkedFilled';
 
 const width=Dimensions.get('screen').width;
@@ -12,7 +11,7 @@ const TaskCard = ({title, description, imageUri, Width, focus}) => {
     const [checked, setChecked] = useState(false);
 
     const handlePress =  () => {
-        setChecked(!checked);
+        !focus?setChecked(!checked): null;
         // alert("hello")
     }
 

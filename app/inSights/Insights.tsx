@@ -45,51 +45,51 @@ const Insights = () => {
   return (
     <SafeAreaView>
       <ScrollView style={{marginBottom: 85}}>
-      <View style={{backgroundColor: '#ecedea'}}>
-            <View style={Styles.header_container}>
-                    <Text style={Styles.title}>Insights</Text>
-                    <Text style={Styles.description}>Curb helps you recognize patterns of
-                        behaviour that inform your mood and habits</Text>
-                </View>
+        <View style={{backgroundColor: '#ecedea'}}>
+              <View style={Styles.header_container}>
+                  <Text style={Styles.title}>Insights</Text>
+                  <Text style={Styles.description}>Curb helps you recognize patterns of
+                      behaviour that inform your mood and habits</Text>
+              </View>
 
-                {/* <TouchableOpacity onPress={()=>setLock(!lock)}><Text>Lock</Text></TouchableOpacity> */}
+                  {/* <TouchableOpacity onPress={()=>setLock(!lock)}><Text>Lock</Text></TouchableOpacity> */}
 
-                <View>
-                    {lock?
-                        <View> 
-                            <InsightsCardLock/>
-                            <Pagination data={Data} scrollX={scrollX} index={index} lock={lock}/>
-                        </View>
-                        : 
-                        <View>
-                            <FlatList data={Data}
-                            renderItem={({item}) => (<InsightsCard Data={Data} id={item.id}/>)}
-                            horizontal={true}
-                            pagingEnabled={true}
-                            snapToAlignment='center'
-                            showsHorizontalScrollIndicator={false}
-                            onScroll={handleOnScroll}
-                            ItemSeparatorComponent={() => <View style={{width: 20}}/>}
-                            />
-                            <Pagination data={Data} scrollX={scrollX} index={index} lock={lock}/>
-                        
-                        </View>
-                    
-                    }
-                </View>
-        </View>
-        {!lock &&
-            <View style={{backgroundColor: '#F4F3F1'}}>
-                <Text style={Styles.facts_text}>Facts</Text>
-                <View style={Styles.facts_container}>
-                    {FactData.map((item, index)=>(
-                        <FactsCard key={index} id={item.id} description={item.description}/>
-                    )
-                    )}
-                </View>
-            </View>
-        }
-        
+              <View>
+                  {lock?
+                      <View> 
+                          <InsightsCardLock/>
+                          <Pagination data={Data} scrollX={scrollX} index={index} lock={lock}/>
+                      </View>
+                      : 
+                      <View>
+                          <FlatList data={Data}
+                          renderItem={({item}) => (<InsightsCard Data={Data} id={item.id}/>)}
+                          horizontal={true}
+                          pagingEnabled={true}
+                          snapToAlignment='center'
+                          showsHorizontalScrollIndicator={false}
+                          onScroll={handleOnScroll}
+                          ItemSeparatorComponent={() => <View style={{width: 20}}/>}
+                          />
+                          <Pagination data={Data} scrollX={scrollX} index={index} lock={lock}/>
+                      
+                      </View>
+                  
+                  }
+              </View>
+          </View>
+          {!lock &&
+              <View style={{backgroundColor: '#F4F3F1'}}>
+                  <Text style={Styles.facts_text}>Facts</Text>
+                  <View style={Styles.facts_container}>
+                      {FactData.map((item, index)=>(
+                          <FactsCard key={index} id={item.id} description={item.description}/>
+                      )
+                      )}
+                  </View>
+              </View>
+          }
+          
       </ScrollView>
     </SafeAreaView>
   )

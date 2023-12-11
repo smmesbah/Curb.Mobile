@@ -59,16 +59,18 @@ const Tasks = () => {
             </View>
         </View>
         <View style={Styles.button_container}>
-            <View style={[Styles.previous, {backgroundColor: focused==='previous'? '#00053F': '#fff'}]}>
+            
                 <TouchableOpacity onPress={()=>setFocused('previous')}>
-                    <Text style={[Styles.button_style, {color: focused==='previous'? '#fff': '#716E68'}]}>Previous</Text>
+                    <View style={[Styles.previous, {backgroundColor: focused==='previous'? '#00053F': '#fff'}]}>
+                        <Text style={[Styles.button_style, {color: focused==='previous'? '#fff': '#716E68'}]}>Previous</Text>
+                    </View>
                 </TouchableOpacity>
-            </View>
-            <View style={[Styles.upcoming, {backgroundColor: focused==='upcoming'? '#00053F': '#fff'}]}>
+            
                 <TouchableOpacity onPress={()=>setFocused('upcoming')}>
-                    <Text style={[Styles.button_style, {color: focused==='upcoming'? '#fff': '#716E68'}]}>Upcoming</Text>
+                    <View style={[Styles.upcoming, {backgroundColor: focused==='upcoming'? '#00053F': '#fff'}]}>
+                        <Text style={[Styles.button_style, {color: focused==='upcoming'? '#fff': '#716E68'}]}>Upcoming</Text>
+                    </View>
                 </TouchableOpacity>
-            </View>
         </View>
 
         {focused==='previous' && 
@@ -93,7 +95,7 @@ const Tasks = () => {
                 {dummyValues.map((item, index)=>
                     <>
                     <TaskCard 
-                        key={index}
+                        key={index.toString()}
                         title={item.title}
                         description={item.Description}
                         imageUri={item.imageUri}
@@ -105,20 +107,6 @@ const Tasks = () => {
                 )}
             </View>
         }
-        {/* <View style={Styles.task_cards}>
-                {dummyValues.map((item, index)=>
-                    <>
-                      <TaskCard 
-                          key={index}
-                          title={item.title}
-                          description={item.Description}
-                          imageUri={item.imageUri}
-                          Width={0.89}
-                      />
-                      <View style={{height: 20}}/>
-                    </>
-                )}
-        </View> */}
     </ScrollView>
     </SafeAreaView>
   )
