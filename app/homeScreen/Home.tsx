@@ -12,7 +12,6 @@ import { Logo } from '../../components/icons/Logo';
 import { CalendarIcon } from 'components/icons/CalendarIcon';
 import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
-import {StackNavigator} from 'app/index';
 
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
