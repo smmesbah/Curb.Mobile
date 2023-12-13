@@ -1,27 +1,27 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native'
 import XClose from './icons/XClose';
-import LogOutModalIcon from './icons/LogOutModalIcon';
+import FeedbackSubmittedIcon from './icons/FeedbackSubmittedIcon';
 
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const LogOutModal = ({logOutModal, setLogoutModal}) => {
+const FeedbackSubmittedModal = ({submitModal, setSubmitModal}) => {
     const scaleValue = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
         toggleModal();
-      }, [logOutModal]);
+      }, [submitModal]);
       const toggleModal = () => {
-        if (logOutModal) {
-          setLogoutModal(true);
+        if (submitModal) {
+          setSubmitModal(true);
           Animated.spring(scaleValue, {
             toValue: 1,
             duration: 300,
             useNativeDriver: true,
           }).start();
         } else {
-          setTimeout(() => setLogoutModal(false), 200);
+          setTimeout(() => setSubmitModal(false), 200);
           Animated.timing(scaleValue, {
             toValue: 0,
             duration: 300,
@@ -34,27 +34,22 @@ const LogOutModal = ({logOutModal, setLogoutModal}) => {
     <View style={Styles.modal_background}>
         <Animated.View style={[Styles.modal_container,{transform: [{scale: scaleValue}]}]}>
             <View style={Styles.cross_btn}>
-                <TouchableOpacity onPress={()=>setLogoutModal(false)}>
+                <TouchableOpacity onPress={()=>setSubmitModal(false)}>
                     <XClose/>
                 </TouchableOpacity>
             </View>
             <View style={Styles.inner_container}>
                 <View style={Styles.logout_icon}>
-                    <LogOutModalIcon/>
+                    <FeedbackSubmittedIcon/>
                 </View>
                 <View style={{marginTop: 16}}>
-                    <Text style={Styles.text_style1}>Are you sure you want to</Text>
-                    <Text style={Styles.text_style1}>log out of your account?</Text>
+                    <Text style={Styles.text_style1}>Your feedback and support request</Text>
+                    <Text style={Styles.text_style1}>has been submitted</Text>
                 </View>
-                <Text style={Styles.text_style2}>You can log back in at anytime.</Text>
-                <TouchableOpacity onPress={()=>setLogoutModal(false)}>
+                <Text style={Styles.text_style2}>Thank you for submitting the feedback and support form.  We will be in touch within 42 hours. </Text>
+                <TouchableOpacity onPress={()=>setSubmitModal(false)}>
                     <View style={[Styles.btn,Styles.btn_no]}>
-                        <Text style={Styles.btn_text}>No</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=>setLogoutModal(true)}>
-                    <View style={[Styles.btn, Styles.btn_yes]}>
-                        <Text style={Styles.btn_text}>Yes</Text>
+                        <Text style={Styles.btn_text}>Continue</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -65,7 +60,7 @@ const LogOutModal = ({logOutModal, setLogoutModal}) => {
   )
 }
 
-export default LogOutModal
+export default FeedbackSubmittedModal
 
 const Styles=StyleSheet.create({
     modal_background: {

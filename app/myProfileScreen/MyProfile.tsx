@@ -16,7 +16,7 @@ const MyProfile = () => {
   const navigation = useNavigation();
   const [logoutModal, setLogoutModal]=React.useState(false);
   return (
-    <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+    // <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
                 <View style={Styles.header_container}>
@@ -39,23 +39,23 @@ const MyProfile = () => {
                 <DrinkScore/>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Your average drinking week before curb' toggle={false}/>
+                <OptionCard text='Your average drinking week before curb' toggle={false} nav=""/>
             </View>
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#33AE9C"}]}/>
                 <Text style={Styles.option_text}>Permissions</Text>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Marketing emails' toggle={true}/>
+                <OptionCard text='Marketing emails' toggle={true} nav=""/>
             </View>
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#7844FF"}]}/>
                 <Text style={Styles.option_text}>Support</Text>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Feedback & Support' toggle={false}/>
-                <OptionCard text='Terms & Conditions' toggle={false}/>
-                <OptionCard text='Privacy Policy' toggle={false}/>
+                <OptionCard text='Feedback and Support' toggle={false} nav="FeedbackAndSupport"/>
+                <OptionCard text='Terms & Conditions' toggle={false} nav=""/>
+                <OptionCard text='Privacy Policy' toggle={false} nav=""/>
             </View>
             <View style={Styles.log_out_container}>
                 <TouchableOpacity onPress={()=>setLogoutModal(true)}>
@@ -70,7 +70,7 @@ const MyProfile = () => {
                 <LogOutModal logOutModal={logoutModal} setLogoutModal={setLogoutModal}/>
             </Modal>
         </ScrollView>
-    </SafeAreaView>
+    // </SafeAreaView>
   )
 }
 
@@ -78,6 +78,7 @@ export default MyProfile
 
 const Styles=StyleSheet.create({
     container: {
+        paddingTop:30,
         justifyContent: 'center',
         alignItem: 'center',
         flexDirection: 'column',
@@ -131,7 +132,7 @@ const Styles=StyleSheet.create({
     profile_name: {
         color: '#0D3F4A',
         fontFamily: 'Regular',
-        fontSize: 24,
+        fontSize: 26,
         textAlign: 'center',
         marginTop: 15
     },
@@ -162,7 +163,7 @@ const Styles=StyleSheet.create({
     option_text: {
         color: '#080D09',
         fontFamily: 'Regular',
-        fontSize: 16
+        fontSize: 17
     }, 
     log_out_container: {
         justifyContent: 'center',

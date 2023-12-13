@@ -192,10 +192,12 @@ export default Index;
 
 
 {/* <NavigationContainer independent={true}>
-<Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name="Tab" component={Tab}/>
-    <Stack.Screen name="MyProfile" component={MyProfile}/>
-    <Stack.Screen name="EditProfile" component={EditProfile}/>
-    <Stack.Screen name="FeedbackAndSupport" component={FeedbackAndSupport}/>
-</Stack.Navigator>
-</NavigationContainer> */}
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Tab" component={Tab}/>
+            <Stack.Screen name="MyProfile" component={MyProfile}/>
+            <Stack.Screen name="EditProfile" component={EditProfile}/>
+            <Stack.Screen name="FeedbackAndSupport" component={FeedbackAndSupport}/>
+            <Stack.Screen name="WeekDrinking" component={WeekDrinking}/>
+            <Stack.Screen name="Payment" component={Payment}/>
+        </Stack.Navigator>
+    </NavigationContainer> */}

@@ -8,7 +8,7 @@ import { useNavigation } from 'expo-router';
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const OptionCard = ({text, toggle}) => {
+const OptionCard = ({text, toggle, nav}) => {
     const navigation = useNavigation();
     const [isEnabled, setIsEnabled] = React.useState(false);
     // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -16,24 +16,13 @@ const OptionCard = ({text, toggle}) => {
   return (
     <View style={Styles.container}>
         <Text style={Styles.text_style}>{text}</Text>
-        {toggle ? 
-            // <View style={Styles.toggle}>
-            // <Switch
-            //     trackColor={{false: '#767577', true: '#33AE9C'}}
-            //     thumbColor={isEnabled ? '#fff' : '#f4f3f4'}
-            //     ios_backgroundColor="#3e3e3e"
-            //     onValueChange={toggleSwitch}
-            //     value={isEnabled}
-            //     style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
-                
-            // />
-            // </View>
+        {toggle ?
             <TouchableOpacity onPress={toggleSwitch}>
                 {isEnabled?<ToggleIcon/>:<ToggleIconOff/>}
             </TouchableOpacity>
             
             : 
-            <TouchableOpacity onPress={()=>navigation.navigate("FeedbackAndSupport")}>
+            <TouchableOpacity onPress={()=>navigation.navigate(nav)}>
                 <LeftArrow/>
             </TouchableOpacity>}
         
@@ -60,7 +49,7 @@ const Styles = StyleSheet.create({
     text_style: {
         color: '#080D09',
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
     }, 
     toggle: {
         justifyContent: 'center',

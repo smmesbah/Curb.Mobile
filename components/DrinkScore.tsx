@@ -48,7 +48,7 @@ const Styles=StyleSheet.create({
     text_style: {
         color: '#fff',
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
     },
     btn_style: {
         marginTop: 25,
@@ -66,6 +66,6 @@ const Styles=StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
     }
 })

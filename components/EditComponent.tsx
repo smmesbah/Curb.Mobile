@@ -33,12 +33,12 @@ const Styles=StyleSheet.create({
     text_style1: {
         color: '#080D09',
         fontFamily: 'Regular',
-        fontSize: 16
+        fontSize: 18
     },
     text_style2: {
         color: '#080D09',
         fontFamily: 'Medium',
-        fontSize: 19,
+        fontSize: 20,
         marginLeft: 6,
     }
 })

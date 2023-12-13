@@ -52,8 +52,6 @@ const Insights = () => {
                       behaviour that inform your mood and habits</Text>
               </View>
 
-                  {/* <TouchableOpacity onPress={()=>setLock(!lock)}><Text>Lock</Text></TouchableOpacity> */}
-
               <View>
                   {lock?
                       <View> 

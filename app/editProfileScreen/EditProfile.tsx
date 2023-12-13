@@ -14,7 +14,7 @@ const EditProfile = () => {
     const [email, setEmail]=React.useState('');
     const [name, setName]=React.useState('');
   return (
-    <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+    // <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
                 <View style={Styles.header_container}>
@@ -32,7 +32,7 @@ const EditProfile = () => {
                     onChangeText={setName}
                     value={name}
                     placeholder='Rebecca Smith'
-                    placeholderTextColor='#080D09'
+                    placeholderTextColor='#333533'
                 />
                 <View style={[Styles.text_container, {marginTop: 30}]}>
                     <View style={[Styles.circle, {backgroundColor: '#33AE9C'}]}/>
@@ -43,11 +43,11 @@ const EditProfile = () => {
                     onChangeText={setEmail}
                     value={email}
                     placeholder='RebeccaSmith@email.com'
-                    placeholderTextColor='#080D09'
+                    placeholderTextColor='#333533'
                 />
             </View>
             <View style={Styles.edit_component}>
-                <EditComponent text="your age" value="18 - 29" color="#FF445A"/>
+                <EditComponent text="Your age" value="18-29" color="#FF445A"/>
                 <EditComponent text="Your Gender" value="Female" color="#7844FF"/>
                 <EditComponent text="First half of your postcode" value="NW1" color="#33AE9C"/>
             </View>
@@ -67,7 +67,7 @@ const EditProfile = () => {
             </TouchableOpacity>
             
         </ScrollView>
-    </SafeAreaView>
+    // </SafeAreaView>
   )
 }
 
@@ -75,6 +75,7 @@ export default EditProfile
 
 const Styles=StyleSheet.create({
     container: {
+        paddingTop: 30,
         justifyContent: 'center',
         alignItem: 'center',
         flexDirection: 'column',
@@ -104,7 +105,7 @@ const Styles=StyleSheet.create({
     text_style1: {
         color: '#080D09',
         fontFamily: 'Regular',
-        fontSize: 16
+        fontSize: 18
     }, 
     text_container: {
         flexDirection: 'row',
@@ -123,8 +124,9 @@ const Styles=StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#B0B0B4',
         fontFamily: 'Regular',
-        fontSize: 14,
-        color: '#080D09'
+        fontSize: 16,
+        color: '#080D09',
+        letterSpacing: 0.18
     },
     edit_component: {
         marginTop: 45,
@@ -140,7 +142,7 @@ const Styles=StyleSheet.create({
     dlt_text: {
         color: '#FF445A',
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
         textAlign: 'center',
         letterSpacing: -0.14
     }, 
@@ -162,7 +164,7 @@ const Styles=StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 16,
         letterSpacing: -0.14
     }
 })
