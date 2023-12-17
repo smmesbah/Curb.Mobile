@@ -4,7 +4,7 @@ import { Slot, router } from 'expo-router'
 
 const Layout = () => {
   return (
-    <View>
+    <>
       <Slot/>
       <View
         style={{
@@ -33,7 +33,7 @@ const Layout = () => {
             <Text>Achievement</Text>
         </Pressable>
       </View>
-    </View>
+    </>
   )
 }
 

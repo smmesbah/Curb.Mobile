@@ -38,8 +38,13 @@ const dummyValues=[
 const Tasks = () => {
     const [focused, setFocused]=React.useState('previous');
   return (
-    <SafeAreaView>
-    <ScrollView style={{backgroundColor: '#ecedea', marginBottom: 85}}>
+    <SafeAreaView
+        style={{
+            height: windowHeight * 0.9,
+            width: windowWidth,
+        }}
+    >
+    <ScrollView style={{backgroundColor: '#ecedea'}}>
         <View style={Styles.header_container}>
             <Text style={Styles.title}>Tasks</Text>
             <Text style={Styles.description}>Daily bitesize educational content built by top

@@ -20,8 +20,13 @@ const Achievements = () => {
   const [focused, setFocused]=React.useState('level1')
   const [progress, setProgress] = React.useState(.3);
   return (
-    <SafeAreaView>
-        <ScrollView style={{marginBottom: 85}}>
+    <SafeAreaView
+        style={{
+            height: height * 0.9,
+            width: width,
+        }}
+    >
+        <ScrollView style={{}}>
             <View style={{backgroundColor: '#ECEDE9'}}>
                 <View style={Styles.container}>
                     <Text style={Styles.achievement_text}>Achievements</Text>

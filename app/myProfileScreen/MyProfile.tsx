@@ -29,7 +29,7 @@ const MyProfile = () => {
                 <View style={Styles.profile_container}>
                     <Text style={Styles.profile_text_style}>RJ</Text>
                 </View>
-                <TouchableOpacity onPress={()=>navigation.navigate("EditProfile")}>
+                <TouchableOpacity onPress={()=>router.push('/editProfileScreen/EditProfile')}>
                     <View style={Styles.profile_edit}>
                         <ProfileEdit color="#fff"/>
                     </View>

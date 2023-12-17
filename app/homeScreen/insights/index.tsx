@@ -43,8 +43,13 @@ const Insights = () => {
     }
 
   return (
-    <SafeAreaView>
-      <ScrollView style={{marginBottom: 85}}>
+    <SafeAreaView
+        style={{
+            height: windowHeight * 0.9,
+            width: windowWidth,
+        }}
+    >
+      <ScrollView style={{}}>
         <View style={{backgroundColor: '#ecedea'}}>
               <View style={Styles.header_container}>
                   <Text style={Styles.title}>Insights</Text>

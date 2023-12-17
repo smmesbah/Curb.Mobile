@@ -127,9 +127,9 @@ const Home = () => {
           </LinearGradient>   
         </View>
         <MotivationWidget/>
-        <TouchableOpacity onPress={()=>navigation.navigate("WeekDrinking")}>
+        {/* <TouchableOpacity onPress={()=>navigation.navigate("WeekDrinking")}>
           <Text>Onboarding</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Modal visible={calandermodalOpen} transparent>
             <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
         </Modal>

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import BackArrow from 'components/icons/BackArrow';
 import EditComponent from 'components/EditComponent';
 import DeleteIcon from 'components/icons/DeleteIcon';
+import { router } from 'expo-router';
 
 const Width=Dimensions.get('screen').width;
 const Height=Dimensions.get('screen').height;
@@ -18,7 +19,7 @@ const EditProfile = () => {
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
                 <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>navigation.navigate("MyProfile")}>
+                    <TouchableOpacity onPress={()=>router.back()}>
                         <BackArrow/>
                     </TouchableOpacity>
                     <Text style={Styles.header_text}>Edit Profile</Text>
