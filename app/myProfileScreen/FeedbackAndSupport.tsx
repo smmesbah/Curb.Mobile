@@ -83,7 +83,7 @@ const Styles=StyleSheet.create({
     },
     header_text: {
         color: '#080D09',
-        fontFamily: 'Regular',
+        fontFamily: 'Medium',
         fontSize: 28
     },
     header_text_area: {
@@ -92,7 +92,7 @@ const Styles=StyleSheet.create({
     },
     header_text2: {
         fontFamily: 'Regular',
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 24,
         flexDirection: 'row',
         alignItems: 'center',

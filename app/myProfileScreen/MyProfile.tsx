@@ -97,7 +97,7 @@ const Styles=StyleSheet.create({
     },
     header_text: {
         color: '#080D09',
-        fontFamily: 'Regular',
+        fontFamily: 'Medium',
         fontSize: 28
     },
     profile_container: {
@@ -131,7 +131,7 @@ const Styles=StyleSheet.create({
     },
     profile_name: {
         color: '#0D3F4A',
-        fontFamily: 'Regular',
+        fontFamily: 'Medium',
         fontSize: 26,
         textAlign: 'center',
         marginTop: 15
@@ -162,7 +162,7 @@ const Styles=StyleSheet.create({
     },
     option_text: {
         color: '#080D09',
-        fontFamily: 'Regular',
+        fontFamily: 'Medium',
         fontSize: 17
     }, 
     log_out_container: {

@@ -57,7 +57,7 @@ const Home = () => {
       automaticallyAdjustContentInsets={false}
       automaticallyAdjustKeyboardInsets={false}
       >
-        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 0}}>
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 10}}>
           <LinearGradient
           colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
           locations={[0.0, 0.2, 0.6]}

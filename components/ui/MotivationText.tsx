@@ -18,15 +18,15 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
     }
 
     const handleSubmit=()=>{
-        if(editOpen){
-            setEditOpen(false);
+        // if(editOpen){
+            setEditOpen(!editOpen);
             Data.map((item) => {
                 if(item.id===id){
                     item.Answer=text;
                 }
             })
             console.log(Data);
-        }
+        // }
     }
 
     const answer = Data.filter(item => item.id===id)[0].Answer;
@@ -61,7 +61,7 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
         style={[styles.text_input,{color: '#ccc'}]}
         onChangeText={text=>{handleOnChangeText(text)}}
         value={itemtext}
-        placeholder='Write your Answer?'
+        placeholder={answer===''?'Write your Answer?': answer}
         placeholderTextColor={'#5f6f7b'}
         textAlignVertical='top'
       />}
