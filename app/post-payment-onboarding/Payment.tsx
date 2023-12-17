@@ -1,7 +1,7 @@
 import React from 'react'
 import {Text, View, StyleSheet, Dimensions, TouchableOpacity, ScrollView, TextInput, Modal, ActivityIndicator} from 'react-native';
 import BackArrow from 'components/icons/BackArrow';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import NotValidIcon from 'components/icons/NotValidIcon';
 import * as Progress from 'react-native-progress';
 
@@ -19,7 +19,7 @@ const Payment = () => {
     <ScrollView>
         <View style={Styles.container}>
             <View style={Styles.header_container}>
-                <TouchableOpacity onPress={()=>navigation.navigate("WeekDrinking")}>
+                <TouchableOpacity onPress={()=>router.back()}>
                     <BackArrow/>
                 </TouchableOpacity>
                 <Text style={Styles.header_text}>Payment</Text>
@@ -49,7 +49,8 @@ const Payment = () => {
                 
             }
             <TouchableOpacity
-                onPress={()=>setProcessModal(true)}
+                // onPress={()=>setProcessModal(true)}
+                onPress={() => router.push('/homeScreen')}
                 disabled={text!=code && text!=""? true: false}
             >
                 <View style={[Styles.btn_container,
@@ -59,7 +60,7 @@ const Payment = () => {
                 </View>
             </TouchableOpacity>
         </View>
-        <Modal>
+        {/* <Modal>
             <View>
                 <Progress.Circle 
                     indeterminate={true}
@@ -71,7 +72,7 @@ const Payment = () => {
                     strokeCap='round'
                 />
             </View>
-        </Modal>
+        </Modal> */}
     </ScrollView>
   )
 }

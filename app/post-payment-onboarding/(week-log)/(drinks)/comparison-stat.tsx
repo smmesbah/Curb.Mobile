@@ -146,6 +146,7 @@ const Comparison = () => {
                 }}
             >
                 <Pressable
+                    onPress={() => router.push('post-payment-onboarding/WeekDrinking')}
                     // onPress={handleAddDrinkPress}
                     // onPress={() => beerCiderFormRef.current.handleAddDrinkPress()}
                     style={{

@@ -11,27 +11,27 @@ const dummyValues=[
     {
         title: 'Play Basketball',
         Description: 'Fri 25th, 2024',
-        imageUri: require('../../assets/images/BasketBall.webp'),
+        imageUri: require('../../../assets/images/BasketBall.webp'),
     },
     {
         title: 'Play Basketball',
         Description: 'Fri 25th, 2024',
-        imageUri: require('../../assets/images/BasketBall.webp'),
+        imageUri: require('../../../assets/images/BasketBall.webp'),
     },
     {
         title: 'Play Basketball',
         Description: 'Fri 25th, 2024',
-        imageUri: require('../../assets/images/BasketBall.webp'),
+        imageUri: require('../../../assets/images/BasketBall.webp'),
     },
     {
         title: 'Play Basketball',
         Description: 'Fri 25th, 2024',
-        imageUri: require('../../assets/images/BasketBall.webp'),
+        imageUri: require('../../../assets/images/BasketBall.webp'),
     },
     {
         title: 'Play Basketball',
         Description: 'Fri 25th, 2024',
-        imageUri: require('../../assets/images/BasketBall.webp'),
+        imageUri: require('../../../assets/images/BasketBall.webp'),
     }
 ]
 
@@ -47,7 +47,7 @@ const Tasks = () => {
                 and your habits better</Text>
         </View>
         <View style={Styles.today_task_container}>
-            <Image source={require('../../assets/images/TasksImage.png')} style={Styles.image}/>
+            <Image source={require('../../../assets/images/TasksImage.png')} style={Styles.image}/>
             <View style={Styles.today_task_right}>
                 <View style={Styles.today_task_texts}>
                     <Text style={Styles.today_task_text}>Today's Task</Text>

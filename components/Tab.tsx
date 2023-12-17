@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from 'app/homeScreen/Home';
+import Home from 'app/homeScreen';
 import { Image, TouchableOpacity, View, Text, Dimensions, Keyboard } from 'react-native';
 import { HomeIcon } from './icons/HomeIcon';
 import DailyTaskIcon from './icons/DailyTaskIcon';
@@ -8,8 +8,6 @@ import AchievementsIcon from './icons/AchievementsIcon';
 import React from 'react';
 import { CheckInPlusIcon } from './icons/CheckInPlusIcon';
 import Feather from 'react-native-vector-icons/Feather';
-import Tasks from 'app/taskScreen/Tasks';
-import Insights from 'app/inSights/Insights';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import Achievements from 'app/achievementsScreen/Achievements';
 
@@ -83,7 +81,7 @@ const Tab = () => {
                     )
                 }}
             />
-            <Tabs.Screen name="DailyTasks" component={Tasks}
+            {/* <Tabs.Screen name="DailyTasks" component={Tasks}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -93,7 +91,7 @@ const Tab = () => {
                         </View>
                     )
                 }}
-            />
+            /> */}
             <Tabs.Screen name="CheckIn" component={Home}
                 options={{
                     tabBarShowLabel: true,
@@ -126,7 +124,7 @@ const Tab = () => {
                     ),
                 }}
             />
-            <Tabs.Screen name="Achievements" component={Achievements}
+            {/* <Tabs.Screen name="Achievements" component={Achievements}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -136,8 +134,8 @@ const Tab = () => {
                         </View>
                     )
                 }}
-            />
-            <Tabs.Screen name="Insights" component={Insights}
+            /> */}
+            {/* <Tabs.Screen name="Insights" component={Insights}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -147,7 +145,7 @@ const Tab = () => {
                         </View>
                     )
                 }}
-            />
+            /> */}
         </Tabs.Navigator>
         // </View>
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import BackArrow from 'components/icons/BackArrow';
 import AvoidComponent from 'components/AvoidComponent';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -21,7 +21,7 @@ const WeekDrinking = () => {
         <ScrollView>
             <View style={Styles.container}>
                 <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>navigation.navigate("Tab")}>
+                    <TouchableOpacity onPress={()=>router.back()}>
                         <BackArrow/>
                     </TouchableOpacity>
                     <View style={{flexDirection: 'column', paddingTop: 25}}>
@@ -79,7 +79,7 @@ const WeekDrinking = () => {
                 </TouchableOpacity>
             </View>
             <View style={Styles.container5}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Payment')}>
+                <TouchableOpacity onPress={()=>router.push('/post-payment-onboarding/Payment')}>
                     <View style={Styles.btn_container2}>
                         <Text style={Styles.btn_text}>Next</Text>
                     </View>

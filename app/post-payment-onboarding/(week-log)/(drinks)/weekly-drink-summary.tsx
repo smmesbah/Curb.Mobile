@@ -149,7 +149,7 @@ const WeeklyDrinkSummary = () => {
                     }}
                 >
                     <Pressable
-                        onPress={() => alert('Go to next day')}
+                        onPress={() => router.push('post-payment-onboarding/comparison-stat')}
                         // onPress={handleGoToNextDayPress}
                         style={{
                             flexDirection: 'row',

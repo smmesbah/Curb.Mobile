@@ -12,6 +12,7 @@ import { Logo } from '../../components/icons/Logo';
 import { CalendarIcon } from 'components/icons/CalendarIcon';
 import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
@@ -79,7 +80,7 @@ const Home = () => {
                 <TouchableOpacity onPress={()=>setCalanderModalOpen(true)}>
                   <CalendarIcon/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>navigation.navigate("MyProfile")}>
+                <TouchableOpacity onPress={()=>router.push('/myProfileScreen/MyProfile')}>
                   <View style={Styles.home_profile}>
                     <Text style={Styles.home_profile_text}>CJ</Text>
                   </View>
