@@ -25,7 +25,7 @@ const Insights = () => {
     const [index, setIndex]=React.useState(0);
     const scrollX = React.useRef(new Animated.Value(0)).current;
 
-    const handleOnScroll = (event) => {
+    const handleOnScroll = (event: any) => {
         Animated.event(
             [
               {

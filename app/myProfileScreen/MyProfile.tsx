@@ -9,6 +9,7 @@ import DrinkScore from 'components/DrinkScore';
 import OptionCard from 'components/ui/OptionCard';
 import LogOutIcon from 'components/icons/LogOutIcon';
 import LogOutModal from 'components/LogOutModal';
+import { router } from 'expo-router';
 
 const Width=Dimensions.get('screen').width;
 
@@ -20,7 +21,7 @@ const MyProfile = () => {
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
                 <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>navigation.navigate("Tab")}>
+                    <TouchableOpacity onPress={()=>router.back()}>
                         <BackArrow/>
                     </TouchableOpacity>
                     <Text style={Styles.header_text}>My Profile</Text>
@@ -39,23 +40,23 @@ const MyProfile = () => {
                 <DrinkScore/>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Your average drinking week before curb' toggle={false} nav=""/>
+                <OptionCard text='Your average drinking week before curb' toggle={false} redirect=""/>
             </View>
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#33AE9C"}]}/>
                 <Text style={Styles.option_text}>Permissions</Text>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Marketing emails' toggle={true} nav=""/>
+                <OptionCard text='Marketing emails' toggle={true} redirect=""/>
             </View>
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#7844FF"}]}/>
                 <Text style={Styles.option_text}>Support</Text>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Feedback and Support' toggle={false} nav="FeedbackAndSupport"/>
-                <OptionCard text='Terms & Conditions' toggle={false} nav=""/>
-                <OptionCard text='Privacy Policy' toggle={false} nav=""/>
+                <OptionCard text='Feedback and Support' toggle={false} redirect="/myProfileScreen/FeedbackAndSupport"/>
+                <OptionCard text='Terms & Conditions' toggle={false} redirect="/terms-condition"/>
+                <OptionCard text='Privacy Policy' toggle={false} redirect="/privacy-policy"/>
             </View>
             <View style={Styles.log_out_container}>
                 <TouchableOpacity onPress={()=>setLogoutModal(true)}>

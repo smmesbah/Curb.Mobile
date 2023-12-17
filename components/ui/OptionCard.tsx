@@ -3,12 +3,18 @@ import ToggleIcon from 'components/icons/ToggleIcon';
 import ToggleIconOff from 'components/icons/ToggleIconOff';
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Switch, TouchableOpacity} from 'react-native'
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const OptionCard = ({text, toggle, nav}) => {
+interface OptionCardProps {
+    text: string,
+    toggle: boolean,
+    redirect: string,
+}
+
+const OptionCard: React.FC<OptionCardProps> = ({text, toggle, redirect}) => {
     const navigation = useNavigation();
     const [isEnabled, setIsEnabled] = React.useState(false);
     // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -22,7 +28,7 @@ const OptionCard = ({text, toggle, nav}) => {
             </TouchableOpacity>
             
             : 
-            <TouchableOpacity onPress={()=>navigation.navigate(nav)}>
+            <TouchableOpacity onPress={()=>router.push(redirect)}>
                 <LeftArrow/>
             </TouchableOpacity>}
         

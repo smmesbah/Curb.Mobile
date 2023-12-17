@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import FeedbackSubmittedModal from '../../components/FeedbackSubmittedModal';
 
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { router } from 'expo-router';
 
 const Width=Dimensions.get('screen').width;
 const Height=Dimensions.get('screen').height;
@@ -21,7 +22,7 @@ const FeedbackAndSupport = () => {
             <View style={{flex: 1}}>
                 <View style={Styles.container}>
                     <View style={Styles.header_container}>
-                        <TouchableOpacity onPress={()=>navigation.navigate("MyProfile")}>
+                        <TouchableOpacity onPress={()=>router.back()}>
                             <BackArrow/>
                         </TouchableOpacity>
                         <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>

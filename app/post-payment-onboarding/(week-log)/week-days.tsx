@@ -86,7 +86,7 @@ const WeekDays = () => {
                 </View>
 
                 <View style={styles.button}>
-                    <Link href="/step-4" style={[styles.buttonText, { width: '100%' }]}>
+                    <Link href="/post-payment-onboarding/Monday" style={[styles.buttonText, { width: '100%' }]}>
                         Next
                     </Link>
                 </View>
