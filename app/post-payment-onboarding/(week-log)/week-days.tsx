@@ -29,8 +29,8 @@ const WeekDays = () => {
                 marginHorizontal: 30,
                 marginTop: 20,
             }}>
-                <Text style={{ fontSize: 30, fontWeight: '400', }}>Your Current Habits</Text>
-                <Text style={{ fontSize: 18, fontWeight: '400' }}>Let's understand your drinking patterns to offer more personalised insights.</Text>
+                <Text style={{ fontSize: 30, fontWeight: '400', fontFamily: "Regular"}}>Your Current Habits</Text>
+                <Text style={{ fontSize: 18, fontWeight: '400', fontFamily: "Regular" }}>Let's understand your drinking patterns to offer more personalised insights.</Text>
             </View>
 
             <View
@@ -58,6 +58,7 @@ const WeekDays = () => {
                         marginHorizontal: 70,
                         marginTop: 10,
                         marginBottom: 30,
+                        fontFamily: "Regular"
                     }}
                     >Tap the days you drink each week</Text>
 
@@ -86,7 +87,7 @@ const WeekDays = () => {
                 </View>
 
                 <View style={styles.button}>
-                    <Link href="/post-payment-onboarding/Monday" style={[styles.buttonText, { width: '100%' }]}>
+                    <Link href="/post-payment-onboarding/Monday" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
                         Next
                     </Link>
                 </View>
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     dot: {
         backgroundColor: '#000',
@@ -143,5 +145,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
 })

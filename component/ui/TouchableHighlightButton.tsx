@@ -45,6 +45,7 @@ const TouchableHighlightButton: React.FC<TouchableHighlightButtonProps> = ({text
                     style={{
                         fontSize: 17,
                         color: isPress ? "white" : 'black',
+                        fontFamily: "Regular"
                     }}
                 >{text}</Text>
             </View>

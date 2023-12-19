@@ -29,14 +29,14 @@ const EmailVerification = () => {
             </View>
 
             <View style={styles.signupTextSection}>
-                <Text style={{ fontSize: 42, fontWeight: '500' }}>Verify your email</Text>
-                <Text style={{ fontSize: 18, }}>We sent a verification code to mesbah@recruit.so</Text>
+                <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Verify your email</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>We sent a verification code to mesbah@recruit.so</Text>
             </View>
 
             <View style={{ backgroundColor: '#f3f2ee', gap: 20, marginVertical: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
                 <View style={{ flexDirection: 'row', gap: 20 }}>
-                    <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#e64627', }} />
-                    <Text style={{ fontSize: 18 }}>Enter your unique code here</Text>
+                    <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#e64627',}} />
+                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Enter your unique code here</Text>
                 </View>
 
                 <OTPTextView
@@ -60,15 +60,15 @@ const EmailVerification = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/subscription-plan" style={[styles.buttonText, { width: '100%' }]}>
+                <Link href="/subscription-plan" style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
                     Submit
                 </Link>
             </View>
 
             <View style={styles.alreadyHaveAnAccount}>
-                <Text style={{ fontSize: 18 }}>Don't have a code?</Text>
+                <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Don't have a code?</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 18, color: "#6d5eff" }}>Resend code</Text>
+                    <Text style={{ fontSize: 18, color: "#6d5eff",fontFamily: "Regular" }}>Resend code</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
         letterSpacing: 5,
+        fontFamily: 'Regular'
     },
     dot: {
         backgroundColor: '#000',

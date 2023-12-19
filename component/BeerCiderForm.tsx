@@ -64,6 +64,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                     marginHorizontal: 30,
                     marginTop: 10,
                     marginBottom: 30,
+                    fontFamily: "Regular"
                 }}
             >
                 What kind of beer & cider?
@@ -88,6 +89,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                         fontSize: 20,
                         fontWeight: '400',
                         color: '#27284e',
+                        fontFamily: "Regular"
                     }}
                 >
                     How much?
@@ -113,6 +115,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                         fontWeight: '400',
                         color: '#27284e',
                         textAlign: 'center',
+                        fontFamily: "Regular"
                     }}
                     dropDownContainerStyle={{
                         width: width * 0.65,
@@ -137,6 +140,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                         fontSize: 20,
                         fontWeight: '400',
                         color: '#27284e',
+                        fontFamily: "Regular"
                     }}
                 >
                     How many?
@@ -155,7 +159,8 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                             fontSize: 40,
                             fontWeight: '400',
                             textAlign: 'center',
-                            color: '#27284e'
+                            color: '#27284e', 
+                            fontFamily: "Regular"
                         }}
                         onChangeText={(text) => setDrinkCount(Number(text))}
                         inputMode="numeric"

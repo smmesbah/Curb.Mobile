@@ -59,7 +59,7 @@ const PostPaymentStep1 = () => {
                 >
                     <View style={{ flexDirection: 'row', gap: 20 }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#e64627', }} />
-                        <Text style={{ fontSize: 18 }}>Your age range</Text>
+                        <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Your age range</Text>
                     </View>
                     <View>
 
@@ -88,9 +88,9 @@ const PostPaymentStep1 = () => {
                         />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 20, }}>18-29</Text>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>30-49</Text>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Over 50</Text>
+                            <Text style={{ fontSize: 18, marginRight: 20, fontFamily: "Regular" }}>18-29</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>30-49</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Over 50</Text>
                         </View>
                     </View>
                 </View>
@@ -105,7 +105,7 @@ const PostPaymentStep1 = () => {
                 >
                     <View style={{ flexDirection: 'row', gap: 20 }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                        <Text style={{ fontSize: 18 }}>Your gender</Text>
+                        <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Your gender</Text>
                     </View>
                     <RadioButton
                         data={data}
@@ -123,7 +123,7 @@ const PostPaymentStep1 = () => {
                 >
                     <View style={{ flexDirection: 'row', gap: 20 }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#32ae9d', }} />
-                        <Text style={{ fontSize: 18 }}>First half of your postcode</Text>
+                        <Text style={{ fontSize: 18, fontFamily: "Regular" }}>First half of your postcode</Text>
                     </View>
 
                     <TextInput
@@ -136,6 +136,7 @@ const PostPaymentStep1 = () => {
                                 paddingLeft: 20,
                                 borderRadius: 8,
                                 backgroundColor: '#fff',
+                                fontFamily: "Regular"
 
                             }
                         }
@@ -146,12 +147,12 @@ const PostPaymentStep1 = () => {
                 </View>
 
                 <View style={styles.button}>
-                    <Link href="/post-payment-onboarding/step-2" style={[styles.buttonText, { width: '100%' }]}>
+                    <Link href="/post-payment-onboarding/step-2" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
                         Next
                     </Link>
                 </View>
 
-                <Link href='./' style={{textAlign: 'center', fontSize: 14}}>Why do you need this information?</Link>
+                <Link href='./' style={{textAlign: 'center', fontSize: 14, fontFamily: "Regular"}}>Why do you need this information?</Link>
             </ScrollView>
         </SafeAreaView>
     )
@@ -181,5 +182,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
 })

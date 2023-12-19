@@ -29,12 +29,14 @@ const SubscriptionPlanCard = () => {
                     width: '100%',
                     textAlign: 'center',
                     color: 'white',
+                    fontFamily: "Regular"
                 }}
             >Save 50%</Text>
             <Text
                 style={{
                     fontSize: 22,
                     fontWeight: '500',
+                    fontFamily: "Regular"
                 }}
             >Access to Curb</Text>
             <View
@@ -43,15 +45,15 @@ const SubscriptionPlanCard = () => {
                     gap: 15,
                 }}
             >
-                <Text style={{ fontSize: 28, fontWeight: '500', textDecorationLine: 'line-through', }}>€8</Text>
+                <Text style={{ fontSize: 28, fontWeight: '500', textDecorationLine: 'line-through', fontFamily: "Regular"}}>€8</Text>
                 <View
                     style={{
                         alignItems: 'center',
                         gap: 5,
                     }}
                 >
-                    <Text style={{ fontSize: 42, fontWeight: '500' }}>€4</Text>
-                    <Text style={{ fontSize: 18 }}>Per month</Text>
+                    <Text style={{ fontSize: 42, fontWeight: '500',fontFamily: "Regular"}}>€4</Text>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Per month</Text>
                 </View>
             </View>
 
@@ -76,7 +78,7 @@ const SubscriptionPlanCard = () => {
                                 marginRight: 8,
                                 marginTop: 6,
                             }} />
-                            <Text style={{ fontSize: 18, }}>{item}</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular"}}>{item}</Text>
                         </View>
                     )
                 }}
@@ -91,11 +93,12 @@ const SubscriptionPlanCard = () => {
                     marginBottom: 30,
                 }}
             >
-            <Text style={{fontSize: 18}}>No minimum contract.</Text>
+            <Text style={{fontSize: 18, fontFamily: "Regular"}}>No minimum contract.</Text>
             <Link href='./terms-condition'
                 style={{
                     color: 'blue',
                     fontSize: 18,
+                    fontFamily: "Regular"
                 }}
             >Terms and Conditions apply.</Link>
             </View>

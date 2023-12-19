@@ -11,7 +11,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({text, selected, onPress}) =>
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={[styles.item, selected && styles.selectedItem]}>
-                <Text style={{fontSize: 18, fontWeight: '500', color: '#5b5a71'}}>{text}</Text>
+                <Text style={{fontSize: 18, fontWeight: '500', color: '#5b5a71', fontFamily: "Regular"}}>{text}</Text>
             </View>
         </TouchableOpacity>
     )

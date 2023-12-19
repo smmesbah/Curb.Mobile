@@ -28,7 +28,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({ data, onSelect }) => {
                             onPress={() => selectHandler(item.value)}
                         >
                             <Text style={[
-                                { textAlign: 'center', fontWeight: 'bold' },
+                                { textAlign: 'center',fontFamily: "Regular"},
                                 item.value === userOption ? { color: '#fff' } : { color: '#000' }
                             ]}>
                                 {item.value}

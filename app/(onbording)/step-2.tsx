@@ -26,7 +26,7 @@ const Onbording2 = () => {
 
             {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
             <View style={styles.button}>
-                <Link href="/step-3"style={[styles.buttonText, {width: '100%'}]}>
+                <Link href="/step-3"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
                     Next
                 </Link>
             </View>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         // backgroundColor: '#000000a0',
+        fontFamily: "Regular"
     },
     curb: {
         position: 'absolute',
@@ -80,16 +81,19 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     text1: {
         color: 'white',
         fontSize: 42,
         lineHeight: 50,
+        fontFamily: "Regular"
     },
     text2: {
         color: 'white',
         fontSize: 18,
         margin: 20,
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
     alreadyHaveAnAccount: {
         justifyContent: 'center',

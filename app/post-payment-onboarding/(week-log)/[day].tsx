@@ -45,7 +45,7 @@ const Day = () => {
                 >
                     <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                        <Text style={{ fontSize: 24, color: '#7844ff' }}>Choose a drink</Text>
+                        <Text style={{ fontSize: 24, color: '#7844ff', fontFamily: "Regular" }}>Choose a drink</Text>
                     </View>
 
                     <View
@@ -58,7 +58,7 @@ const Day = () => {
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Beer.png')} style={{ height: 55, width: 25 }} />
-                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Beer & Cider </Text>
+                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400', fontFamily: "Regular" }}> Beer & Cider </Text>
                             </View>
                         </TouchableOpacity>
 
@@ -68,7 +68,7 @@ const Day = () => {
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Wine.png')} style={{ height: 60, width: 25 }} />
-                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Wine & Fizz </Text>
+                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400', fontFamily: "Regular" }}> Wine & Fizz </Text>
                             </View>
                         </TouchableOpacity>
 
@@ -78,7 +78,7 @@ const Day = () => {
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Spirits.png')} style={{ height: 55, width: 25 }} />
-                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Spirits & Shots </Text>
+                                <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400', fontFamily: "Regular" }}> Spirits & Shots </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign: 'right',
         marginRight: width * 0.09,
+        fontFamily: "Regular"
     },
     subheaderText: {
         fontSize: 18,
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginLeft: width * 0.09,
         marginRight: width * 0.3,
+        fontFamily: "Regular"
     },
     drinkChoosingBtn: {
         flexDirection: 'row',

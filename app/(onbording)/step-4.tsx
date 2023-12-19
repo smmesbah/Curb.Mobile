@@ -25,7 +25,7 @@ const Onbording4 = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/signup"style={[styles.buttonText, {width: '100%'}]}>
+                <Link href="/signup"style={[styles.buttonText, {width: '100%',fontFamily: "Regular"}]}>
                     Next
                 </Link>
             </View>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 42,
         fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
     curb: {
         position: 'absolute',
@@ -78,16 +79,19 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     text1: {
         color: '#fff',
         fontSize: 42,
         lineHeight: 50,
+        fontFamily: "Regular"
     },
     text2: {
         color: 'white',
         fontSize: 18,
         margin: 20,
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',
@@ -110,6 +114,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
     alreadyHaveAnAccount: {
         justifyContent: 'center',

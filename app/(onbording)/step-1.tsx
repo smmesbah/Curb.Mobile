@@ -22,15 +22,15 @@ const Onbording1 = () => {
 
             {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
             <View style={styles.button}>
-                <Link href="/step-2"style={[styles.buttonText, {width: '100%'}]}>
+                <Link href="/step-2"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
                     Get Started
                 </Link>
             </View>
 
             <View style={styles.alreadyHaveAnAccount}>
-                <Text style={{ fontSize: 18 }}>Already have an account?</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 18, color: "#6d5eff" }}>Log-in</Text>
+                    <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Log-in</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         // backgroundColor: '#000000a0',
+        fontFamily: "Regular"
     },
     curb: {
         position: 'absolute',
@@ -80,14 +81,17 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     text1: {
         color: 'white',
         fontSize: 42,
         lineHeight: 40,
+        fontFamily: "Regular"
     },
     text2: {
         color: 'white',
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',
@@ -111,6 +115,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
     alreadyHaveAnAccount: {
         justifyContent: 'center',

@@ -18,13 +18,13 @@ const WeekLogStart = () => {
 
 
             <View style={{ marginTop: 25, marginLeft: 25, gap: 10, }}>
-                <Text style={{ fontSize: 18, }}>Description why we are asking this</Text>
-                <Text style={{ fontSize: 18, }}>Description why we are asking this</Text>
-                <Text style={{ fontSize: 18, }}>Description why we are asking this</Text>
+                <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Description why we are asking this</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
             </View>
 
             <View style={styles.button}>
-                <Link href="/post-payment-onboarding/week-days" style={[styles.buttonText, { width: '100%' }]}>
+                <Link href="/post-payment-onboarding/week-days" style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
                     Let's get started
                 </Link>
             </View>
@@ -72,11 +72,13 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     text1: {
         color: '#fff',
         fontSize: 42,
         lineHeight: 50,
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',
@@ -99,5 +101,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
 })

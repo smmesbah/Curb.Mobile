@@ -40,16 +40,19 @@ const Tasks = () => {
   return (
     <SafeAreaView
         style={{
-            height: windowHeight * 0.9,
+            // height: windowHeight * 0.9,
             width: windowWidth,
         }}
     >
-    <ScrollView style={{backgroundColor: '#ecedea'}}>
-        <View style={Styles.header_container}>
+    <View style={[Styles.header_container, {backgroundColor: '#ecedea', paddingTop: windowHeight*.05,paddingBottom: 5}]}>
             <Text style={Styles.title}>Tasks</Text>
+            
+    </View>
+    <ScrollView style={{backgroundColor: '#ecedea',}}>
+        <View style={[Styles.header_container, {marginTop: 20}]}>
             <Text style={Styles.description}>Daily bitesize educational content built by top
-                psychologists to help you understand yourself
-                and your habits better</Text>
+            psychologists to help you understand yourself
+            and your habits better</Text>
         </View>
         <View style={Styles.today_task_container}>
             <Image source={require('../../../assets/images/TasksImage.png')} style={Styles.image}/>
@@ -112,6 +115,7 @@ const Tasks = () => {
                 )}
             </View>
         }
+        <View style={{height: windowHeight*0.19}}></View>
     </ScrollView>
     </SafeAreaView>
   )
@@ -121,7 +125,6 @@ export default Tasks
 
 const Styles=StyleSheet.create({
     header_container:{
-        marginTop: windowHeight*.07,
         flexDirection: 'column',
     }, 
     title:{

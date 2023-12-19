@@ -41,6 +41,7 @@ const PressablePaymentMethodCard: React.FC<PressablePaymentMethodCardProps> = ({
                     style={{
                         fontSize: 12,
                         color: isPress ? "white" : 'black',
+                        fontFamily: "Regular"
                     }}
                 >{text}</Text>
             </View>

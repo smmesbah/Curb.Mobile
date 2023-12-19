@@ -38,7 +38,8 @@ const SubscriptionPlan = () => {
                         fontSize: 30,
                         fontWeight: '500',
                         letterSpacing: 1,
-                        marginBottom: 10
+                        marginBottom: 10, 
+                        fontFamily: "Regular"
 
                     }}
                 >Your Subscription Plan</Text>
@@ -50,7 +51,7 @@ const SubscriptionPlan = () => {
                 </View>
 
                 <View>
-                    <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '500' }}>Payment Method</Text>
+                    <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '500', fontFamily: "Regular"}}>Payment Method</Text>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -89,8 +90,8 @@ const SubscriptionPlan = () => {
                 </View>
 
                 <View style={{gap: 5}}>
-                    <Text style={{fontSize: 18}}>Already paid and subscribed?</Text>
-                    <Text style={{fontSize: 18}}><Link href='./signup' style={{color: '#5c4aff'}}>Log out here</Link> and log back in.</Text>
+                    <Text style={{fontSize: 18, fontFamily: "Regular"}}>Already paid and subscribed?</Text>
+                    <Text style={{fontSize: 18, fontFamily: "Regular"}}><Link href='./signup' style={{color: '#5c4aff'}}>Log out here</Link> and log back in.</Text>
                 </View>
             </View>
         </SafeAreaView>
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     dot: {
         backgroundColor: '#000',

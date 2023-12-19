@@ -1,9 +1,10 @@
 import React from 'react'
-import {Text, View, StyleSheet, Dimensions, TouchableOpacity, ScrollView, TextInput, Modal, ActivityIndicator} from 'react-native';
+import {Text, View, StyleSheet, Dimensions, TouchableOpacity, ScrollView, TextInput, Modal, Animated, Easing} from 'react-native';
 import BackArrow from 'components/icons/BackArrow';
 import { router, useNavigation } from 'expo-router';
 import NotValidIcon from 'components/icons/NotValidIcon';
 import * as Progress from 'react-native-progress';
+import ProcessingIcon from 'components/icons/ProcessingIcon';
 
 const Width=Dimensions.get('screen').width;
 const Height=Dimensions.get('screen').height;
@@ -14,6 +15,36 @@ const Payment = () => {
     const navigation = useNavigation();
     const [text, onChangeText] = React.useState("");
     const [processModal, setProcessModal]=React.useState(false);
+
+
+    const rotation = React.useRef(new Animated.Value(0)).current;
+
+  const rotateImage = () => {
+    Animated.timing(rotation, {
+      toValue: 360,
+      duration: 2000,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(() => {
+      rotation.setValue(0);
+      rotateImage();
+    });
+  };
+
+  React.useEffect(() => {
+    rotateImage();
+  }, []);
+
+  const rotateStyle = {
+    transform: [
+      {
+        rotate: rotation.interpolate({
+          inputRange: [0, 360],
+          outputRange: ['0deg', '360deg'],
+        }),
+      },
+    ],
+  };
 
   return (
     <ScrollView>
@@ -49,8 +80,7 @@ const Payment = () => {
                 
             }
             <TouchableOpacity
-                // onPress={()=>setProcessModal(true)}
-                onPress={() => router.push('/homeScreen')}
+                onPress={()=>router.push('/homeScreen')}
                 disabled={text!=code && text!=""? true: false}
             >
                 <View style={[Styles.btn_container,
@@ -60,19 +90,16 @@ const Payment = () => {
                 </View>
             </TouchableOpacity>
         </View>
-        {/* <Modal>
-            <View>
-                <Progress.Circle 
-                    indeterminate={true}
-                    size={110} 
-                    color={'red'} 
-                    unfilledColor={'#ECEDE9'} 
-                    borderWidth={11}
-                    thickness={0}
-                    strokeCap='round'
-                />
+        <Modal visible={processModal} transparent>
+            <View style={Styles.modal_style}>
+                <Animated.View
+                    style={[rotateStyle]}
+                >
+                    <ProcessingIcon/>
+                </Animated.View>
+                <Text style={Styles.modal_text}>Processing...</Text>
             </View>
-        </Modal> */}
+        </Modal>
     </ScrollView>
   )
 }
@@ -165,5 +192,17 @@ const Styles=StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 5
+    }, 
+    modal_style: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        height: '100%',
+    },
+    modal_text: {
+        marginTop: 16,
+        color: '#080D09',
+        fontFamily: 'Regular',
+        fontSize: 20
     }
 })

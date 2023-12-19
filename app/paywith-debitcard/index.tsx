@@ -22,12 +22,12 @@ const CardDetails = () => {
 
                 <View style={styles.curb}>
                     <Text style={styles.curbText}>curb</Text>
-                    <View style={[styles.dot]} />
+                    <View style={[styles.dot, ]} />
                 </View>
             </View>
 
             <View style={styles.signupTextSection}>
-                <Text style={{ fontSize: 42, fontWeight: '500' }}>Enter card details</Text>
+                <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Enter card details</Text>
             </View>
 
             <View style={{
@@ -37,7 +37,7 @@ const CardDetails = () => {
                 marginLeft: width * 0.1,
                 marginTop: height * 0.05,
             }}>
-                <Text>We accept: </Text>
+                <Text style={{fontFamily: "Regular"}}>We accept: </Text>
                 <View style={{ flexDirection: 'row', gap: 15, }}>
                     <Image source={require('../../assets/visa.png')} style={{ width: 50, height: 40, resizeMode: 'contain' }} />
                     <Image source={require('../../assets/mastercard.png')} style={{ width: 50, height: 40, resizeMode: 'contain' }} />
@@ -49,7 +49,7 @@ const CardDetails = () => {
                 <View style={{ backgroundColor: '#f3f2ee', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
                     <View style={{ flexDirection: 'row', gap: 20 }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                        <Text style={{ fontSize: 18 }}>Name on account</Text>
+                        <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Name on account</Text>
                     </View>
 
                     <TextInput
@@ -60,7 +60,7 @@ const CardDetails = () => {
                                 padding: 10,
                                 borderRadius: 8,
                                 backgroundColor: '#fff',
-
+                                fontFamily: "Regular"
                             }
                         }
                         onChangeText={setNameOnAccount}
@@ -72,7 +72,7 @@ const CardDetails = () => {
                 <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
                     <View style={{ flexDirection: 'row', gap: 20 }}>
                         <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                        <Text style={{ fontSize: 18 }}>Card Number</Text>
+                        <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Card Number</Text>
                     </View>
                     <TextInput
                         style={
@@ -82,6 +82,7 @@ const CardDetails = () => {
                                 padding: 10,
                                 borderRadius: 8,
                                 backgroundColor: '#fff',
+                                fontFamily: "Regular"
 
                             }
                         }
@@ -96,7 +97,7 @@ const CardDetails = () => {
                     <View style={{ flex: .5, gap: 15 }}>
                         <View style={{ flexDirection: 'row', gap: 20 }}>
                             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                            <Text style={{ fontSize: 18 }}>Expires on</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Expires on</Text>
                         </View>
                         <TextInput
                             style={
@@ -106,7 +107,7 @@ const CardDetails = () => {
                                     padding: 10,
                                     borderRadius: 8,
                                     backgroundColor: '#fff',
-
+                                    fontFamily: "Regular"
                                 }
                             }
                             onChangeText={setExpiryDate}
@@ -117,7 +118,7 @@ const CardDetails = () => {
                     <View style={{ flex: .5, gap: 15 }}>
                         <View style={{ flexDirection: 'row', gap: 20 }}>
                             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                            <Text style={{ fontSize: 18 }}>CVV</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>CVV</Text>
                         </View>
                         <TextInput
                             style={
@@ -127,7 +128,7 @@ const CardDetails = () => {
                                     padding: 10,
                                     borderRadius: 8,
                                     backgroundColor: '#fff',
-
+                                    fontFamily: "Regular"
                                 }
                             }
                             onChangeText={setCvv}
@@ -139,7 +140,7 @@ const CardDetails = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/step-last" style={[styles.buttonText, { width: '100%' }]}>
+                <Link href="/step-last" style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
                     Start your €4/month membership
                 </Link>
             </View>
@@ -149,7 +150,7 @@ const CardDetails = () => {
                 alignItems: 'center',
                 marginTop: 20,
             }}>
-                <Link href='./terms-condition' style={{fontSize: 14}}>Terms and Conditions</Link>
+                <Link href='./terms-condition' style={{fontSize: 14, fontFamily: "Regular"}}>Terms and Conditions</Link>
             </View>
         </ScrollView>
     )
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     dot: {
         backgroundColor: '#000',

@@ -110,7 +110,7 @@ const Styles=StyleSheet.create({
     header_text: {
         color: '#080D09',
         fontFamily: 'Medium',
-        fontSize: 40
+        fontSize: 40, 
     },
     goal_text: {
         marginTop: 30,

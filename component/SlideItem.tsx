@@ -21,7 +21,7 @@ const SlideItem: React.FC<SlideItemProps> = ({ item }) => {
                 <Text style={[styles.curbText]}>curb</Text>
                 <View style={styles.dot}></View>
             </View>
-            <Text style={{fontSize: 42, color: 'white',lineHeight:40, position: 'absolute', bottom: 0, marginLeft: width*0.08, marginRight: width*0.08, marginBottom: height*0.07 }}>{item.title}</Text>
+            <Text style={{fontSize: 42, color: 'white',lineHeight:40, position: 'absolute', bottom: 0, marginLeft: width*0.08, marginRight: width*0.08, marginBottom: height*0.07, fontFamily: "Regular"}}>{item.title}</Text>
         </View>
     )
 }
@@ -70,14 +70,17 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     text1: {
         color: 'white',
         fontSize: 42,
         lineHeight: 40,
+        fontFamily: "Regular"
     },
     text2: {
         color: 'white',
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',

@@ -78,7 +78,7 @@ const Goals = () => {
                     >
                         <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
                             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                            <Text style={{ fontSize: 24, color: '#7844ff' }}>I want to</Text>
+                            <Text style={{ fontSize: 24, color: '#7844ff', fontFamily: "Regular" }}>I want to</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 15, marginTop: width * 0.08 }}>
@@ -94,7 +94,7 @@ const Goals = () => {
                     </View>
 
                     <View style={styles.button}>
-                        <Link href="/post-payment-onboarding/step-3" style={[styles.buttonText, { width: '100%' }]}>
+                        <Link href="/post-payment-onboarding/step-3" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
                             Next
                         </Link>
                     </View>
@@ -128,5 +128,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
 })

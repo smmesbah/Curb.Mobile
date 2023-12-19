@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         lineHeight: 50,
         marginLeft: width * 0.45,
+        fontFamily: "Regular"
     },
     subheaderText: {
         fontSize: 18,
@@ -32,5 +33,6 @@ const styles = StyleSheet.create({
         marginLeft: width * 0.08,
         marginRight: width * 0.3,
         marginBottom: width * 0.06,
+        fontFamily: "Regular"
     }
 })
