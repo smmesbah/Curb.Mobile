@@ -112,7 +112,8 @@ const WeeklyDrinkSummary = () => {
                         style={{
                             fontSize: 30,
                             fontWeight: '500',
-                            width: '20%'
+                            width: '20%',
+                            fontFamily: "Regular"
                         }}
                     >
                         {item.day.slice(0, 3)}
@@ -124,11 +125,11 @@ const WeeklyDrinkSummary = () => {
                         }}
                     >
                         {
-                            item.drinks.length === 0 && <Text style={{ fontSize: 17, }}>No alcohol</Text>
+                            item.drinks.length === 0 && <Text style={{ fontSize: 17, fontFamily: "Regular"}}>No alcohol</Text>
                         }
                         {
                             item.drinks.length !== 0 && item.drinks.map((drink: any, index: number) => (
-                                <Text key={index} style={{ fontSize: 17, }}>{drink.drinkQuantity} {drink.drinkSize} of {drink.drinkType}</Text>
+                                <Text key={index} style={{ fontSize: 17, fontFamily: "Regular"}}>{drink.drinkQuantity} {drink.drinkSize} of {drink.drinkType}</Text>
                             ))
                         }
                     </View>
@@ -162,7 +163,7 @@ const WeeklyDrinkSummary = () => {
                             gap: 10
                         }}
                     >
-                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' }}>Go to next day</Text>
+                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' , fontFamily: "Regular"}}>Go to next day</Text>
                     </Pressable>
 
                 </View>
@@ -187,6 +188,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         lineHeight: 50,
         marginLeft: width * 0.45,
+        fontFamily: "Regular"
     },
     subheaderText: {
         color: 'white',
@@ -194,5 +196,6 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         marginLeft: width * 0.08,
         marginRight: width * 0.25,
+        fontFamily: "Regular"
     }
 })

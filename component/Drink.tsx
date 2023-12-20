@@ -28,6 +28,7 @@ const Drink = ({setAddingDrink}: {setAddingDrink: any}) => {
                     marginHorizontal: 30,
                     marginTop: 10,
                     marginBottom: 30,
+                    fontFamily: "Regular"
                 }}
             >
                 Add another drink
@@ -43,7 +44,7 @@ const Drink = ({setAddingDrink}: {setAddingDrink: any}) => {
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Beer.png')} style={{ height: 55, width: 25 }} />
-                        <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Beer & Cider </Text>
+                        <Text style={{ fontSize: 17, color: '#27284e', fontFamily: "Regular"}}> Beer & Cider </Text>
                     </View>
                 </TouchableOpacity>
 
@@ -52,7 +53,7 @@ const Drink = ({setAddingDrink}: {setAddingDrink: any}) => {
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Wine.png')} style={{ height: 60, width: 25 }} />
-                        <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Wine & Fizz </Text>
+                        <Text style={{ fontSize: 17, color: '#27284e', fontFamily: "Regular"}}> Wine & Fizz </Text>
                     </View>
                 </TouchableOpacity>
 
@@ -61,7 +62,7 @@ const Drink = ({setAddingDrink}: {setAddingDrink: any}) => {
                 >
                     <View style={styles.drinkChoosingBtn}>
                         <Image source={require('../assets/Spirits.png')} style={{ height: 55, width: 25 }} />
-                        <Text style={{ fontSize: 17, color: '#27284e', fontWeight: '400' }}> Spirits & Shots </Text>
+                        <Text style={{ fontSize: 17, color: '#27284e', fontFamily: "Regular"}}> Spirits & Shots </Text>
                     </View>
                 </TouchableOpacity>
             </View>

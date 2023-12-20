@@ -170,7 +170,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     gap: 10
                                 }}
                             >
-                                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' }}>Go to next day</Text>
+                                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Go to next day</Text>
                             </Pressable>
                         ) : (
                             <Pressable
@@ -188,7 +188,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                 }}
                             >
                                 <AntDesign name="plus" size={15} color="#fff" />
-                                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' }}>Add drink</Text>
+                                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Add drink</Text>
                             </Pressable>
                         )
                     }
@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign: 'right',
         marginRight: width * 0.09,
+        fontFamily: "Regular"
     },
     subheaderText: {
         fontSize: 18,
@@ -221,5 +222,6 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginLeft: width * 0.09,
         marginRight: width * 0.3,
+        fontFamily: "Regular"
     },
 })

@@ -22,14 +22,17 @@ const Achievements = () => {
   return (
     <SafeAreaView
         style={{
-            height: height * 0.9,
+            // height: height * 0.9,
             width: width,
         }}
     >
+        <View style={Styles.container2}>
+            <Text style={Styles.achievement_text}>Achievements</Text>
+        </View>
         <ScrollView style={{}}>
             <View style={{backgroundColor: '#ECEDE9'}}>
                 <View style={Styles.container}>
-                    <Text style={Styles.achievement_text}>Achievements</Text>
+                    {/* <Text style={Styles.achievement_text}>Achievements</Text> */}
                     <View style={Styles.total_badges_ellipse}>
                         <Text style={Styles.badge_no}>17</Text>
                         <Text style={Styles.badge_text}>Total Badges</Text>
@@ -168,7 +171,8 @@ const Achievements = () => {
                         ItemSeparatorComponent={() => <View style={{width: 15}}/>}
                     />
                 </View> 
-            </View>            
+            </View> 
+            <View style={{height: height*0.19}}></View>           
         </ScrollView>
     </SafeAreaView>
   )
@@ -181,10 +185,18 @@ const Styles=StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 25,
+        // marginTop: ,
         backgroundColor: '#ECEDE9',
         borderBottomLeftRadius: 18,
         borderBottomRightRadius: 18
+    },
+    container2: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: height*.02,
+        paddingBottom: 5,
+        backgroundColor: '#ECEDE9',
     },
     achievement_text:{
         color: '#080D09',

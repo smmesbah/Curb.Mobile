@@ -45,6 +45,7 @@ const DrinkDetailsContainer = () => {
                     marginHorizontal: 30,
                     marginTop: 10,
                     marginBottom: 30,
+                    fontFamily: "Regular"
                 }}
             >
                 Your {day} drinks
@@ -79,7 +80,7 @@ const DrinkDetailsContainer = () => {
                                     position: 'relative'
                                 }}
                             >
-                                <Text style={{ fontSize: 17, fontWeight: '400', color: '#27284e', width: '70%', textAlign: 'center' }}>{item.drinkQuantity} {item.drinkSize} {item.drinkType}</Text>
+                                <Text style={{ fontSize: 17, fontWeight: '400', color: '#27284e', width: '70%', textAlign: 'center', fontFamily: "Regular" }}>{item.drinkQuantity} {item.drinkSize} {item.drinkType}</Text>
                                 <TouchableOpacity
                                     // onPress={() => dispatch(removeDrink({
                                     //     day: Array.isArray(day) ? day[0] : day || '',

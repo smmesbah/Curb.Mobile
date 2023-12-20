@@ -29,7 +29,7 @@ const RadioButtonRound: React.FC<RadioButtonRoundProps> = ({ data, onSelect }) =
                                     item.value === userOption ? <Image source={require('../../assets/select.png')} /> : null
                                 }
                             </Pressable>
-                            <Text style={{ textAlign: 'center', marginTop: 10, fontSize: 18 }}>{item.value}</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10, fontSize: 18, fontFamily: "Regular"}}>{item.value}</Text>
                         </View>
                     )
                 })

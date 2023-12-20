@@ -45,14 +45,17 @@ const Insights = () => {
   return (
     <SafeAreaView
         style={{
-            height: windowHeight * 0.9,
+            // height: windowHeight * 0.9,
             width: windowWidth,
         }}
     >
+      <View style={Styles.container}>
+        <Text style={Styles.title}>Insights</Text>
+      </View>
       <ScrollView style={{}}>
         <View style={{backgroundColor: '#ecedea'}}>
               <View style={Styles.header_container}>
-                  <Text style={Styles.title}>Insights</Text>
+                  {/* <Text style={Styles.title}>Insights</Text> */}
                   <Text style={Styles.description}>Curb helps you recognize patterns of
                       behaviour that inform your mood and habits</Text>
               </View>
@@ -92,7 +95,7 @@ const Insights = () => {
                   </View>
               </View>
           }
-          
+          <View style={{height: windowHeight*0.19}}></View>
       </ScrollView>
     </SafeAreaView>
   )
@@ -108,8 +111,12 @@ const Styles = StyleSheet.create({
         borderBottomLeftRadius: 18,
         borderBottomRightRadius: 18
     }, 
+    container:{
+        backgroundColor: '#fff',
+        paddingBottom: 5
+    },
     title:{
-        marginTop: windowHeight*.07,
+        marginTop: windowHeight*.05,
         fontFamily: 'Regular',
         fontSize: 28,
         color: '#080D09',

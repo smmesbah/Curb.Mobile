@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         textAlign: 'left',
-        marginHorizontal: 20
+        marginHorizontal: 20,
+        fontFamily: "Regular"
     },
     button: {
         alignItems: 'center',
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: '500',
+        fontFamily: "Regular"
     },
 })
 export default Onbording2

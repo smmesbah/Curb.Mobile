@@ -1,9 +1,12 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions} from 'react-native'
 import React from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
 
 const image = { uri: "../assets/onbording1.jpg" };
+
+const windowWidth=Dimensions.get('screen').width;
+const windowHeight=Dimensions.get('screen').height;
 
 const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
@@ -49,7 +52,8 @@ const Index = () => {
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
-          <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          {/* <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
+          <Link href="/email-verification" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -62,6 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'white',
     paddingVertical: 15,
+    // height: windowHeight*.9
   },
   image: {
     resizeMode: 'contain',
@@ -77,6 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: "Regular"
     // backgroundColor: '#000000a0',
   },
   curb: {
@@ -99,14 +105,17 @@ const styles = StyleSheet.create({
     fontSize: 42,
     // fontWeight: 'bold',
     letterSpacing: 5,
+    fontFamily: "Regular"
   },
   text1: {
     color: 'white',
     fontSize: 42,
     lineHeight: 40,
+    fontFamily: "Regular"
   },
   text2: {
     color: 'white',
+    fontFamily: "Regular"
   },
   flex: {
     position: 'absolute',
@@ -129,6 +138,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     fontWeight: '500',
+    fontFamily: "Regular"
   },
   icon: {
     width: 50,
@@ -149,6 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 18,
+    fontFamily: "Regular"
   },
   radio: {
     width: 30,
@@ -177,6 +188,7 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     fontSize: 18,
+    fontFamily: "Regular"
   },
   dontHaveAccount: {
     flexDirection: 'row',

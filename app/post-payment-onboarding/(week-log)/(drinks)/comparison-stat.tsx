@@ -69,7 +69,7 @@ const Comparison = () => {
                         gap: 20,
                     }}
                 >
-                    <Text style={{ fontSize: 24, color: '#fff', fontWeight: '500' }}>How much you spend</Text>
+                    <Text style={{ fontSize: 24, color: '#fff', fontWeight: '500', fontFamily: "Regular" }}>How much you spend</Text>
                     <View
                         style={{
                             width: width * 0.8,
@@ -82,7 +82,7 @@ const Comparison = () => {
                             paddingHorizontal: 40,
                         }}
                     >
-                        <Text style={{ fontSize: 17, textAlign: 'center' }}>Based on your typical week, this is how much you spend on alcohol</Text>
+                        <Text style={{ fontSize: 17, textAlign: 'center', fontFamily: "Regular" }}>Based on your typical week, this is how much you spend on alcohol</Text>
                         <View
                             style={{
                                 justifyContent: 'center',
@@ -90,8 +90,8 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500' }}>€27</Text>
-                            <Text style={{ fontSize: 17 }}>Per week</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€27</Text>
+                            <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per week</Text>
                         </View>
                         <View
                             style={{
@@ -107,8 +107,8 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500' }}>€108</Text>
-                            <Text style={{ fontSize: 17 }}>Per month</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€108</Text>
+                            <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per month</Text>
                         </View>
 
                         <View
@@ -126,13 +126,13 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500' }}>€1296</Text>
-                            <Text style={{ fontSize: 17 }}>Per year</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€1296</Text>
+                            <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per year</Text>
                         </View>
                     </View>
                 </View>
 
-                <Text style={{fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20}}>Sources: Curb</Text>
+                <Text style={{fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular"}}>Sources: Curb</Text>
             </ScrollView>
             <View
                 style={{
@@ -161,7 +161,7 @@ const Comparison = () => {
                     }}
                 >
                     {/* <AntDesign name="plus" size={15} color="#fff" /> */}
-                    <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' }}>Next</Text>
+                    <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Next</Text>
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         lineHeight: 50,
         marginLeft: width * 0.45,
+        fontFamily: "Regular"
     },
     subheaderText: {
         color: 'white',
@@ -191,5 +192,6 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         marginLeft: width * 0.08,
         marginRight: width * 0.25,
+        fontFamily: "Regular"
     }
 })

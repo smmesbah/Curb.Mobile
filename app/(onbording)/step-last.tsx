@@ -14,7 +14,7 @@ const OnbordingEnd = () => {
             </ImageBackground>
 
             <View style={{ marginLeft: width * 0.1, marginTop: 35, gap: 8 }}>
-                <Text style={{ fontSize: 18, color: '#fff' }}>Please log back in again to continue.</Text>
+                <Text style={{ fontSize: 18, color: '#fff', fontFamily: "Regular"}}>Please log back in again to continue.</Text>
                 <View style={styles.curb}>
                     <Text style={styles.curbText}>curb</Text>
                     <View style={styles.dot}></View>
@@ -22,7 +22,7 @@ const OnbordingEnd = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/post-payment-onboarding/step-1" style={[styles.buttonText, { width: '100%' }]}>
+                <Link href="/post-payment-onboarding/step-1" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
                     Log in
                 </Link>
             </View>
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 42,
         lineHeight: 50,
+        fontFamily: "Regular"
     },
     flex: {
         position: 'absolute',
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
         fontSize: 42,
         // fontWeight: 'bold',
         letterSpacing: 5,
+        fontFamily: "Regular"
     },
     button: {
         alignItems: 'center',
@@ -94,5 +96,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
+        fontFamily: "Regular"
     },
 })

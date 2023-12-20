@@ -30,19 +30,21 @@ const StatsComparisonCard: React.FC<StatsComparisonCardProps> = ({ headerText, S
                 style={{
                     fontSize: 17,
                     fontWeight: '400',
+                    fontFamily: "Regular"
                 }}
             >
                 {headerText}
             </Text>
             <View style={{ flexDirection: 'row' }}>
-                <Text style={{ fontSize: 60, fontWeight: '500' }}>{numericPart}</Text>
-                <Text style={{ fontSize: 36, fontWeight: '500', textAlignVertical: 'top' }}>{suffixPart}</Text>
+                <Text style={{ fontSize: 60, fontWeight: '500', fontFamily: "Regular"}}>{numericPart}</Text>
+                <Text style={{ fontSize: 36, fontWeight: '500', textAlignVertical: 'top', fontFamily: "Regular"}}>{suffixPart}</Text>
             </View>
             <Text
                 style={{
                     fontSize: 17,
                     fontWeight: '400',
-                    textAlign: 'center'
+                    textAlign: 'center', 
+                    fontFamily: "Regular"
                 }}
             >
                 {SubheaderText}

@@ -70,6 +70,7 @@ const WineFizz = () => {
                             marginHorizontal: 30,
                             marginTop: 10,
                             marginBottom: 30,
+                            fontFamily: "Regular"
                         }}
                     >
                         What kind of wine or sparkling?
@@ -94,6 +95,7 @@ const WineFizz = () => {
                                 fontSize: 20,
                                 fontWeight: '400',
                                 color: '#27284e',
+                                fontFamily: "Regular"
                             }}
                         >
                             How much?
@@ -119,6 +121,7 @@ const WineFizz = () => {
                                 fontWeight: '400',
                                 color: '#27284e',
                                 textAlign: 'center',
+                                fontFamily: "Regular"
                             }}
                             dropDownContainerStyle={{
                                 width: width * 0.65,
@@ -143,6 +146,7 @@ const WineFizz = () => {
                                 fontSize: 20,
                                 fontWeight: '400',
                                 color: '#27284e',
+                                fontFamily: "Regular"
                             }}
                         >
                             How many?
@@ -159,7 +163,8 @@ const WineFizz = () => {
                                 fontSize: 40,
                                 fontWeight: '400',
                                 textAlign: 'center',
-                                color: '#27284e'
+                                color: '#27284e',
+                                fontFamily: "Regular"
                             }}
                             onChangeText={(text) => setWineCount(Number(text))}
                             inputMode="numeric"
@@ -196,7 +201,7 @@ const WineFizz = () => {
                         }}
                     >
                         <AntDesign name="plus" size={15} color="#fff" />
-                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' }}>Add drink</Text>
+                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Add drink</Text>
                     </Pressable>
                 </View>
             </HideWithKeyboard>

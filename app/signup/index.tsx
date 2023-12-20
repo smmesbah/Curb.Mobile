@@ -28,15 +28,15 @@ const Signup = () => {
       </View>
 
       <View style={styles.signupTextSection}>
-        <Text style={{ fontSize: 42, fontWeight: '500' }}>Sign up</Text>
-        <Text style={{ fontSize: 18, }}>Please enter your details to continue.</Text>
+        <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Sign up</Text>
+        <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Please enter your details to continue.</Text>
       </View>
 
       <View style={{ marginVertical: 20 }}>
         <View style={{ backgroundColor: '#f3f2ee', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
           <View style={{ flexDirection: 'row', gap: 20 }}>
             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-            <Text style={{ fontSize: 18 }}>Full name</Text>
+            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
           </View>
 
           <TextInput
@@ -47,7 +47,7 @@ const Signup = () => {
                 padding: 10,
                 borderRadius: 8,
                 backgroundColor: '#fff',
-
+                fontFamily: "Regular"
               }
             }
             onChangeText={setFullName}
@@ -59,7 +59,7 @@ const Signup = () => {
         <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
           <View style={{ flexDirection: 'row', gap: 20 }}>
             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-            <Text style={{ fontSize: 18 }}>Email address</Text>
+            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Email address</Text>
           </View>
           <TextInput
             style={
@@ -69,7 +69,7 @@ const Signup = () => {
                 padding: 10,
                 borderRadius: 8,
                 backgroundColor: '#fff',
-
+                fontFamily: "Regular"
               }
             }
             onChangeText={setEmail}
@@ -80,7 +80,7 @@ const Signup = () => {
         </View>
       </View>
 
-      <Text style={{ fontSize: 18, textAlign: 'center' }}>Continue with</Text>
+      <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: "Regular"}}>Continue with</Text>
 
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => alert('Facebook')}>
@@ -96,7 +96,7 @@ const Signup = () => {
           <View style={styles.radio}>
             {termsCondition ? <View style={styles.radioBg}></View> : null}
           </View>
-          <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff" }}>Terms & Conditions</Link> and <Link href='./privacy-policy' style={{ color: "#6d5eff" }}>Privacy Policy</Link></Text>
+          <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link> and <Link href='./privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setOptIn(!optIn)} style={styles.rememberMe}>
@@ -108,15 +108,15 @@ const Signup = () => {
       </View>
 
       <View style={styles.button}>
-        <Link href="/email-verification" style={[styles.buttonText, { width: '100%' }]}>
+        <Link href="/email-verification" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
           Create account
         </Link>
       </View>
 
       <View style={styles.alreadyHaveAnAccount}>
-        <Text style={{ fontSize: 18 }}>Already have an account?</Text>
+        <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Already have an account?</Text>
         <TouchableOpacity>
-          <Text style={{ fontSize: 18, color: "#6d5eff" }}>Log-in</Text>
+          <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Log-in</Text>
         </TouchableOpacity>
       </View>
 
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '500',
     letterSpacing: 5,
+    fontFamily: "Regular"
   },
   dot: {
     backgroundColor: '#000',
@@ -197,6 +198,7 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     fontSize: 18,
+    fontFamily: "Regular"
   },
   dontHaveAccount: {
     flexDirection: 'row',
@@ -220,6 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: "Regular"
   },
   alreadyHaveAnAccount: {
     justifyContent: 'center',
