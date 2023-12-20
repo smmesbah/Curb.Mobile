@@ -2,15 +2,12 @@ import { Pressable, StyleSheet, Text, View, Image, ImageBackground, Dimensions }
 import React from 'react'
 import { Slot, router } from 'expo-router'
 import Feather from 'react-native-vector-icons/Feather';
-import { HomeIcon } from 'components/icons/HomeIcon';
-import DailyTaskIcon from 'components/icons/DailyTaskIcon';
-import AchievementsIcon from 'components/icons/AchievementsIcon';
-import InsightsIcon from '../../components/icons/InsightsIcon';
 
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
 
 const Layout = () => {
+  const[focused, setFocused]=React.useState('home');
   return (
     <>
       <Slot/>
@@ -31,17 +28,23 @@ const Layout = () => {
       >
         
         <Pressable
-            onPress={() => router.push('/homeScreen')}
+            onPress={() => {
+                router.push('/homeScreen')
+                setFocused('home')
+            }}
         >
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Image source={require('../../assets/icons/Home.png')} style={{width: 30, height: 30}}  tintColor={'#12303B'}/>
+              <Image source={require('../../assets/icons/Home.png')} style={{width: 33, height: 33}}  tintColor={focused==='home'?'#12303B': '#B0B0B4'}/>
             </View>
         </Pressable>
         <Pressable
-            onPress={() => router.push('/homeScreen/tasks')}
+            onPress={() => {
+                router.push('/homeScreen/tasks')
+                setFocused('tasks')
+            }}
         >
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Image source={require('../../assets/icons/DailyTasks.png')} style={{width: 30, height: 30}} tintColor={'#12303B'}/>
+            <Image source={require('../../assets/icons/DailyTasks.png')} style={{width: 33, height: 33}} tintColor={focused==='tasks'?'#12303B': '#B0B0B4'}/>
             </View>
         </Pressable>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -69,18 +72,24 @@ const Layout = () => {
         </Pressable>
         </View>
         <Pressable
-            onPress={() => router.push('/homeScreen/achievement')}
+            onPress={() => {
+                router.push('/homeScreen/achievement')
+                setFocused('achievement')
+            }}
         >
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Image source={require('../../assets/icons/Achievements.png')} style={{width: 30, height: 30}}  tintColor={'#12303B'}/>
+            <Image source={require('../../assets/icons/Achievements.png')} style={{width: 33, height: 33}}  tintColor={focused==='achievement'?'#12303B': '#B0B0B4'}/>
 
             </View>
         </Pressable>
         <Pressable
-            onPress={() => router.push('/homeScreen/insights')}
+            onPress={() => {
+                router.push('/homeScreen/insights')
+                setFocused('insights')
+        }}
         >
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Image source={require('../../assets/icons/Insights.png')} style={{width: 30, height: 30}}  tintColor={'#12303B'}/>
+            <Image source={require('../../assets/icons/Insights.png')} style={{width: 33, height: 33}}  tintColor={focused==='insights'?'#12303B': '#B0B0B4'}/>
             </View>
         </Pressable>
         

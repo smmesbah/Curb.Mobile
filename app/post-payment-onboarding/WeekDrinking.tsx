@@ -37,10 +37,13 @@ const WeekDrinking = () => {
                 </View>
                 <Text style={Styles.text_style2}>In 31 days we will help you</Text>
                 <View style={Styles.avoid_portion}>
-                    <FlatList
+                    {Data.map((item, index)=>(
+                        <AvoidComponent text={item}/>
+                    ))}
+                    {/* <FlatList
                         data={Data}
                         renderItem={({item})=><AvoidComponent text={item}/>}
-                    />
+                    /> */}
                 </View>
             </View>
             <View style={Styles.container2}>

@@ -52,7 +52,8 @@ const EmailVerification = () => {
                         borderRadius: 8,
                         backgroundColor: '#fff',
                         borderColor: '#000',
-
+                        borderBottomWidth: 1,
+                        fontFamily: 'Regular'
                     }}
                     // containerStyle={{ width: '80%', height: 200, paddingHorizontal: 32 }}
                     tintColor="#000"

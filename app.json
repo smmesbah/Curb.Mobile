@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Curb.Mobile",
-    "slug": "Curb.Mobile",
+    "slug": "curb-mobile",
     "scheme": "Curb.Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,13 +22,22 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.samina123.curbmobile"
     },
     "web": {
       "bundler": "metro"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3ef86b48-7fbb-4a61-8ce7-5d3d868c4f14"
+      }
+    }
   }
 }

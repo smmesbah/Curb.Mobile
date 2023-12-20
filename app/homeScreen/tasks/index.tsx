@@ -84,7 +84,7 @@ const Tasks = () => {
         {focused==='previous' && 
             <View style={Styles.task_cards}>
                 {dummyValues.map((item, index)=>
-                    <>
+                    <View key={index}>
                     <TaskCard 
                         key={index}
                         title={item.title}
@@ -94,14 +94,14 @@ const Tasks = () => {
                         focus={false}
                     />
                     <View style={{height: 20}}/>
-                    </>
+                    </View>
                 )}
             </View>
         }
         {focused==='upcoming' && 
             <View style={Styles.task_cards}>
                 {dummyValues.map((item, index)=>
-                    <>
+                    <View key={index}>
                     <TaskCard 
                         key={index.toString()}
                         title={item.title}
@@ -111,7 +111,7 @@ const Tasks = () => {
                         focus={true}
                     />
                     <View style={{height: 20}}/>
-                    </>
+                    </View>
                 )}
             </View>
         }
