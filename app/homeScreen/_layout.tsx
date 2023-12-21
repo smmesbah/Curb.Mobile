@@ -53,6 +53,7 @@ const Layout = () => {
         </Pressable>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Pressable
+            onPress={() => {router.push('/checkInScreen')}}
             style={{
                 top: -20,
                 justifyContent: 'center',

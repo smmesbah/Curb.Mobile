@@ -2,7 +2,7 @@
   "expo": {
     "name": "Curb.Mobile",
     "slug": "curb-mobile",
-    "scheme": "Curb.Mobile",
+    "scheme": "curb-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
