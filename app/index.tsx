@@ -53,7 +53,7 @@ const Index = () => {
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
           {/* <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
-          <Link href="/email-verification" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          <Link href="/post-payment-onboarding/WeekDrinking" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

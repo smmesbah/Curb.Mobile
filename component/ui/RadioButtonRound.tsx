@@ -18,7 +18,7 @@ const RadioButtonRound: React.FC<RadioButtonRoundProps> = ({ data, onSelect }) =
             {
                 data.map((item) => {
                     return (
-                        <View key={item.value} style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <View key={item.value} style={{alignItems: 'center', justifyContent: 'center', flexBasis: '25%'}}>
                             <Pressable
                                 style={
                                     item.value === userOption ? styles.selected : styles.unselected

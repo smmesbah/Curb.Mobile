@@ -30,9 +30,9 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
     const data = [
         { value: 'Vodka' },
         { value: 'Gin' },
+        { value: 'Tequilla' },
         { value: 'Whisky' },
         { value: 'Rum' },
-        { value: 'Tequilla' },
         { value: 'Other' },
     ]
     const [spiritsShotsType, setSpiritsShotsType] = React.useState<string>('');
@@ -68,7 +68,7 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
                     fontFamily: "Regular"
                 }}
             >
-                What kind of wine or sparkling?
+                What kind of spirit?
             </Text>
 
             <View>

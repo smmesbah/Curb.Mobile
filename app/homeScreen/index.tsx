@@ -14,8 +14,8 @@ import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
 
-const windowWidth=Dimensions.get('screen').width;
-const windowHeight=Dimensions.get('screen').height;
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 const dummyValues=[
     {
         title: 'Play Basketball',
@@ -28,7 +28,6 @@ const Home = () => {
 
     const [keyboardOpen, setKeyboardOpen] = useState(false);
     const [calandermodalOpen, setCalanderModalOpen] = useState(false);
-    const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -104,7 +103,7 @@ const Home = () => {
                           description={item.Description}
                           imageUri={item.imageUri}
                           Width={0.83}
-                          focus={false}
+                          focus='home'
                       />
                 )}
               </View>

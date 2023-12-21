@@ -17,18 +17,20 @@ const Data=['13 drinks', '39 units', '6000 calories', '£280']
 const WeekDrinking = () => {
     const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{height: '100%'}}>
+        <View style={Styles.header_container}>
+            <TouchableOpacity onPress={()=>router.back()}>
+                <BackArrow/>
+            </TouchableOpacity>
+            <View style={{flexDirection: 'column', paddingTop: 25}}>
+                <Text style={Styles.header_text}>Your week</Text>
+                <Text style={Styles.header_text}>in drinking</Text>
+            </View>
+        </View>
         <ScrollView>
+            
             <View style={Styles.container}>
-                <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>router.back()}>
-                        <BackArrow/>
-                    </TouchableOpacity>
-                    <View style={{flexDirection: 'column', paddingTop: 25}}>
-                        <Text style={Styles.header_text}>Your week</Text>
-                        <Text style={Styles.header_text}>in drinking</Text>
-                    </View>
-                </View>
+                
                 <Text style={Styles.goal_text}>Your goals</Text>
                 <View style={Styles.text_portion}>
                     <Text style={Styles.text_style}>1. Reduce hangovers</Text>
@@ -38,7 +40,9 @@ const WeekDrinking = () => {
                 <Text style={Styles.text_style2}>In 31 days we will help you</Text>
                 <View style={Styles.avoid_portion}>
                     {Data.map((item, index)=>(
-                        <AvoidComponent text={item}/>
+                        <View key={index}>
+                            <AvoidComponent text={item}/>
+                        </View>
                     ))}
                     {/* <FlatList
                         data={Data}
@@ -109,6 +113,7 @@ const Styles=StyleSheet.create({
         width: Width,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingBottom: 10
     },
     header_text: {
         color: '#080D09',

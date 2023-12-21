@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
       // justifyContent: 'center',
       // alignItems: 'center',
       
-      marginTop: 20,
+      marginTop: 15,
     },
     why_style: {
         paddingLeft: windowWidth*.090,

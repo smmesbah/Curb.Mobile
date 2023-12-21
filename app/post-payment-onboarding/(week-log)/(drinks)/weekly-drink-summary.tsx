@@ -101,6 +101,9 @@ const WeeklyDrinkSummary = () => {
                             top: 15,
                             right: 15,
                         }}
+                        onPress={() => {
+                            router.push(`/post-payment-onboarding/${item.day}`)
+                        }}
                     >
                         <Feather
                             name="edit-2"
@@ -163,7 +166,7 @@ const WeeklyDrinkSummary = () => {
                             gap: 10
                         }}
                     >
-                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' , fontFamily: "Regular"}}>Go to next day</Text>
+                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' , fontFamily: "Regular"}}>Next</Text>
                     </Pressable>
 
                 </View>

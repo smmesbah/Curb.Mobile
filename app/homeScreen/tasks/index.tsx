@@ -86,12 +86,11 @@ const Tasks = () => {
                 {dummyValues.map((item, index)=>
                     <View key={index}>
                     <TaskCard 
-                        key={index}
                         title={item.title}
                         description={item.Description}
                         imageUri={item.imageUri}
                         Width={0.89}
-                        focus={false}
+                        focus='previous'
                     />
                     <View style={{height: 20}}/>
                     </View>
@@ -103,12 +102,11 @@ const Tasks = () => {
                 {dummyValues.map((item, index)=>
                     <View key={index}>
                     <TaskCard 
-                        key={index.toString()}
                         title={item.title}
                         description={item.Description}
                         imageUri={item.imageUri}
                         Width={0.89}
-                        focus={true}
+                        focus='upcoming'
                     />
                     <View style={{height: 20}}/>
                     </View>

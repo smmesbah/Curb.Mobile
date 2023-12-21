@@ -2,6 +2,7 @@ import { Dimensions, Image, Pressable, SafeAreaView, StyleSheet, Text, Touchable
 import React from 'react'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useSelector } from 'react-redux'
 
 
 const { width, height } = Dimensions.get('screen');
@@ -9,8 +10,11 @@ const { width, height } = Dimensions.get('screen');
 const Day = () => {
     const router = useRouter();
 
+    const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
     const { day } = useGlobalSearchParams();
-    // console.log(day);
+    const Day= selectedDays[0] === undefined ? day : selectedDays[0];
+    // const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
+    console.log(selectedDays);
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -24,8 +28,8 @@ const Day = () => {
 
             <View style={{ marginTop: 15 }}>
                 <View style={{ gap: 35, }}>
-                    <Text style={styles.headerText}>{day}</Text>
-                    <Text style={styles.subheaderText}>What kind of drink would you typically have on a {day}</Text>
+                    <Text style={styles.headerText}>{Day}</Text>
+                    <Text style={styles.subheaderText}>What kind of drink would you typically have on a {Day}</Text>
                 </View>
             </View>
 
@@ -54,7 +58,7 @@ const Day = () => {
                         }}
                     >
                         <TouchableOpacity
-                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=beer-cider`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${Day}&drink=beer-cider`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Beer.png')} style={{ height: 55, width: 25 }} />
@@ -64,7 +68,7 @@ const Day = () => {
 
                         <TouchableOpacity
                             // onPress={() => router.push('/post-payment-onboarding/wine-fizz')}
-                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=wine-fizz`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${Day}&drink=wine-fizz`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Wine.png')} style={{ height: 60, width: 25 }} />
@@ -74,7 +78,7 @@ const Day = () => {
 
                         <TouchableOpacity
                             // onPress={() => router.push('/post-payment-onboarding/spirits-shots')}
-                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${day}&drink=spirits-shots`)}
+                            onPress={() => router.push(`/post-payment-onboarding/adding-drink?day=${Day}&drink=spirits-shots`)}
                         >
                             <View style={styles.drinkChoosingBtn}>
                                 <Image source={require('../../../assets/Spirits.png')} style={{ height: 55, width: 25 }} />
