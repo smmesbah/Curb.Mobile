@@ -1,7 +1,8 @@
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { CheckedFilled } from 'components/icons/checkedFilled';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -10,116 +11,119 @@ const Signup = () => {
   const [email, setEmail] = React.useState('');
   const [termsCondition, setTermsCondition] = React.useState(false);
   const [optIn, setOptIn] = React.useState(false);
+  const [research, setResearch] = React.useState(false);
 
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Link href='./step-4' style={{ justifyContent: 'center' }}>
-          <Text>
-            <AntDesign name="arrowleft" size={28} color="black" />
-          </Text>
-        </Link >
+      <ScrollView>
+        <View style={styles.header}>
+          <Link href='./step-4' style={{ justifyContent: 'center' }}>
+            <Text>
+              <AntDesign name="arrowleft" size={28} color="black" />
+            </Text>
+          </Link >
 
-        <View style={styles.curb}>
-          <Text style={styles.curbText}>curb</Text>
-          <View style={[styles.dot]} />
-        </View>
-      </View>
-
-      <View style={styles.signupTextSection}>
-        <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Sign up</Text>
-        <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Please enter your details to continue.</Text>
-      </View>
-
-      <View style={{ marginVertical: 20 }}>
-        <View style={{ backgroundColor: '#f3f2ee', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
-          <View style={{ flexDirection: 'row', gap: 20 }}>
-            <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
+          <View style={styles.curb}>
+            <Text style={styles.curbText}>curb</Text>
+            <View style={[styles.dot]} />
           </View>
+        </View>
 
-          <TextInput
-            style={
-              {
-                height: 50,
-                borderWidth: 1,
-                padding: 10,
-                borderRadius: 8,
-                backgroundColor: '#fff',
-                fontFamily: "Regular"
+        <View style={styles.signupTextSection}>
+          <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Sign up</Text>
+          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Please enter your details to continue.</Text>
+        </View>
+
+        <View style={{ marginVertical: 20 }}>
+          <View style={{ backgroundColor: '#f3f2ee', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+            <View style={{ flexDirection: 'row', gap: 20 }}>
+              <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
+              <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
+            </View>
+
+            <TextInput
+              style={
+                {
+                  height: 50,
+                  borderWidth: 1,
+                  padding: 10,
+                  borderRadius: 8,
+                  backgroundColor: '#fff',
+                  fontFamily: "Regular"
+                }
               }
-            }
-            onChangeText={setFullName}
-            value={fullName}
-            placeholder='Enter Full Name'
-          />
-        </View>
-
-        <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
-          <View style={{ flexDirection: 'row', gap: 20 }}>
-            <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Email address</Text>
+              onChangeText={setFullName}
+              value={fullName}
+              placeholder='Enter Full Name'
+            />
           </View>
-          <TextInput
-            style={
-              {
-                height: 50,
-                borderWidth: 1,
-                padding: 10,
-                borderRadius: 8,
-                backgroundColor: '#fff',
-                fontFamily: "Regular"
+
+          <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+            <View style={{ flexDirection: 'row', gap: 20 }}>
+              <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
+              <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Email address</Text>
+            </View>
+            <TextInput
+              style={
+                {
+                  height: 50,
+                  borderWidth: 1,
+                  padding: 10,
+                  borderRadius: 8,
+                  backgroundColor: '#fff',
+                  fontFamily: "Regular"
+                }
               }
-            }
-            onChangeText={setEmail}
-            value={email}
-            placeholder='Enter email address'
-            autoComplete='email'
-          />
+              onChangeText={setEmail}
+              value={email}
+              placeholder='Enter email address'
+              autoComplete='email'
+            />
+          </View>
         </View>
-      </View>
 
-      <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: "Regular"}}>Continue with</Text>
+        <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
+          <TouchableOpacity onPress={() => setTermsCondition(!termsCondition)} style={styles.rememberMe}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              {termsCondition ? <CheckedFilled/> : <View style={styles.radio}/>}
+            </View>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link></Text> 
+              <Text style={styles.rememberMeText}>and <Link href='./privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
+            </View>
+          </TouchableOpacity>
 
-      <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={() => alert('Facebook')}>
-          <Image source={require('../../assets/facebook.png')} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Google')}>
-          <Image source={require('../../assets/google.png')} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity onPress={() => setOptIn(!optIn)} style={styles.rememberMe}>
+            <View style={styles.radio}>
+              {optIn ? <CheckedFilled/> : <View style={styles.radio}/>}
+            </View>
+            <Text style={styles.rememberMeText}>Opt-in to marketing emails</Text>
+          </TouchableOpacity>
 
-      <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 20, paddingHorizontal: 30 }}>
-        <TouchableOpacity onPress={() => setTermsCondition(!termsCondition)} style={styles.rememberMe}>
-          <View style={styles.radio}>
-            {termsCondition ? <View style={styles.radioBg}></View> : null}
-          </View>
-          <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link> and <Link href='./privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => setResearch(!research)} style={styles.rememberMe}>
+            <View style={styles.radio}>
+              {research ? <CheckedFilled/> : <View style={styles.radio}/>}
+            </View>
+            <Text style={styles.rememberMeText}>Join our research group <Link href='#' style={{color: '#5B4AFF'}}>(What does this involve?)</Link></Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={() => setOptIn(!optIn)} style={styles.rememberMe}>
-          <View style={styles.radio}>
-            {optIn ? <View style={styles.radioBg}></View> : null}
-          </View>
-          <Text style={styles.rememberMeText}>Opt-in to marketing emails</Text>
-        </TouchableOpacity>
-      </View>
+        
 
-      <View style={styles.button}>
-        <Link href="/email-verification" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-          Create account
-        </Link>
-      </View>
+        <View style={styles.button}>
+          <Link href="/email-verification" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
+            Create account
+          </Link>
+        </View>
 
-      <View style={styles.alreadyHaveAnAccount}>
-        <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Already have an account?</Text>
-        <TouchableOpacity>
-          <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Log-in</Text>
-        </TouchableOpacity>
-      </View>
-
+        <View style={styles.alreadyHaveAnAccount}>
+          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Already have an account?</Text>
+          <TouchableOpacity>
+            <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Log-in</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -177,8 +181,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   radio: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderColor: "#32ae9d",
     borderRadius: 50,
     borderWidth: 2,
@@ -193,6 +197,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   rememberMe: {
+    marginTop: 10,
     flexDirection: 'row',
     gap: 25,
   },
@@ -217,6 +222,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
+    marginTop: height*0.04
   },
   buttonText: {
     fontSize: 20,
@@ -225,6 +231,7 @@ const styles = StyleSheet.create({
     fontFamily: "Regular"
   },
   alreadyHaveAnAccount: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,

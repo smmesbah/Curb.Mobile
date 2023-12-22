@@ -1,6 +1,10 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Pressable, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const Width=Dimensions.get('window').width
+const Height=Dimensions.get('window').height
 
 const Onbording1 = () => {
     const handleGetStartedPress = () => {
@@ -8,31 +12,33 @@ const Onbording1 = () => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={require('../../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
-                <View style={styles.curb}>
-                    <Text style={styles.curbText}>curb</Text>
-                    <View style={styles.dot}></View>
+            <ScrollView>
+                <ImageBackground source={require('../../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
+                    <View style={styles.curb}>
+                        <Text style={styles.curbText}>curb</Text>
+                        <View style={styles.dot}></View>
+                    </View>
+
+                    <View style={styles.flex}>
+                        <Text style={styles.text1}>Your path to a better relationship with alcohol.</Text>
+                        <Text style={styles.text2}>Curb helps people who want to change their relationshiop with alcohol.</Text>
+                    </View>
+                </ImageBackground>
+
+                {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
+                <View style={styles.button}>
+                    <Link href="/step-2"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
+                        Get Started
+                    </Link>
                 </View>
 
-                <View style={styles.flex}>
-                    <Text style={styles.text1}>Your path to a better relationship with alcohol.</Text>
-                    <Text style={styles.text2}>Curb helps people who want to change their relationshiop with alcohol.</Text>
+                <View style={styles.alreadyHaveAnAccount}>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>
+                    <TouchableOpacity>
+                        <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Log-in</Text>
+                    </TouchableOpacity>
                 </View>
-            </ImageBackground>
-
-            {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
-            <View style={styles.button}>
-                <Link href="/step-2"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
-                    Get Started
-                </Link>
-            </View>
-
-            <View style={styles.alreadyHaveAnAccount}>
-                <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>
-                <TouchableOpacity>
-                    <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Log-in</Text>
-                </TouchableOpacity>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: 'center',
         width: null,
-        height: "80%",
+        height: Height*0.75,
         marginHorizontal: 15,
         marginTop: 30,
         position: 'relative',
@@ -121,6 +127,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
+        marginBottom: 10
     },
 });
 

@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable
 import React from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
+import { CheckedFilled } from 'components/icons/checkedFilled';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
@@ -28,8 +29,11 @@ const Index = () => {
         </View>
       </ImageBackground>
 
+      <Pressable style={[styles.button, {backgroundColor: '#1E2242'}]} onPress={handleLoginWithHealthKeyPress}>
+        <Text style={[styles.buttonText, {color: '#fff'}]}>Log in with Health Key</Text>
+      </Pressable>
       <Pressable style={styles.button} onPress={handleLoginWithHealthKeyPress}>
-        <Text style={styles.buttonText}>Log in with Health Key</Text>
+        <Text style={styles.buttonText}>Log in with email</Text>
       </Pressable>
 
       <Text style={styles.continueWith}>Continue with</Text>
@@ -44,8 +48,8 @@ const Index = () => {
       </View>
 
       <TouchableOpacity onPress={() => setRememberMe(!rememberMe)} style={styles.rememberMe}>
-        <View style={styles.radio}>
-          {rememberMe ? <View style={styles.radioBg}></View> : null}
+        <View>
+          {rememberMe ? <CheckedFilled/> : <View style={styles.radio}/>}
         </View>
         <Text style={styles.rememberMeText}>Remember me</Text>
       </TouchableOpacity>
@@ -53,8 +57,8 @@ const Index = () => {
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
-          {/* <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
-          <Link href="/homeScreen" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          {/* <Link href="/homeScreen" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
         </TouchableOpacity>
       </View>
       </ScrollView>
@@ -135,7 +139,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 25,
     marginHorizontal: 30,
-    marginVertical: 15,
+    marginTop: 15,
+    marginBottom: 5,
     padding: 10,
   },
   buttonText: {
@@ -165,8 +170,8 @@ const styles = StyleSheet.create({
     fontFamily: "Regular"
   },
   radio: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderColor: "#32ae9d",
     borderRadius: 50,
     borderWidth: 2,
@@ -200,6 +205,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 5,
     gap: 10,
+    marginBottom:15
   },
 });
 

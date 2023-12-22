@@ -130,7 +130,7 @@ const Home = () => {
         <Modal visible={calandermodalOpen} transparent>
             <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
         </Modal>
-        <View style={{height: windowHeight*0.19}}></View>
+        <View style={{height: windowHeight*0.15}}></View>
       </ScrollView>
 
     </SafeAreaView>

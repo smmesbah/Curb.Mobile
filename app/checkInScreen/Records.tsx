@@ -95,6 +95,27 @@ const Records = () => {
                     </View>
                 </Pressable>
             </View>
+            <View style={Styles.container5}>
+                <View style={{gap: 15}}>
+                    {/* <Text style={Styles.text_style5}>WillPower</Text> */}
+                    <View style={Styles.btn_text2}>
+                        <Feather name="plus" size={18} color="#4E4F4E" />
+                        <Text style={Styles.text_style5}>Place</Text>
+                    </View>
+                </View>
+                <View style={{gap: 15}}>
+                    {/* <Text style={Styles.text_style5}>WillPower</Text> */}
+                    <View style={Styles.btn_text2}>
+                        <Feather name="plus" size={18} color="#4E4F4E" />
+                        <Text style={Styles.text_style5}>People</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={Styles.btn_text3}>
+                <Feather name="plus" size={18} color="#4E4F4E" />
+                <Text>Activity</Text>
+            </View>
+            <View style={{height: Width*.19}}></View>
         </ScrollView>
     </SafeAreaView>
   )
@@ -226,6 +247,7 @@ const Styles=StyleSheet.create({
         fontSize: 17,
     },
     btn_text2: {
+        flexDirection: 'row',
         backgroundColor: '#fff',
         borderWidth: 1,
         borderColor: '#33ae9c',
@@ -235,5 +257,18 @@ const Styles=StyleSheet.create({
         gap: 10,
         width: Width*.42,
         height: Height*.05
+    },
+    btn_text3: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#33ae9c',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+        width: Width*.9,
+        height: Height*.05,
+        marginHorizontal: 20
     }
 })
