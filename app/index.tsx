@@ -1,12 +1,12 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions} from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
 import React from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
-const windowWidth=Dimensions.get('screen').width;
-const windowHeight=Dimensions.get('screen').height;
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 
 const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
@@ -15,6 +15,7 @@ const Index = () => {
   }
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView style={{backgroundColor: 'white'}}>
       <ImageBackground source={require('../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
         <View style={styles.curb}>
           <Text style={styles.curbText}>curb</Text>
@@ -56,12 +57,14 @@ const Index = () => {
           <Link href="/homeScreen" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     justifyContent: 'center',
     width: null,
-    height: "70%",
+    height: windowHeight*.7,
     marginHorizontal: 15,
     marginTop: 30,
     position: 'relative',

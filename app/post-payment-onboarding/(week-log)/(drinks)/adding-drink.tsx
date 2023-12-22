@@ -20,7 +20,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
     const dispatch=useDispatch();
     const drinks = useSelector((state: any) => state.drink);
     const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
-    const { day, drink } = useLocalSearchParams();
+    const { day, drink } = useGlobalSearchParams();
     const [addingDrink, setAddingDrink] = React.useState<string | null>();
     const [dayTrack, setDayTrack] = React.useState<any>([
         { value: 'Monday', isSelected: false },
@@ -77,17 +77,20 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
         setAddingDrink(null);
         // Find the next day that is not selected
         // const nextDay=selectedDays[1]
-        let day = selectedDays[0];
+        let days = selectedDays[0];
         // console.log(day);
-        dispatch(removeSelectedDay(day))
+        dispatch(removeSelectedDay(days))
 
         // const nextDay=selectedDays[0]
         // const nextDay = dayTrack.find((item: any) => !item.isSelected);
         if (selectedDays[1] !== undefined) {
             // const nextDayValue = nextDay.value;
             router.push(`/post-payment-onboarding/${selectedDays[1]}`);
-        } else{
-
+        }
+        else if(day==='Log-Drink'){
+            router.push('/checkInScreen/Records');
+        }
+        else{
             router.push('/post-payment-onboarding/weekly-drink-summary');
             // Check if all days are selected
             // const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
