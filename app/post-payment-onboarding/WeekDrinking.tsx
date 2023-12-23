@@ -199,7 +199,7 @@ const Styles=StyleSheet.create({
         gap: 15
     },
     btn_container: {
-        width: Width*0.8,
+        width: Width*0.85,
         borderWidth: 1.5,
         borderRadius: 35,
         borderColor: '#fff',
@@ -218,7 +218,7 @@ const Styles=StyleSheet.create({
         alignItems: 'center',
     },
     btn_container2: {
-        width: Width*0.8,
+        width: Width*0.85,
         borderRadius: 35,
         paddingVertical: 15,
         backgroundColor: '#000'

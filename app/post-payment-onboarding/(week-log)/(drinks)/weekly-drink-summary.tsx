@@ -115,7 +115,7 @@ const WeeklyDrinkSummary = () => {
                         style={{
                             fontSize: 30,
                             fontWeight: '500',
-                            width: '20%',
+                            width: '25%',
                             fontFamily: "Regular"
                         }}
                     >
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 25,
         marginLeft: width * 0.08,
-        marginRight: width * 0.25,
+        // marginRight: width * 0.25,
         fontFamily: "Regular"
     }
 })

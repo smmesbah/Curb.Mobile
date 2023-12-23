@@ -17,15 +17,16 @@ const MyProfile = () => {
   const navigation = useNavigation();
   const [logoutModal, setLogoutModal]=React.useState(false);
   return (
-    // <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+    <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+        <View style={Styles.header_container}>
+            <TouchableOpacity onPress={()=>router.back()}>
+                <BackArrow/>
+            </TouchableOpacity>
+            <Text style={Styles.header_text}>My Profile</Text>
+        </View>
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
-                <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>router.back()}>
-                        <BackArrow/>
-                    </TouchableOpacity>
-                    <Text style={Styles.header_text}>My Profile</Text>
-                </View>
+                
                 <View style={Styles.profile_container}>
                     <Text style={Styles.profile_text_style}>RJ</Text>
                 </View>
@@ -40,7 +41,7 @@ const MyProfile = () => {
                 <DrinkScore/>
             </View>
             <View style={Styles.option_card}>
-                <OptionCard text='Your average drinking week before curb' toggle={false} redirect=""/>
+                <OptionCard text='Your average drinking week before curb' toggle={false} redirect="/myProfileScreen/MyProfile"/>
             </View>
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#33AE9C"}]}/>
@@ -71,7 +72,7 @@ const MyProfile = () => {
                 <LogOutModal logOutModal={logoutModal} setLogoutModal={setLogoutModal}/>
             </Modal>
         </ScrollView>
-    // </SafeAreaView>
+     </SafeAreaView>
   )
 }
 
@@ -89,7 +90,8 @@ const Styles=StyleSheet.create({
         borderBottomRightRadius: 20
     },
     header_container:{
-        paddingTop: 25,
+        backgroundColor: '#fff',
+        paddingTop: 10,
         paddingHorizontal: 20,
         width: Width,
         flexDirection: 'row',

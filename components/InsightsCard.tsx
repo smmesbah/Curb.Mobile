@@ -4,7 +4,12 @@ import InsightCurbLogo from './icons/InsightCurbLogo';
 import ShareIcon from './icons/ShareIcon';
 const [width, height] = [Dimensions.get('screen').width, Dimensions.get('screen').height];
 
-const InsightsCard = ({Data,id}) => {
+interface InsightsCardProps {
+    Data: any,
+    id: number
+}
+
+const InsightsCard: React.FC<InsightsCardProps> = ({Data,id}) => {
 
   const COLORS = ['#0D3F4A', '#00053F', '#23023B'];
   const BORDERS = ['#33AE9C', '#7844FF', '#E0DDD4']
@@ -20,7 +25,12 @@ const InsightsCard = ({Data,id}) => {
         <View style={Styles.logo_style}>
             <InsightCurbLogo/>
         </View>
-        <Text style={Styles.text_style}>You have the fewest cravings on the $days that you report having $good sleep</Text>
+        <View>
+            <Text style={Styles.text_style}>You have the fewest</Text>
+            <Text style={Styles.text_style}>cravings on the $days</Text>
+            <Text style={Styles.text_style}>that you report having</Text>
+            <Text style={Styles.text_style}>$good sleep</Text>
+        </View>
         <TouchableOpacity style={[Styles.share_button,{borderColor: borders, backgroundColor: btnBackgroundColor}]}>
             <Text style={Styles.button_text}>Share</Text>
             <ShareIcon/>
@@ -49,7 +59,6 @@ const Styles=StyleSheet.create({
         textAlign: 'right',
         fontFamily: 'Regular',
         fontSize: 32,
-        letterSpacing: 1.8
     },
     logo_style: {
         marginTop: 25,

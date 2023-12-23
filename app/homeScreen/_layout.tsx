@@ -17,7 +17,7 @@ const Layout = () => {
       <HideWithKeyboard style={{flex: 1}}>
       <ImageBackground 
           source={require('../../assets/images/NavigationBar.png')}
-          style={{ width: '100%',height: windowHeight*.1}}
+          style={{ width: '100%',}}
           resizeMode='cover'
         >
       <View
@@ -27,7 +27,7 @@ const Layout = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-            top: windowHeight*0.1-75
+            // top: windowHeight*0.1-75
         }}
       >
         
@@ -55,7 +55,7 @@ const Layout = () => {
         <Pressable
             onPress={() => {router.push('/checkInScreen')}}
             style={{
-                top: -20,
+                top: -1*windowHeight*0.02,
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: 70,

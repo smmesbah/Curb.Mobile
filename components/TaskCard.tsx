@@ -27,7 +27,7 @@ const TaskCard: React.FC<TaskCardProps> = ({title, description, imageUri, Width,
   return (
     <View style={[styles.container, {width: width*Width}]}>
         <View>
-            <Image source={imageUri} resizeMode='cover' style={{height: height*0.13, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
+            <Image source={imageUri} resizeMode='cover' style={{height: height*0.15, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
             {focus==='upcoming' && <View
             style={styles.blur}
             />}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
         borderRadius: 12,
-        height: height*0.13,
+        height: height*0.15,
         // marginHorizontal: 20,
         // paddingHorizontal: 15,
         flexDirection: 'row',

@@ -63,16 +63,24 @@ const index = () => {
         <Modal visible={openCalendar} transparent>
                 <View style={Styles.modal_container}>
                     <View style={{backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', padding: 10}}>
-                        <Pressable onPress={()=>setOpenCalendar(false)}>
-                            <Text style={Styles.cancel}>X</Text>
-                        </Pressable>
-                        <Text style={Styles.modal_text}>Select your Day: </Text>
+                        <View style={Styles.container4}>
+                            
+                            <Text style={Styles.modal_text}>Select your Day: </Text>
+                            <Pressable onPress={()=>setOpenCalendar(false)}>
+                                <Text style={Styles.cancel}>X</Text>
+                            </Pressable>
+                        </View>
                         <Calendar
                             onDayPress={(day)=>{
                                 setCurrDay(day.day);
                                 setCurrMonth(day.month);
                                 setCurrYear(day.year);
                                 setOpenCalendar(false);
+                            }}
+                            theme={{
+                                textMonthFontFamily: 'Regular',
+                                textDayFontFamily: 'Regular',
+                                textDayHeaderFontFamily: 'Regular',
                             }}
                         />
                     </View>
@@ -203,11 +211,14 @@ const Styles=StyleSheet.create({
         fontSize: 20,
     }, 
     cancel: {
-        position: 'absolute',
         fontFamily: 'Regular',
         fontSize: 18,
         textAlign: 'right',
-        right: 10,
-        top: 10
+    }, 
+    container4: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: Width*0.1,
     }
 })

@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Pressable, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Width=Dimensions.get('window').width
@@ -34,7 +34,7 @@ const Onbording1 = () => {
 
                 <View style={styles.alreadyHaveAnAccount}>
                     <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>router.push('/login')}>
                         <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Log-in</Text>
                     </TouchableOpacity>
                 </View>
@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        flexDirection: 'row'
     },
 });
 

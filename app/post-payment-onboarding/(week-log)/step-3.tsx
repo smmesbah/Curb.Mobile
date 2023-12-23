@@ -1,34 +1,39 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, SafeAreaView, StyleSheet, Text, View, Dimensions} from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
+import { ScrollView } from 'react-native-gesture-handler'
+
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 
 const WeekLogStart = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={require('../../../assets/week-log/starting-photo.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
-                <View style={styles.curb}>
-                    <Text style={styles.curbText}>curb</Text>
-                    <View style={styles.dot}></View>
+            <ScrollView>
+                <ImageBackground source={require('../../../assets/week-log/starting-photo.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
+                    <View style={styles.curb}>
+                        <Text style={styles.curbText}>curb</Text>
+                        <View style={styles.dot}></View>
+                    </View>
+
+                    <View style={styles.flex}>
+                        <Text style={styles.text1}>Let's log your week</Text>
+                    </View>
+                </ImageBackground>
+
+
+                <View style={{ marginTop: 25, marginLeft: 25, gap: 10, }}>
+                    <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Description why we are asking this</Text>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
                 </View>
 
-                <View style={styles.flex}>
-                    <Text style={styles.text1}>Let's log your week</Text>
+                <View style={styles.button}>
+                    <Link href="/post-payment-onboarding/week-days" style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                        Let's get started
+                    </Link>
                 </View>
-            </ImageBackground>
-
-
-            <View style={{ marginTop: 25, marginLeft: 25, gap: 10, }}>
-                <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Description why we are asking this</Text>
-                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
-                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
-            </View>
-
-            <View style={styles.button}>
-                <Link href="/post-payment-onboarding/week-days" style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
-                    Let's get started
-                </Link>
-            </View>
-
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: 'center',
         width: null,
-        height: "70%",
+        height: windowHeight * .7,
         marginHorizontal: 15,
         marginTop: 30,
         position: 'relative',
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 25,
         marginHorizontal: 30,
-        marginTop: 60,
+        marginTop: windowHeight * .05,
         padding: 10,
     },
     buttonText: {

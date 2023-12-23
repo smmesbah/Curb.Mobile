@@ -5,7 +5,13 @@ import { Calendar } from 'react-native-calendars';
 
 const windowWidth=Dimensions.get('screen').width;
 
-const CalenderModal = ({calandermodalOpen, setCalanderModalOpen}) => {
+interface CalenderModalProps {
+    calandermodalOpen: boolean,
+    setCalanderModalOpen: any
+
+}
+
+const CalenderModal: React.FC<CalenderModalProps> = ({calandermodalOpen, setCalanderModalOpen}) => {
     const scaleValue = useRef(new Animated.Value(0)).current;
     const [drinkDays, setDrinkDays] = useState(['2023-12-01','2023-12-15']);
 
@@ -17,6 +23,7 @@ const CalenderModal = ({calandermodalOpen, setCalanderModalOpen}) => {
           setCalanderModalOpen(true);
           Animated.spring(scaleValue, {
             toValue: 1,
+            // @ts-ignore
             duration: 300,
             useNativeDriver: true,
           }).start();
@@ -67,6 +74,7 @@ const CalenderModal = ({calandermodalOpen, setCalanderModalOpen}) => {
         }}
         markedDates={{
             ...drinkDays.reduce((obj, day) => {
+                // @ts-ignore
                 obj[day] = { selected: true, selectedColor: '#302151' };
                 return obj;
               }, {}),
@@ -125,11 +133,11 @@ const Styles = StyleSheet.create({
     modalBackground: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     modalContainer: {
-        marginTop: 120,
+        // marginTop: 120,
         width: '80%',
         paddingHorizontal: 20,
         backgroundColor: '#ffffff',

@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
 import React from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 
 const image = { uri: "../assets/onbording1.jpg" };
@@ -32,20 +32,20 @@ const Index = () => {
       <Pressable style={[styles.button, {backgroundColor: '#1E2242'}]} onPress={handleLoginWithHealthKeyPress}>
         <Text style={[styles.buttonText, {color: '#fff'}]}>Log in with Health Key</Text>
       </Pressable>
-      <Pressable style={styles.button} onPress={handleLoginWithHealthKeyPress}>
+      <Pressable style={styles.button} onPress={()=>router.push('/login')}>
         <Text style={styles.buttonText}>Log in with email</Text>
       </Pressable>
 
-      <Text style={styles.continueWith}>Continue with</Text>
+      {/* <Text style={styles.continueWith}>Continue with</Text> */}
 
-      <View style={styles.iconContainer}>
+      {/* <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => alert('Facebook')}>
           <Image source={require('../assets/facebook.png')} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => alert('Google')}>
           <Image source={require('../assets/google.png')} style={styles.icon} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <TouchableOpacity onPress={() => setRememberMe(!rememberMe)} style={styles.rememberMe}>
         <View>
@@ -58,7 +58,7 @@ const Index = () => {
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
           <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
-          {/* <Link href="/homeScreen" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
+          {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
         </TouchableOpacity>
       </View>
       </ScrollView>
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 30,
     marginVertical: 5,
+    marginTop: 15,
     gap: 10,
   },
   rememberMeText: {

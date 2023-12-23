@@ -17,8 +17,11 @@ const Comparison = () => {
                     <AntDesign name="arrowleft" size={28} color="white" />
                 </Text>
             </Pressable>
-            <View style={{ gap: 30, paddingRight: 20 }}>
-                <Text style={styles.headerText}>How do you compare?</Text>
+            <View style={{ gap: 30, paddingRight: 20, paddingBottom: 15 }}>
+                <View>
+                    <Text style={styles.headerText}>How do</Text>
+                    <Text style={styles.headerText}>you compare?</Text>
+                </View>
                 <View>
                     <Text style={styles.subheaderText}>This is how you compare</Text>
                     <Text style={styles.subheaderText}>with other people your age.</Text>
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign: 'right',
         lineHeight: 50,
-        marginLeft: width * 0.45,
+        // marginLeft: width * 0.45,
         fontFamily: "Regular"
     },
     subheaderText: {

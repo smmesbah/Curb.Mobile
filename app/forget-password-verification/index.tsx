@@ -1,13 +1,12 @@
-import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import OTPTextView from 'react-native-otp-textinput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { router } from 'expo-router';
 
 const { width, height } = Dimensions.get('screen');
 
-const EmailVerification = () => {
+const PasswordVerification = () => {
     const [code, setCode] = React.useState('');
 
     const handleChange = (code: string) => {
@@ -17,13 +16,12 @@ const EmailVerification = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Pressable onPress={()=>router.back()}>
-                    <View style={{ justifyContent: 'center' }}>
-                        <Text>
-                            <AntDesign name="arrowleft" size={28} color="black" />
-                        </Text>
-                    </View >
-                </Pressable>
+                <Link href='./signup' style={{ justifyContent: 'center' }}>
+                    <Text>
+                        <AntDesign name="arrowleft" size={28} color="black" />
+                    </Text>
+                </Link >
+
                 <View style={styles.curb}>
                     <Text style={styles.curbText}>curb</Text>
                     <View style={[styles.dot]} />
@@ -31,8 +29,9 @@ const EmailVerification = () => {
             </View>
 
             <View style={styles.signupTextSection}>
-                <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Verify your email</Text>
-                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>We sent a verification code to mesbah@recruit.so</Text>
+                <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Enter code</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>We sent a reset password code to
+                            rebeccasmith@google.com</Text>
             </View>
 
             <View style={{ backgroundColor: '#f3f2ee', gap: 20, marginVertical: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
@@ -64,7 +63,7 @@ const EmailVerification = () => {
             </View>
 
             <View style={styles.button}>
-                <Link href="/post-payment-onboarding/step-1" style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
+                <Link href="/reset-password" style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
                     Submit
                 </Link>
             </View>
@@ -79,7 +78,7 @@ const EmailVerification = () => {
     )
 }
 
-export default EmailVerification
+export default PasswordVerification
 
 const styles = StyleSheet.create({
     container: {
