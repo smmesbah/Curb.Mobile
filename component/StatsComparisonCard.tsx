@@ -17,7 +17,7 @@ const StatsComparisonCard: React.FC<StatsComparisonCardProps> = ({ headerText, S
             style={{
                 backgroundColor: '#eae8e2',
                 width: width * 0.8,
-                height: height * 0.2,
+                // height: height * 0.2,
                 paddingHorizontal: 50,
                 paddingVertical: 20,
                 gap: 10,

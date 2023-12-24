@@ -101,6 +101,9 @@ const WeeklyDrinkSummary = () => {
                             top: 15,
                             right: 15,
                         }}
+                        onPress={() => {
+                            router.push(`/post-payment-onboarding/${item.day}`)
+                        }}
                     >
                         <Feather
                             name="edit-2"
@@ -112,7 +115,7 @@ const WeeklyDrinkSummary = () => {
                         style={{
                             fontSize: 30,
                             fontWeight: '500',
-                            width: '20%',
+                            width: '25%',
                             fontFamily: "Regular"
                         }}
                     >
@@ -163,7 +166,7 @@ const WeeklyDrinkSummary = () => {
                             gap: 10
                         }}
                     >
-                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' , fontFamily: "Regular"}}>Go to next day</Text>
+                        <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400' , fontFamily: "Regular"}}>Next</Text>
                     </Pressable>
 
                 </View>
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 25,
         marginLeft: width * 0.08,
-        marginRight: width * 0.25,
+        // marginRight: width * 0.25,
         fontFamily: "Regular"
     }
 })

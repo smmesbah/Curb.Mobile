@@ -47,7 +47,7 @@ const Payment = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#f5f6f4'}}>
         <View style={Styles.container}>
             <View style={Styles.header_container}>
                 <TouchableOpacity onPress={()=>router.back()}>
@@ -108,11 +108,10 @@ export default Payment
 
 const Styles=StyleSheet.create({
     container: {
-        // marginTop: 30,
         justifyContent: 'center',
         alignItem: 'center',
         flexDirection: 'column',
-        backgroundColor: '#eae8e2',
+        backgroundColor: '#fff',
         paddingBottom: 20,
     },
     header_container:{
@@ -152,7 +151,7 @@ const Styles=StyleSheet.create({
         paddingHorizontal: 15,
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderRadius: 12,
+        borderRadius: 12312,
         borderWidth: 0.5,
         borderColor: '#b0b0b4',
         fontFamily: 'Regular',
@@ -162,13 +161,14 @@ const Styles=StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
+        backgroundColor: '#f5f6f4'
     }, 
     btn_container: {
         width: Width*.84,
         height: 52,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 12,
+        borderRadius: 12312,
         // backgroundColor: '#0D3F4A',
         paddingHorizontal: 6,
         paddingVertical: 2,

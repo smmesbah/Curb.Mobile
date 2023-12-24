@@ -1,12 +1,13 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions} from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
 import React from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { CheckedFilled } from 'components/icons/checkedFilled';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
-const windowWidth=Dimensions.get('screen').width;
-const windowHeight=Dimensions.get('screen').height;
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 
 const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
@@ -15,6 +16,7 @@ const Index = () => {
   }
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView style={{backgroundColor: 'white'}}>
       <ImageBackground source={require('../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
         <View style={styles.curb}>
           <Text style={styles.curbText}>curb</Text>
@@ -27,24 +29,27 @@ const Index = () => {
         </View>
       </ImageBackground>
 
-      <Pressable style={styles.button} onPress={handleLoginWithHealthKeyPress}>
-        <Text style={styles.buttonText}>Log in with Health Key</Text>
+      <Pressable style={[styles.button, {backgroundColor: '#1E2242'}]} onPress={handleLoginWithHealthKeyPress}>
+        <Text style={[styles.buttonText, {color: '#fff'}]}>Log in with Health Key</Text>
+      </Pressable>
+      <Pressable style={styles.button} onPress={()=>router.push('/login')}>
+        <Text style={styles.buttonText}>Log in with email</Text>
       </Pressable>
 
-      <Text style={styles.continueWith}>Continue with</Text>
+      {/* <Text style={styles.continueWith}>Continue with</Text> */}
 
-      <View style={styles.iconContainer}>
+      {/* <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => alert('Facebook')}>
           <Image source={require('../assets/facebook.png')} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => alert('Google')}>
           <Image source={require('../assets/google.png')} style={styles.icon} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <TouchableOpacity onPress={() => setRememberMe(!rememberMe)} style={styles.rememberMe}>
-        <View style={styles.radio}>
-          {rememberMe ? <View style={styles.radioBg}></View> : null}
+        <View>
+          {rememberMe ? <CheckedFilled/> : <View style={styles.radio}/>}
         </View>
         <Text style={styles.rememberMeText}>Remember me</Text>
       </TouchableOpacity>
@@ -52,16 +57,18 @@ const Index = () => {
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
-          {/* <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
-          <Link href="/email-verification" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     justifyContent: 'center',
     width: null,
-    height: "70%",
+    height: windowHeight*.7,
     marginHorizontal: 15,
     marginTop: 30,
     position: 'relative',
@@ -132,7 +139,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 25,
     marginHorizontal: 30,
-    marginVertical: 15,
+    marginTop: 15,
+    marginBottom: 5,
     padding: 10,
   },
   buttonText: {
@@ -162,8 +170,8 @@ const styles = StyleSheet.create({
     fontFamily: "Regular"
   },
   radio: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderColor: "#32ae9d",
     borderRadius: 50,
     borderWidth: 2,
@@ -184,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 30,
     marginVertical: 5,
+    marginTop: 15,
     gap: 10,
   },
   rememberMeText: {
@@ -197,6 +206,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 5,
     gap: 10,
+    marginBottom:15
   },
 });
 

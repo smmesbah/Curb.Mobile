@@ -17,14 +17,16 @@ const FeedbackAndSupport = () => {
     const [comment, setComment]=React.useState('');
     const [submitModal, setSubmitModal]=React.useState(false);
   return (
-    // <SafeAreaView style={{backgroundColor: '#ecedea'}}>
-        <ScrollView style={{backgroundColor: '#ecedea'}} contentContainerStyle={{height: '100%'}}>
+    <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+         {/* <ScrollView style={{backgroundColor: '#ecedea'}} contentContainerStyle={{height: '100%'}}> */}
             <View style={{flex: 1}}>
                 <View style={Styles.container}>
                     <View style={Styles.header_container}>
-                        <TouchableOpacity onPress={()=>router.back()}>
-                            <BackArrow/>
-                        </TouchableOpacity>
+                        <View>
+                            <TouchableOpacity onPress={()=>router.back()}>
+                                <BackArrow/>
+                            </TouchableOpacity>
+                        </View>
                         <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                             <Text style={Styles.header_text}>Feedback</Text>
                             <Text style={Styles.header_text}>and Support</Text>
@@ -34,17 +36,19 @@ const FeedbackAndSupport = () => {
                         <Text style={Styles.header_text2}>Lorem ipsum dolor sit amet consectetur. Platea vestibulum fringilla viverra nec purus. Laoreet.<QuestionIcon/></Text>
                     </View>
                 </View>
-                <View style={Styles.input_container}>
-                    <TextInput
-                            style={Styles.text_input}
-                            onChangeText={setComment}
-                            value={comment}
-                            placeholder='Write your comment here...'
-                            placeholderTextColor='#333533'
-                            textAlignVertical='top'
-                            multiline={true}
-                    />
-                </View>
+                <ScrollView>
+                    <View style={Styles.input_container}>
+                        <TextInput
+                                style={Styles.text_input}
+                                onChangeText={setComment}
+                                value={comment}
+                                placeholder='Write your comment here...'
+                                placeholderTextColor='#333533'
+                                textAlignVertical='top'
+                                multiline={true}
+                        />
+                    </View>
+                </ScrollView>
             </View>
             <HideWithKeyboard>
                 <View style={Styles.submit_portion}>
@@ -58,8 +62,8 @@ const FeedbackAndSupport = () => {
             <Modal visible={submitModal} transparent>
                 <FeedbackSubmittedModal submitModal={submitModal} setSubmitModal={setSubmitModal}/>
             </Modal>
-        </ScrollView>
-    // </SafeAreaView>
+         {/* </ScrollView> */}
+    </SafeAreaView>
   )
 }
 
@@ -67,7 +71,7 @@ export default FeedbackAndSupport
 
 const Styles=StyleSheet.create({
     container: {
-        paddingTop: 30,
+        // paddingTop: ,
         justifyContent: 'center',
         alignItem: 'center',
         flexDirection: 'column',
@@ -80,7 +84,7 @@ const Styles=StyleSheet.create({
         width: Width,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     header_text: {
         color: '#080D09',
@@ -88,7 +92,7 @@ const Styles=StyleSheet.create({
         fontSize: 28
     },
     header_text_area: {
-        marginTop: 50,
+        marginTop: Height*0.04,
         padding: 25,
     },
     header_text2: {
@@ -99,7 +103,7 @@ const Styles=StyleSheet.create({
         alignItems: 'center',
     }, 
     input_container: {
-        marginTop: 44,
+        marginTop: Height*0.04,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -119,7 +123,7 @@ const Styles=StyleSheet.create({
     submit_portion: {
         backgroundColor: '#fff',
         width: '100%',
-        paddingVertical: 26
+        paddingVertical: 20
     },
     submit_btn: {
         width: Width*0.85,

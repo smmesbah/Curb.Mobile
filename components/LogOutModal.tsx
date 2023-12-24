@@ -6,7 +6,12 @@ import LogOutModalIcon from './icons/LogOutModalIcon';
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const LogOutModal = ({logOutModal, setLogoutModal}) => {
+interface LogOutModalProps {
+    logOutModal: boolean; // Assuming it's a boolean indicating whether the modal is open or not
+    setLogoutModal: React.Dispatch<React.SetStateAction<boolean>>; // Assuming it's a function to set the modal state
+  }
+
+const LogOutModal: React.FC<LogOutModalProps> = ({logOutModal, setLogoutModal}) => {
     const scaleValue = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {

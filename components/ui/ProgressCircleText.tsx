@@ -1,11 +1,18 @@
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native'
 
-const ProgressCircleText = ({day, fullfilled}) => {
+interface ProgressCircleTextProps {
+    day: number,
+    fullfilled: boolean,
+}
+
+const ProgressCircleText: React.FC<ProgressCircleTextProps> = ({day, fullfilled}) => {
   return (
-        <View style={[Styles.container, {backgroundColor: fullfilled? '#0D3F4A': 'transparent'}]}>
-            <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>{day}</Text>
-            <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>Day</Text>
+        <View style={{marginTop: -7}}>
+            <View style={[Styles.container, {backgroundColor: fullfilled? '#0D3F4A': 'transparent'}]}>
+                <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>{day}</Text>
+                <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>Day</Text>
+            </View>
         </View>
   )
 }
@@ -18,7 +25,7 @@ const Styles = StyleSheet.create({
         width: 90,
         borderRadius: 90,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text_style: {
         marginTop: -5,

@@ -1,25 +1,34 @@
 import React, {useState} from 'react'
-import {Text, View, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import {Text, View, Image, StyleSheet, Dimensions, TouchableOpacity, Task} from 'react-native'
 import { CircleOutline } from './icons/CircleOutline';
 import { CheckedFilled } from './icons/checkedFilled';
 
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
 
-const TaskCard = ({title, description, imageUri, Width, focus}) => {
+interface TaskCardProps {
+    title: string,
+    description: string,
+    imageUri: any,
+    Width: number,
+    focus: string
+}
+
+
+const TaskCard: React.FC<TaskCardProps> = ({title, description, imageUri, Width, focus}) => {
 
     const [checked, setChecked] = useState(false);
 
     const handlePress =  () => {
-        !focus?setChecked(!checked): null;
+        (focus==='home')?setChecked(!checked): null;
         // alert("hello")
     }
 
   return (
     <View style={[styles.container, {width: width*Width}]}>
         <View>
-            <Image source={imageUri} resizeMode='cover' style={{height: height*0.13, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
-            {focus && <View
+            <Image source={imageUri} resizeMode='cover' style={{height: height*0.15, width: width*.21, borderBottomLeftRadius: 12, borderTopLeftRadius: 12}}/>
+            {focus==='upcoming' && <View
             style={styles.blur}
             />}
         </View>
@@ -29,11 +38,11 @@ const TaskCard = ({title, description, imageUri, Width, focus}) => {
             <View style={styles.task_completed}>
                  <Text style={{color: '#017F70', fontFamily: 'Regular', fontSize: 13}}>Task Completed</Text>
             </View>}
-            <Text style={[styles.title,{color: focus? '#69726b': '#080D09'}]}>{title}</Text>
-            <Text style={[styles.description,{color: focus? '#9ea29f': '#080D09'}]}>{description}</Text>
+            <Text style={[styles.title,{color: focus!=='upcoming'? '#080D09': '#69726b'}]}>{title}</Text>
+            <Text style={[styles.description,{color: focus!=='upcoming'? '#080D09': '#9ea29f'}]}>{description}</Text>
             </View>
             <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity onPress={handlePress}>
+            <TouchableOpacity onPress={handlePress} disabled={(focus==='upcoming' || focus==='previous')? true: false} >
                 {checked? <CheckedFilled/> : <CircleOutline/>}
             </TouchableOpacity>
             </View>
@@ -48,7 +57,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
         borderRadius: 12,
-        height: height*0.13,
+        height: height*0.15,
         // marginHorizontal: 20,
         // paddingHorizontal: 15,
         flexDirection: 'row',

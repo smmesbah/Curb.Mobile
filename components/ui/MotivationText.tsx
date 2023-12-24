@@ -8,11 +8,18 @@ import CancelIcon from 'components/icons/CancelIcon';
 const windowHeight=Dimensions.get('screen').height;
 const windowWidth=Dimensions.get('screen').width;
 
-const MotivationText = ({Data, id, itemtext, onChangeText}) => {
+interface MotivationTextProps {
+    Data: any,
+    id: number,
+    itemtext: string,
+    onChangeText: any
+}
+
+const MotivationText: React.FC<MotivationTextProps> = ({Data, id, itemtext, onChangeText}) => {
     const [text, EditText]=React.useState('');
     const [editOpen, setEditOpen]=React.useState(false);
 
-    const handleOnChangeText = (text) => {
+    const handleOnChangeText = (text: string) => {
         onChangeText(text)
         EditText(text);
     }
@@ -20,7 +27,7 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
     const handleSubmit=()=>{
         // if(editOpen){
             setEditOpen(!editOpen);
-            Data.map((item) => {
+            Data.map((item: any) => {
                 if(item.id===id){
                     item.Answer=text;
                 }
@@ -29,8 +36,8 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
         // }
     }
 
-    const answer = Data.filter(item => item.id===id)[0].Answer;
-    const question = Data.filter(item => item.id===id)[0].Question;
+    const answer = Data.filter((item: any) => item.id===id)[0].Answer;
+    const question = Data.filter((item: any) => item.id===id)[0].Question;
     console.log('answer', answer);
 
   return (
@@ -69,7 +76,7 @@ const MotivationText = ({Data, id, itemtext, onChangeText}) => {
       <Text style={styles.swipe}>* Swipe left to see more goals</Text>
       {editOpen || answer===''?
         <View style={{flexDirection: 'row', gap: 7}}>
-            <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><CancelIcon/></TouchableOpacity>
+            {text!=='' && <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><CancelIcon/></TouchableOpacity>}
             <TouchableOpacity onPress={()=>handleSubmit()}><SubmitIcon/></TouchableOpacity>
         </View> :
         <TouchableOpacity onPress={()=>setEditOpen(!editOpen)}><EditIcon/></TouchableOpacity>

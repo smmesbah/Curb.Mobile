@@ -15,15 +15,16 @@ const EditProfile = () => {
     const [email, setEmail]=React.useState('');
     const [name, setName]=React.useState('');
   return (
-    // <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+    <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
+        <View style={Styles.header_container}>
+            <TouchableOpacity onPress={()=>router.back()}>
+                <BackArrow/>
+            </TouchableOpacity>
+            <Text style={Styles.header_text}>Edit Profile</Text>
+        </View>
         <ScrollView style={{backgroundColor: '#ecedea'}}>
             <View style={Styles.container}>
-                <View style={Styles.header_container}>
-                    <TouchableOpacity onPress={()=>router.back()}>
-                        <BackArrow/>
-                    </TouchableOpacity>
-                    <Text style={Styles.header_text}>Edit Profile</Text>
-                </View>
+                
                 <View style={[Styles.text_container, {marginTop: 50}]}>
                     <View style={[Styles.circle, {backgroundColor: '#33AE9C'}]}/>
                     <Text style={Styles.text_style1}>Full Name</Text>
@@ -68,7 +69,7 @@ const EditProfile = () => {
             </TouchableOpacity>
             
         </ScrollView>
-    // </SafeAreaView>
+     </SafeAreaView>
   )
 }
 
@@ -87,6 +88,8 @@ const Styles=StyleSheet.create({
     },
     header_container:{
         paddingTop: 25,
+        // paddingBottom: 15,
+        backgroundColor: '#fff',
         paddingHorizontal: 20,
         width: Width,
         flexDirection: 'row',

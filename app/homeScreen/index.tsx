@@ -14,8 +14,8 @@ import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
 
-const windowWidth=Dimensions.get('screen').width;
-const windowHeight=Dimensions.get('screen').height;
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 const dummyValues=[
     {
         title: 'Play Basketball',
@@ -28,7 +28,6 @@ const Home = () => {
 
     const [keyboardOpen, setKeyboardOpen] = useState(false);
     const [calandermodalOpen, setCalanderModalOpen] = useState(false);
-    const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -58,7 +57,7 @@ const Home = () => {
       automaticallyAdjustContentInsets={false}
       automaticallyAdjustKeyboardInsets={false}
       >
-        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200: 10}}>
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: keyboardOpen? -200:  10}}>
           <LinearGradient
           colors={['#377C8B', '#0D3F4A', '#0D3F4A' ]}
           locations={[0.0, 0.2, 0.6]}
@@ -104,7 +103,7 @@ const Home = () => {
                           description={item.Description}
                           imageUri={item.imageUri}
                           Width={0.83}
-                          focus={false}
+                          focus='home'
                       />
                 )}
               </View>
@@ -126,14 +125,14 @@ const Home = () => {
             )}
           </LinearGradient>   
         </View>
+        
         <MotivationWidget/>
-        {/* <TouchableOpacity onPress={()=>navigation.navigate("WeekDrinking")}>
-          <Text>Onboarding</Text>
-        </TouchableOpacity> */}
         <Modal visible={calandermodalOpen} transparent>
             <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
         </Modal>
+        <View style={{height: windowHeight*0.15}}></View>
       </ScrollView>
+
     </SafeAreaView>
     
   )

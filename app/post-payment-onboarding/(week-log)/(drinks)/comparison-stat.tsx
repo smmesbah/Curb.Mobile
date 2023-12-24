@@ -17,6 +17,16 @@ const Comparison = () => {
                     <AntDesign name="arrowleft" size={28} color="white" />
                 </Text>
             </Pressable>
+            <View style={{ gap: 30, paddingRight: 20, paddingBottom: 15 }}>
+                <View>
+                    <Text style={styles.headerText}>How do</Text>
+                    <Text style={styles.headerText}>you compare?</Text>
+                </View>
+                <View>
+                    <Text style={styles.subheaderText}>This is how you compare</Text>
+                    <Text style={styles.subheaderText}>with other people your age.</Text>
+                </View>
+            </View>
             <ScrollView
                 style={{
                     paddingBottom: 30,
@@ -27,13 +37,7 @@ const Comparison = () => {
                         marginRight: 20,
                     }}
                 >
-                    <View style={{ gap: 30 }}>
-                        <Text style={styles.headerText}>How do you compare?</Text>
-                        <View>
-                            <Text style={styles.subheaderText}>This is how you compare</Text>
-                            <Text style={styles.subheaderText}>with other people your age.</Text>
-                        </View>
-                    </View>
+                    
                 </View>
 
                 <View
@@ -132,7 +136,7 @@ const Comparison = () => {
                     </View>
                 </View>
 
-                <Text style={{fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular"}}>Sources: Curb</Text>
+                <Text style={{fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular", marginBottom: 5}}>*Sources:</Text>
             </ScrollView>
             <View
                 style={{
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign: 'right',
         lineHeight: 50,
-        marginLeft: width * 0.45,
+        // marginLeft: width * 0.45,
         fontFamily: "Regular"
     },
     subheaderText: {

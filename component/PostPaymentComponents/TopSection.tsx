@@ -21,6 +21,7 @@ export default TopSection
 
 const styles = StyleSheet.create({
     headerText: {
+        // textAlign: 'right',
         fontSize: 40,
         fontWeight: '500',
         lineHeight: 50,

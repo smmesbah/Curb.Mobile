@@ -1,5 +1,5 @@
 import { Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { router, useGlobalSearchParams, useLocalSearchParams, useRouter } from 'expo-router';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
@@ -11,13 +11,16 @@ import WineFizzForm from 'component/WineFizzForm';
 
 import { DrinkDetails } from 'redux/reducers/drinkReducer';
 import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addSelectedDay, removeSelectedDay } from 'redux/actions/selectedDaysActions';
 
 const { width, height } = Dimensions.get('screen');
 
 const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) => {
+    const dispatch=useDispatch();
     const drinks = useSelector((state: any) => state.drink);
-    const { day, drink } = useLocalSearchParams();
+    const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
+    const { day, drink } = useGlobalSearchParams();
     const [addingDrink, setAddingDrink] = React.useState<string | null>();
     const [dayTrack, setDayTrack] = React.useState<any>([
         { value: 'Monday', isSelected: false },
@@ -31,6 +34,9 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
 
     React.useEffect(() => {
         // console.log(addingDrink);
+        
+        // setLength(selectedDays.length);
+        // console.log(selectedDays.length);
         const dayIndex = dayTrack.findIndex((item: any) => item.value === day);
         if (dayIndex !== -1) {
             const updatedDayTrack = [...dayTrack];
@@ -70,19 +76,32 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
     const handleGoToNextDayPress = () => {
         setAddingDrink(null);
         // Find the next day that is not selected
-        const nextDay = dayTrack.find((item: any) => !item.isSelected);
+        // const nextDay=selectedDays[1]
+        let days = selectedDays[0];
+        // console.log(day);
+        dispatch(removeSelectedDay(days))
 
-        if (nextDay) {
-            const nextDayValue = nextDay.value;
-            router.push(`/post-payment-onboarding/${nextDayValue}`);
-        } else {
+        // const nextDay=selectedDays[0]
+        // const nextDay = dayTrack.find((item: any) => !item.isSelected);
+        if (selectedDays[1] !== undefined) {
+            // const nextDayValue = nextDay.value;
+            router.push(`/post-payment-onboarding/${selectedDays[1]}`);
+        }
+        else if(day==='Log-Drink'){
+            router.push('/checkInScreen/Records');
+        }
+        else{
+            router.push('/post-payment-onboarding/weekly-drink-summary');
             // Check if all days are selected
-            const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
-            if (allDaysSelected) {
-                router.push('/post-payment-onboarding/weekly-drink-summary');
-            }
+            // const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
+            // if (selectedDays.length===0) {
+                
+            // }
         }
     }
+
+
+    
 
     return (
         <SafeAreaView style={styles.container}>

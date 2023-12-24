@@ -17,7 +17,7 @@ const Goals = () => {
         { id: 1, value: 'Feel healthier' },
         { id: 2, value: 'Save money' },
         { id: 3, value: 'Improve my relationships' },
-        { id: 4, value: 'Icrease productivity' },
+        { id: 4, value: 'Increase productivity' },
         { id: 5, value: 'Live longer' },
         { id: 6, value: 'Sleep better' },
         { id: 7, value: 'Improve how I look' },
@@ -25,12 +25,6 @@ const Goals = () => {
         { id: 9, value: 'Improve my mood' },
         { id: 10, value: 'Avoid hangovers' },
         { id: 11, value: 'Prefer not to say' },
-        { id: 12, value: 'Prefer not to say' },
-        { id: 13, value: 'Prefer not to say' },
-        { id: 14, value: 'Prefer not to say' },
-        { id: 15, value: 'Prefer not to say' },
-        { id: 16, value: 'Prefer not to say' },
-        { id: 17, value: 'Prefer not to say' },
     ]
 
     const [selectedItems, setSelectedItems] = React.useState<Goal[]>([]);

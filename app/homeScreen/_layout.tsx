@@ -1,19 +1,23 @@
-import { Pressable, StyleSheet, Text, View, Image, ImageBackground, Dimensions } from 'react-native'
+import { Pressable, StyleSheet, Text, View, Image, ImageBackground, Dimensions, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
 import React from 'react'
 import { Slot, router } from 'expo-router'
 import Feather from 'react-native-vector-icons/Feather';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
-const windowWidth=Dimensions.get('screen').width;
-const windowHeight=Dimensions.get('screen').height;
+const windowWidth=Dimensions.get('window').width;
+const windowHeight=Dimensions.get('window').height;
 
 const Layout = () => {
   const[focused, setFocused]=React.useState('home');
   return (
     <>
       <Slot/>
+      <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
+      {/* @ts-ignore */}
+      <HideWithKeyboard style={{flex: 1}}>
       <ImageBackground 
           source={require('../../assets/images/NavigationBar.png')}
-          style={{position: 'absolute', width: '100%',height: windowHeight*.1, top: windowHeight*0.9}}
+          style={{ width: '100%',}}
           resizeMode='cover'
         >
       <View
@@ -23,7 +27,7 @@ const Layout = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-            top: windowHeight*0.1-75
+            // top: windowHeight*0.1-75
         }}
       >
         
@@ -49,8 +53,9 @@ const Layout = () => {
         </Pressable>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Pressable
+            onPress={() => {router.push('/checkInScreen')}}
             style={{
-                top: -20,
+                top: -1*windowHeight*0.02,
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: 70,
@@ -93,8 +98,10 @@ const Layout = () => {
             </View>
         </Pressable>
         
-      </View>
-      </ImageBackground>
+        </View>
+        </ImageBackground>
+        </HideWithKeyboard>
+        </View>
     </>
   )
 }

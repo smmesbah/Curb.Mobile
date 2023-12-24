@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Medium',
         color: '#fff',
         letterSpacing: -0.16,
-        marginTop: windowWidth*.13,
+        marginTop: windowWidth*.11,
         marginBottom: 13
     }, 
     curb_logo: {
