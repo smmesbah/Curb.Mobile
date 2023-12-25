@@ -2,6 +2,8 @@ import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 
 import React, { useImperativeHandle, useRef } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import RadioButtonRound from './ui/RadioButtonRound'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 
 import { useDispatch } from 'react-redux'
@@ -12,7 +14,7 @@ const { width, height } = Dimensions.get('screen');
 
 const BeerCiderForm = React.forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
-        handleAddDrinkPress() {
+       async handleAddDrinkPress() {
             const drink = {
                 day: Array.isArray(day) || day === undefined ? '' : day,
                 drinks: {
@@ -22,6 +24,22 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                 }
             }
             dispatch(addDrink(drink));
+
+            const token=await AsyncStorage.getItem('token');
+            const weekly_drink={
+                token: token,
+                day: day,
+                drinkType: "BEER_CIDER",
+                drinkName: beerCiderType,
+                drinkVolume: value,
+                drinkQuantity: drinkCount
+            }
+            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
+            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
+            const data= await response.json();
+                if(!data.success){
+                    alert(data.message)
+                }
         }
     }));
 
@@ -42,6 +60,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
         { label: 'Can', value: 'can' }
     ]);
     const [drinkCount, setDrinkCount] = React.useState<number>(0);
+
     return (
         <View
             style={{

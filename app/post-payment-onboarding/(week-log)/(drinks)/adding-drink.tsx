@@ -13,6 +13,7 @@ import { DrinkDetails } from 'redux/reducers/drinkReducer';
 import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { addSelectedDay, removeSelectedDay } from 'redux/actions/selectedDaysActions';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('screen');
 
@@ -61,7 +62,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
     const spiritsShotsFormRef = useRef<any>();
     const wineFizzFormRef = useRef<any>();
 
-    const handleAddDrinkPress = () => {
+    const handleAddDrinkPress = async() => {
         setAddingDrink(null);
 
         if (addingDrink === 'beer-cider') {

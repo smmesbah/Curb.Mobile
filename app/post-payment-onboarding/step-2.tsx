@@ -4,6 +4,7 @@ import { Link, router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import TopSection from 'component/PostPaymentComponents/TopSection'
 import CustomSelect from 'component/ui/CustomSelect'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('screen');
 
@@ -38,6 +39,25 @@ const Goals = () => {
             setSelectedItems([...selectedItems, item]);
         }
     };
+
+    const handleNext = async() => {
+        const token=await AsyncStorage.getItem('token');
+
+        const userGoals = {
+            token: token,
+            goals: selectedItems.map(item => item.value)
+        }
+        console.log(userGoals)
+        const apiUrl="http://localhost:8000/api/v1/onboarding/user-goals"
+        const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(userGoals)});
+        const data= await response.json();
+        if(!data.success){
+            alert(data.message)
+        }
+        else{
+            router.push('/post-payment-onboarding/step-3')
+        }
+    }
 
     React.useEffect(() => {
         console.log('Selected Items:', selectedItems.map(item => item.value));
@@ -86,12 +106,13 @@ const Goals = () => {
                             ))}
                         </View>
                     </View>
-
-                    <View style={styles.button}>
-                        <Link href="/post-payment-onboarding/step-3" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-                            Next
-                        </Link>
-                    </View>
+                    <Pressable onPress={handleNext}>
+                        <View style={styles.button}>
+                            <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
+                                Next
+                            </Text>
+                        </View>
+                    </Pressable>
                 </ScrollView>
             </View>
         </SafeAreaView>

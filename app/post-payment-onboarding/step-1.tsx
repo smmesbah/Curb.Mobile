@@ -5,6 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import TopSection from 'component/PostPaymentComponents/TopSection'
 import { Slider } from '@miblanchard/react-native-slider'
 import RadioButton from 'component/ui/RadioButton'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const { width, height } = Dimensions.get('screen');
@@ -18,6 +19,7 @@ const CustomMarker = () => {
 const PostPaymentStep1 = () => {
     const [gender, setGender] = React.useState<string | null>(null);
     const [postcode, setPostcode] = React.useState<string | undefined>('');
+    const [value, setValue]=React.useState(0);
     const data = [
         {
             // id: 3,
@@ -32,6 +34,29 @@ const PostPaymentStep1 = () => {
             value: 'Prefer not to say'
         }
     ]
+
+    const handleNext =async () => {
+        const token=await AsyncStorage.getItem('token');
+        const ageRange=value===0?"AGE_16_24":value===1?"AGE_25_34":"AGE_35_44";
+        const Gender=gender==="Male"?"MALE":gender==='Female'?"FEMALE":"OTHER"
+
+        const user_metadata={
+            token: token,
+            ageRange: ageRange,
+            gender: Gender,
+            postcode: postcode
+        }
+
+        const apiUrl="http://localhost:8000/api/v1/onboarding/user-metadata"
+        const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user_metadata)});
+        const data= await response.json();
+        if(!data.success){
+            alert(data.message)
+        }
+        else{
+            router.push('/post-payment-onboarding/step-2')
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -85,6 +110,7 @@ const PostPaymentStep1 = () => {
                                 borderColor: '#e64627',
                                 borderRadius: 50,
                             }}
+                            onValueChange={(value)=>setValue(value[0])}
                         />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -145,12 +171,13 @@ const PostPaymentStep1 = () => {
                         placeholder='e.g. NW1'
                     />
                 </View>
-
-                <View style={styles.button}>
-                    <Link href="/post-payment-onboarding/step-2" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-                        Next
-                    </Link>
-                </View>
+                <Pressable onPress={handleNext}>
+                    <View style={styles.button}>
+                        <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
+                            Next
+                        </Text>
+                    </View>
+                </Pressable>
 
                 <Link href='./' style={{textAlign: 'center', fontSize: 14, fontFamily: "Regular"}}>Why do you need this information?</Link>
             </ScrollView>
