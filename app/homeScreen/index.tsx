@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView, Pressable } from 'react-native'
 import React, {useState, useEffect} from 'react'
+=======
+import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+>>>>>>> 63696c9 (Add Today's Task API calls)
 import Styles from './Home.style';
 import DrinkFreeDays from 'components/DrinkFreeDays';
 import CaloriesAvoidedWidget from 'components/CaloriesAvoidedWidget';
@@ -13,7 +18,10 @@ import { CalendarIcon } from 'components/icons/CalendarIcon';
 import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
+<<<<<<< HEAD
 import AsyncStorage from '@react-native-async-storage/async-storage';
+=======
+>>>>>>> 63696c9 (Add Today's Task API calls)
 import axios from 'axios';
 
 interface taskMetaData {
