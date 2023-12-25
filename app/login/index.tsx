@@ -14,6 +14,27 @@ const Login = () => {
   const [optIn, setOptIn] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const handleLogin = async() => {
+    const user={
+      email: email,
+      password: password
+    }
+    try{
+      const apiUrl='http://localhost:8000/api/v1/auth/login';
+      const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
+      const data= await response.json();
+      if(!data.success){
+        console.log(data.message)
+        alert(data.message)
+      }
+      else{
+        console.log(data.token)
+        // router.push(`/homeScreen`)
+      }
+    }catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +75,7 @@ const Login = () => {
                   fontFamily: "Regular"
                 }
               }
-              onChangeText={setEmail}
+              onChangeText={(text)=>setEmail(text.toLowerCase())}
               value={email}
               placeholder='Enter Email Address'
             />
@@ -111,12 +132,15 @@ const Login = () => {
         </View>
 
         
-
-        <View style={styles.button}>
-          <Link href="/homeScreen" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-            Login
-          </Link>
-        </View>
+        <Pressable onPress={handleLogin}>
+          <View style={styles.button}>
+            
+              <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
+                Login
+              </Text>
+            
+          </View>
+        </Pressable>
 
         <View style={styles.alreadyHaveAnAccount}>
           <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Don't have an account?</Text>

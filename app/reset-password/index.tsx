@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Link, router, useLocalSearchParams } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
@@ -8,6 +8,7 @@ import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
 const { width, height } = Dimensions.get('screen');
 
 const ResetPassword = () => {
+  const userEmail=useLocalSearchParams();
   const [email, setEmail] = React.useState('');
   const [newpassword, setNewPassword] = React.useState('');
   const [confirmpassword, setConfirmPassword] = React.useState('');
@@ -15,16 +16,41 @@ const ResetPassword = () => {
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
+  React.useEffect(() => {
+    console.log(userEmail);
+  }, [])
+
+  const handleResetPassword = async() => {
+    if(newpassword===confirmpassword){
+      try{
+        const apiUrl=`http://localhost:8000/api/v1/auth/reset-password`;
+        const response=await fetch(apiUrl, {method: 'PUT',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: userEmail.email, password: newpassword})});
+        const data= await response.json();
+        if(!data.success){
+            alert(data.message)
+        }
+        else{
+            // console.log(data.message);
+            router.push('/login')
+        }
+        
+    }catch(err) {
+        console.log(err);
+    }
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <Link href='./step-4' style={{ justifyContent: 'center' }}>
-            <Text>
-              <AntDesign name="arrowleft" size={28} color="black" />
-            </Text>
-          </Link >
+          <Pressable onPress={()=>router.back()}>
+            <View style={{ justifyContent: 'center' }}>
+              <Text>
+                <AntDesign name="arrowleft" size={28} color="black" />
+              </Text>
+            </View >
+          </Pressable>
 
           <View style={styles.curb}>
             <Text style={styles.curbText}>curb</Text>
@@ -111,12 +137,13 @@ const ResetPassword = () => {
           </View>
         </View>
         
-
-        <View style={styles.button}>
-          <Link href="/login" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-            Reset password
-          </Link>
-        </View>
+        <Pressable onPress={handleResetPassword}>
+          <View style={styles.button}>
+            <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
+              Reset password
+            </Text>
+          </View>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   )

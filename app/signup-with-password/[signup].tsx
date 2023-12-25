@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
-import React from 'react'
-import { Link, router } from 'expo-router'
+import React, { useEffect } from 'react'
+import { Link, router, useGlobalSearchParams } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
@@ -18,29 +18,50 @@ const Signup = () => {
   const [password, setPassword] = React.useState('');
 
   const dispatch = useDispatch();
+  const Data=useGlobalSearchParams();
 
   const handleSignup = async() => {
-    try{
-      if(email) {
-      const apiUrl='http://localhost:8000/api/v1/auth/signup';
-      const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email})});
-      const data= await response.json();
-      if(!data.success){
-        alert(data.message)
+    if(password.length>8 && termsCondition && optIn && research){
+      const user={
+        name: fullName,
+        email: Data.signup,
+        password: password
       }
-      else{
-        console.log(data.message);
-        router.push(`/email-verification/${email.toString()}`)
+
+      try{
+        if(fullName && password) {
+          console.log(user)
+        const apiUrl='http://localhost:8000/api/v1/auth/create-user';
+        const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
+        const data= await response.json();
+        if(!data.success){
+          alert(data.message)
+        }
+        else{
+          console.log(data);
+          router.push(`/login`)
+        }
+        
+        }
+        else{
+          alert('Please enter all the details');
+        }
+      }catch(err) {
+        console.log(err);
       }
-      
-      }
-      else{
-        alert('Please enter email address');
-      }
-    }catch(err) {
-      console.log(err);
+    }
+    else if(password.length<8){
+      alert('Password must be of 8 characters');
+    }
+    else if(!termsCondition || !optIn || !research){
+      alert('Please agree to all the terms and conditions');
     }
   }
+
+  useEffect(() => {
+    console.log('email', Data.signup);
+    console.log('code', );
+  })
 
 
   return (
@@ -66,7 +87,7 @@ const Signup = () => {
         </View>
 
         <View style={{ marginVertical: 40 }}>
-          {/* <View style={{ backgroundColor: '#f9f8f7', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+          <View style={{ backgroundColor: '#f9f8f7', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
               <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
@@ -87,34 +108,9 @@ const Signup = () => {
               value={fullName}
               placeholder='Enter Full Name'
             />
-          </View> */}
-
-          <View style={{ backgroundColor: '#f3f1ef', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
-            <View style={{ flexDirection: 'row', gap: 20 }}>
-              <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-              <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Email address</Text>
-            </View>
-            <TextInput
-              style={
-                {
-                  height: 50,
-                  borderWidth: 1,
-                  padding: 10,
-                  borderRadius: 8,
-                  backgroundColor: '#fff',
-                  fontFamily: "Regular"
-                }
-              }
-              onChangeText={(text)=>setEmail(text.toLowerCase())}
-              value={email}
-              placeholder='Enter email address'
-              autoComplete='email'
-              autoCapitalize='none'
-              keyboardType='email-address'
-            />
           </View>
 
-          {/* <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+          <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
               <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Password</Text>
@@ -148,10 +144,10 @@ const Signup = () => {
             </Pressable>
             </View>
             
-          </View> */}
+          </View>
         </View>
 
-        {/* <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
+        <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => setTermsCondition(!termsCondition)} style={styles.rememberMe}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               {termsCondition ? <CheckedFilled/> : <View style={styles.radio}/>}
@@ -175,7 +171,7 @@ const Signup = () => {
             </View>
             <Text style={styles.rememberMeText}>Join our research group <Link href='/involve' style={{color: '#5B4AFF'}}>(What does this involve?)</Link></Text>
           </TouchableOpacity>
-        </View> */}
+        </View>
 
         
 

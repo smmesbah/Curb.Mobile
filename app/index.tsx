@@ -29,35 +29,15 @@ const Index = () => {
         </View>
       </ImageBackground>
 
-      <Pressable style={[styles.button, {backgroundColor: '#1E2242'}]} onPress={handleLoginWithHealthKeyPress}>
-        <Text style={[styles.buttonText, {color: '#fff'}]}>Log in with Health Key</Text>
-      </Pressable>
       <Pressable style={styles.button} onPress={()=>router.push('/login')}>
         <Text style={styles.buttonText}>Log in with email</Text>
       </Pressable>
 
-      {/* <Text style={styles.continueWith}>Continue with</Text> */}
-
-      {/* <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={() => alert('Facebook')}>
-          <Image source={require('../assets/facebook.png')} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Google')}>
-          <Image source={require('../assets/google.png')} style={styles.icon} />
-        </TouchableOpacity>
-      </View> */}
-
-      <TouchableOpacity onPress={() => setRememberMe(!rememberMe)} style={styles.rememberMe}>
-        <View>
-          {rememberMe ? <CheckedFilled/> : <View style={styles.radio}/>}
-        </View>
-        <Text style={styles.rememberMeText}>Remember me</Text>
-      </TouchableOpacity>
 
       <View style={styles.dontHaveAccount}>
         <Text style={styles.rememberMeText}>Don't have an account? </Text>
         <TouchableOpacity>
-          <Link href="step-1" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link>
+          <Link href="step-1" style={[styles.rememberMeText, {color: '#5B4AFF'}]}>Sign Up here</Link>
           {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
         </TouchableOpacity>
       </View>
@@ -139,7 +119,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 25,
     marginHorizontal: 30,
-    marginTop: 15,
+    marginTop: 25,
     marginBottom: 5,
     padding: 10,
   },
@@ -197,14 +177,14 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     fontSize: 18,
-    fontFamily: "Regular"
+    fontFamily: "Regular", 
   },
   dontHaveAccount: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 30,
-    marginVertical: 5,
+    marginVertical: 15,
     gap: 10,
     marginBottom:15
   },
