@@ -4,7 +4,8 @@ import { Link } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
-import { router } from 'expo-router'
+import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -28,8 +29,12 @@ const Login = () => {
         alert(data.message)
       }
       else{
-        console.log(data.token)
-        // router.push(`/homeScreen`)
+        console.log("jwt token",data.token)
+        await AsyncStorage.setItem('token', data.token);
+        // const value=await AsyncStorage.getItem('token');
+        // console.log("jwt token",value)
+        // console.log("decoded",data.decoded);
+        router.push(`/homeScreen`)
       }
     }catch(err) {
       console.log(err);

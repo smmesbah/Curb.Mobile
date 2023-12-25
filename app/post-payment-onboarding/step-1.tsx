@@ -88,9 +88,9 @@ const PostPaymentStep1 = () => {
                         />
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{ fontSize: 18, marginRight: 20, fontFamily: "Regular" }}>18-29</Text>
-                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>30-49</Text>
-                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Over 50</Text>
+                            <Text style={{ fontSize: 18, marginRight: 20, fontFamily: "Regular" }}>16-24</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>25-34</Text>
+                            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Over 35</Text>
                         </View>
                     </View>
                 </View>
