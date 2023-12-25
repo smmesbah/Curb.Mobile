@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView, Pressable } from 'react-native'
 import React, {useState, useEffect} from 'react'
-=======
-import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native'
-import React, { useState, useEffect } from 'react'
->>>>>>> 63696c9 (Add Today's Task API calls)
 import Styles from './Home.style';
 import DrinkFreeDays from 'components/DrinkFreeDays';
 import CaloriesAvoidedWidget from 'components/CaloriesAvoidedWidget';
@@ -18,11 +13,8 @@ import { CalendarIcon } from 'components/icons/CalendarIcon';
 import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
-<<<<<<< HEAD
 import AsyncStorage from '@react-native-async-storage/async-storage';
-=======
 import axios from 'axios';
->>>>>>> 63696c9 (Add Today's Task API calls)
 
 interface taskMetaData {
   id: number,
@@ -46,22 +38,9 @@ const dummyValues = [
 
 const Home = () => {
 
-<<<<<<< HEAD
-    const [keyboardOpen, setKeyboardOpen] = useState(false);
-    const [calandermodalOpen, setCalanderModalOpen] = useState(false);
-    // const handleSecret = async() => {
-    //   const value=await AsyncStorage.getItem('token');
-    //   console.log(value)
-    //   const apiUrl=`http://localhost:8000/api/v1/auth/jwt-decode/${value}`;
-    //     const response=await fetch(apiUrl, {method: 'GET'});
-    //     const data=await response.json()
-    //     console.log(data)
-    // }
-=======
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [calandermodalOpen, setCalanderModalOpen] = useState(false);
   const [task, setTask] = useState<taskMetaData>();
->>>>>>> 63696c9 (Add Today's Task API calls)
 
   useEffect(() => {
     fetchThisWeekTasks();
@@ -180,16 +159,8 @@ const Home = () => {
             )}
           </LinearGradient>
         </View>
-<<<<<<< HEAD
-        
-        <MotivationWidget/>
-        {/* <Pressable onPress={handleSecret}>
-          <Text>secret</Text>
-        </Pressable> */}
-=======
 
         <MotivationWidget />
->>>>>>> 63696c9 (Add Today's Task API calls)
         <Modal visible={calandermodalOpen} transparent>
           <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen} />
         </Modal>
