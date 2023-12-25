@@ -1,4 +1,4 @@
-import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, Image, Keyboard, Platform, Dimensions, Modal, TouchableOpacity, Alert, ScrollView, SafeAreaView, Pressable } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Styles from './Home.style';
 import DrinkFreeDays from 'components/DrinkFreeDays';
@@ -13,6 +13,7 @@ import { CalendarIcon } from 'components/icons/CalendarIcon';
 import MyProfile from 'app/myProfileScreen/MyProfile';
 import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth=Dimensions.get('window').width;
 const windowHeight=Dimensions.get('window').height;
@@ -24,10 +25,19 @@ const dummyValues=[
     }
 ]
 
+
 const Home = () => {
 
     const [keyboardOpen, setKeyboardOpen] = useState(false);
     const [calandermodalOpen, setCalanderModalOpen] = useState(false);
+    // const handleSecret = async() => {
+    //   const value=await AsyncStorage.getItem('token');
+    //   console.log(value)
+    //   const apiUrl=`http://localhost:8000/api/v1/auth/jwt-decode/${value}`;
+    //     const response=await fetch(apiUrl, {method: 'GET'});
+    //     const data=await response.json()
+    //     console.log(data)
+    // }
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -127,6 +137,9 @@ const Home = () => {
         </View>
         
         <MotivationWidget/>
+        {/* <Pressable onPress={handleSecret}>
+          <Text>secret</Text>
+        </Pressable> */}
         <Modal visible={calandermodalOpen} transparent>
             <CalenderModal calandermodalOpen={calandermodalOpen} setCalanderModalOpen={setCalanderModalOpen}/>
         </Modal>

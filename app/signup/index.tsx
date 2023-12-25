@@ -4,6 +4,7 @@ import { Link, router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
+import { useDispatch, useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -15,6 +16,31 @@ const Signup = () => {
   const [research, setResearch] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = React.useState('');
+
+  const dispatch = useDispatch();
+
+  const handleSignup = async() => {
+    try{
+      if(email) {
+      const apiUrl='http://localhost:8000/api/v1/auth/signup';
+      const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email})});
+      const data= await response.json();
+      if(!data.success){
+        alert(data.message)
+      }
+      else{
+        console.log(data.message);
+        router.push(`/email-verification/${email.toString()}`)
+      }
+      
+      }
+      else{
+        alert('Please enter email address');
+      }
+    }catch(err) {
+      console.log(err);
+    }
+  }
 
 
   return (
@@ -39,8 +65,8 @@ const Signup = () => {
           <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Please enter your details to continue.</Text>
         </View>
 
-        <View style={{ marginVertical: 20 }}>
-          <View style={{ backgroundColor: '#f9f8f7', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+        <View style={{ marginVertical: 40 }}>
+          {/* <View style={{ backgroundColor: '#f9f8f7', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
               <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
@@ -61,7 +87,7 @@ const Signup = () => {
               value={fullName}
               placeholder='Enter Full Name'
             />
-          </View>
+          </View> */}
 
           <View style={{ backgroundColor: '#f3f1ef', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
@@ -79,14 +105,16 @@ const Signup = () => {
                   fontFamily: "Regular"
                 }
               }
-              onChangeText={setEmail}
+              onChangeText={(text)=>setEmail(text.toLowerCase())}
               value={email}
               placeholder='Enter email address'
               autoComplete='email'
+              autoCapitalize='none'
+              keyboardType='email-address'
             />
           </View>
 
-          <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+          {/* <View style={{ backgroundColor: '#eae8e2', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
               <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Password</Text>
@@ -120,10 +148,10 @@ const Signup = () => {
             </Pressable>
             </View>
             
-          </View>
+          </View> */}
         </View>
 
-        <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
+        {/* <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => setTermsCondition(!termsCondition)} style={styles.rememberMe}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               {termsCondition ? <CheckedFilled/> : <View style={styles.radio}/>}
@@ -147,19 +175,21 @@ const Signup = () => {
             </View>
             <Text style={styles.rememberMeText}>Join our research group <Link href='/involve' style={{color: '#5B4AFF'}}>(What does this involve?)</Link></Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         
 
         <View style={styles.button}>
-          <Link href="/email-verification" style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-            Create account
-          </Link>
+          <Pressable onPress={handleSignup}>
+            <View style={[ { width: '100%'}]}>
+              <Text style={styles.buttonText}>Create account </Text>
+            </View>
+          </Pressable>
         </View>
 
         <View style={styles.alreadyHaveAnAccount}>
           <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Already have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>router.push('/login')}>
             <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Log-in</Text>
           </TouchableOpacity>
         </View>
@@ -262,7 +292,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
-    marginTop: height*0.04
+    marginTop: height*0.1
   },
   buttonText: {
     fontSize: 20,

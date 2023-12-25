@@ -1,56 +1,80 @@
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import React, { useEffect } from 'react'
+import { Link, router, useGlobalSearchParams } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
-import { router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
-const Login = () => {
+const Signup = () => {
+  const [fullName, setFullName] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [termsCondition, setTermsCondition] = React.useState(false);
   const [optIn, setOptIn] = React.useState(false);
+  const [research, setResearch] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [password, setPassword] = React.useState('');
 
-  const handleLogin = async() => {
-    const user={
-      email: email,
-      password: password
+  const dispatch = useDispatch();
+  const Data=useGlobalSearchParams();
+
+  const handleSignup = async() => {
+    if(password.length>8 && termsCondition && optIn && research){
+      const user={
+        name: fullName,
+        email: Data.signup,
+        password: password
+      }
+
+      try{
+        if(fullName && password) {
+          console.log(user)
+        const apiUrl='http://localhost:8000/api/v1/auth/create-user';
+        const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
+        const data= await response.json();
+        if(!data.success){
+          alert(data.message)
+        }
+        else{
+          console.log(data);
+          router.push(`/login`)
+        }
+        
+        }
+        else{
+          alert('Please enter all the details');
+        }
+      }catch(err) {
+        console.log(err);
+      }
     }
-    try{
-      const apiUrl='http://localhost:8000/api/v1/auth/login';
-      const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
-      const data= await response.json();
-      if(!data.success){
-        console.log(data.message)
-        alert(data.message)
-      }
-      else{
-        console.log("jwt token",data.token)
-        await AsyncStorage.setItem('token', data.token);
-        // const value=await AsyncStorage.getItem('token');
-        // console.log("jwt token",value)
-        // console.log("decoded",data.decoded);
-        router.push(`/homeScreen`)
-      }
-    }catch(err) {
-      console.log(err);
+    else if(password.length<8){
+      alert('Password must be of 8 characters');
+    }
+    else if(!termsCondition || !optIn || !research){
+      alert('Please agree to all the terms and conditions');
     }
   }
+
+  useEffect(() => {
+    console.log('email', Data.signup);
+    console.log('code', );
+  })
+
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <Pressable style={{ justifyContent: 'center' }} onPress={()=>router.back()}>
-            <Text>
-              <AntDesign name="arrowleft" size={28} color="black" />
-            </Text>
-          </Pressable >
-
+          <Pressable onPress={()=>router.back()}>
+            <View style={{ justifyContent: 'center' }}>
+              <Text>
+                <AntDesign name="arrowleft" size={28} color="black" />
+              </Text>
+            </View >
+          </Pressable>
           <View style={styles.curb}>
             <Text style={styles.curbText}>curb</Text>
             <View style={[styles.dot]} />
@@ -58,15 +82,15 @@ const Login = () => {
         </View>
 
         <View style={styles.signupTextSection}>
-          <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Login</Text>
+          <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Sign up</Text>
           <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Please enter your details to continue.</Text>
         </View>
 
-        <View style={{ marginVertical: 20 }}>
-          <View style={{ backgroundColor: '#f3f1ef', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
+        <View style={{ marginVertical: 40 }}>
+          <View style={{ backgroundColor: '#f9f8f7', gap: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-              <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Email address</Text>
+              <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Full name</Text>
             </View>
 
             <TextInput
@@ -80,9 +104,9 @@ const Login = () => {
                   fontFamily: "Regular"
                 }
               }
-              onChangeText={(text)=>setEmail(text.toLowerCase())}
-              value={email}
-              placeholder='Enter Email Address'
+              onChangeText={setFullName}
+              value={fullName}
+              placeholder='Enter Full Name'
             />
           </View>
 
@@ -123,34 +147,46 @@ const Login = () => {
           </View>
         </View>
 
-        <View style={{flexDirection: 'row', gap: 10, alignItems: 'center', marginTop: 0, paddingHorizontal: 30, justifyContent: 'space-between' }}>
+        <View style={{ gap: 10, alignItems: 'flex-start', marginTop: 0, paddingHorizontal: 30, justifyContent: 'center' }}>
+          <TouchableOpacity onPress={() => setTermsCondition(!termsCondition)} style={styles.rememberMe}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              {termsCondition ? <CheckedFilled/> : <View style={styles.radio}/>}
+            </View>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link></Text> 
+              <Text style={styles.rememberMeText}>and <Link href='./privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
+            </View>
+          </TouchableOpacity>
 
           <TouchableOpacity onPress={() => setOptIn(!optIn)} style={styles.rememberMe}>
             <View style={styles.radio}>
               {optIn ? <CheckedFilled/> : <View style={styles.radio}/>}
             </View>
-            <Text style={styles.rememberMeText}>Remember me</Text>
+            <Text style={styles.rememberMeText}>Opt-in to marketing emails</Text>
           </TouchableOpacity>
 
-          <Link href='/forget-password'><Text style={[styles.rememberMeText, {color: '#7844FF'}]}>Forget password?</Text></Link>
-
+          <TouchableOpacity onPress={() => setResearch(!research)} style={styles.rememberMe}>
+            <View style={styles.radio}>
+              {research ? <CheckedFilled/> : <View style={styles.radio}/>}
+            </View>
+            <Text style={styles.rememberMeText}>Join our research group <Link href='/involve' style={{color: '#5B4AFF'}}>(What does this involve?)</Link></Text>
+          </TouchableOpacity>
         </View>
 
         
-        <Pressable onPress={handleLogin}>
-          <View style={styles.button}>
-            
-              <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-                Login
-              </Text>
-            
-          </View>
-        </Pressable>
+
+        <View style={styles.button}>
+          <Pressable onPress={handleSignup}>
+            <View style={[ { width: '100%'}]}>
+              <Text style={styles.buttonText}>Create account </Text>
+            </View>
+          </Pressable>
+        </View>
 
         <View style={styles.alreadyHaveAnAccount}>
-          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Don't have an account?</Text>
-          <TouchableOpacity onPress={()=>router.push('/signup')}>
-            <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Sign up</Text>
+          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Already have an account?</Text>
+          <TouchableOpacity onPress={()=>router.push('/login')}>
+            <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular"}}>Log-in</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -158,7 +194,7 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup
 
 const styles = StyleSheet.create({
   container: {
@@ -192,7 +228,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   signupTextSection: {
-    marginTop: height * 0.05,
+    marginTop: height * 0.02,
     marginLeft: width * 0.1,
     gap: 20,
   },
@@ -227,14 +263,12 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   rememberMe: {
-    // marginTop: 10,
+    marginTop: 10,
     flexDirection: 'row',
-    gap: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
+    gap: 25,
   },
   rememberMeText: {
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: "Regular"
   },
   dontHaveAccount: {
@@ -254,7 +288,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
-    marginTop: height*0.09
+    marginTop: height*0.1
   },
   buttonText: {
     fontSize: 20,
@@ -267,6 +301,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    marginBottom: 10
   },
 })

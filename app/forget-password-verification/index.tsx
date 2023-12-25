@@ -1,26 +1,67 @@
-import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Link, useGlobalSearchParams, useLocalSearchParams } from 'expo-router'
 import OTPTextView from 'react-native-otp-textinput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { router } from 'expo-router';
 
 const { width, height } = Dimensions.get('screen');
 
 const PasswordVerification = () => {
     const [code, setCode] = React.useState('');
+    const email=useLocalSearchParams();
+
+    React.useEffect(() => {
+        console.log(email.email);
+    }, [])
 
     const handleChange = (code: string) => {
         // console.log(code)
         setCode(code)
     }
+
+    const handleResendCode = async() => {
+        try{
+            const apiUrl='http://localhost:8000/api/v1/auth/forget-password';
+            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email.email})});
+            const data= await response.json();
+            if(!data.success){
+              alert(data.message)
+            }
+            else{
+              alert("code resend successfully")
+            }
+          }catch(err) {
+            console.log(err);
+          }
+    }
+    const handleSubmit = async() => {
+        try{
+            const apiUrl=`http://localhost:8000/api/v1/auth/verify-otp/${email.email}/${code}`;
+            const response=await fetch(apiUrl, {method: 'GET'});
+            const data= await response.json();
+            if(!data.success){
+                alert(data.message)
+            }
+            else{
+                // console.log(data.message);
+                router.push({pathname: `/reset-password`, params: {email: email.email}})
+            }
+            
+        }catch(err) {
+            console.log(err);
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Link href='./signup' style={{ justifyContent: 'center' }}>
-                    <Text>
-                        <AntDesign name="arrowleft" size={28} color="black" />
-                    </Text>
-                </Link >
+                <Pressable onPress={()=>router.back()}>
+                    <View style={{ justifyContent: 'center' }}>
+                        <Text>
+                            <AntDesign name="arrowleft" size={28} color="black" />
+                        </Text>
+                    </View >
+                </Pressable>
 
                 <View style={styles.curb}>
                     <Text style={styles.curbText}>curb</Text>
@@ -42,7 +83,7 @@ const PasswordVerification = () => {
 
                 <OTPTextView
                     handleTextChange={handleChange}
-                    inputCount={5}
+                    inputCount={4}
                     keyboardType="numeric"
                     autoFocus={true}
                     inputCellLength={1}
@@ -61,16 +102,17 @@ const PasswordVerification = () => {
                     tintColor="#000"
                 />
             </View>
-
-            <View style={styles.button}>
-                <Link href="/reset-password" style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
-                    Submit
-                </Link>
-            </View>
+            <Pressable onPress={handleSubmit}>
+                <View style={styles.button}>
+                    <Text style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
+                        Submit
+                    </Text>
+                </View>
+            </Pressable>
 
             <View style={styles.alreadyHaveAnAccount}>
                 <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Don't have a code?</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleResendCode}>
                     <Text style={{ fontSize: 18, color: "#6d5eff",fontFamily: "Regular" }}>Resend code</Text>
                 </TouchableOpacity>
             </View>

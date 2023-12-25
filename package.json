@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.3.1",
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/stack": "^6.3.20",
     "@reduxjs/toolkit": "^2.0.1",
@@ -39,7 +40,8 @@
     "react-native-vector-icons": "^10.0.2",
     "react-native-web": "~0.19.6",
     "react-redux": "^9.0.2",
-    "redux": "^5.0.0"
+    "redux": "^5.0.0",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
