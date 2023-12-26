@@ -13,6 +13,8 @@ const Comparison = () => {
     const [spendPerMonth, setSpendPerMonth] = React.useState(0);
     const [spendPerYear, setSpendPerYear] = React.useState(0);
     const [insights,setInsights]=React.useState("");
+    const [calories,setCalories]=React.useState(0);
+
 
     React.useEffect(() => {
         const showData = async() => {
@@ -25,10 +27,11 @@ const Comparison = () => {
             }
             const data=(res.data)
             console.log(data)
-            setSpendPerWeek(data.spendPerWeek)
-            setSpendPerMonth(data.spendPerMonth)
-            setSpendPerYear(data.spendPerYear)
+            setSpendPerWeek(parseFloat(data.spendPerWeek))
+            setSpendPerMonth(parseFloat(data.spendPerMonth))
+            setSpendPerYear(parseFloat(data.spendPerYear))
             setInsights(data.insight)
+            setCalories(data.totalCaloriesConsumed)
         }
         showData();
     },[])
@@ -87,7 +90,7 @@ const Comparison = () => {
                     
                     <StatsComparisonCard
                         // headerText="You're in the top"
-                        Status="8915"
+                        Status={calories.toString()}
                         SubheaderText="of women your age drink less alcohol than you."
                     />
                 </View>
@@ -121,7 +124,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerWeek}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerWeek}</Text>
                             <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per week</Text>
                         </View>
                         <View
@@ -138,7 +141,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerMonth}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerMonth}</Text>
                             <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per month</Text>
                         </View>
 
@@ -157,7 +160,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerYear}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerYear}</Text>
                             <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per year</Text>
                         </View>
                     </View>

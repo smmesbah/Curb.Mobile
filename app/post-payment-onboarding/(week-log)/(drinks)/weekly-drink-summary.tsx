@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('screen');
 
-interface WeeklyDrinkSummary {
+interface WeeklyDrinkSummaryProps {
     day: string;
     drinks: {
         drinkQuantity: number;
@@ -21,7 +21,7 @@ interface WeeklyDrinkSummary {
 
 const WeeklyDrinkSummary = () => {
     const Data = useSelector((state: any) => state.drink.drink);
-    let weekly_drink: any[] = []
+    let weekly_drink: WeeklyDrinkSummaryProps[] = [];
     // const data = [
     //     {
     //         day: 'Monday',
@@ -71,8 +71,36 @@ const WeeklyDrinkSummary = () => {
                 if(!data.success){
                     alert(data.message)
                 }
-            weekly_drink=(data.data);
-            console.log(weekly_drink)
+            const res=data.data;
+            res.map((item: any, index: number) => {
+                // Check if the day already exists in the weekly_drink array
+                const existingDayIndex = weekly_drink.findIndex((d) => d.day === item.day);
+            
+                if (existingDayIndex !== -1) {
+                    // If the day exists, push the new drink details to the existing day's drinks array
+                    weekly_drink[existingDayIndex].drinks.push({
+                        drinkQuantity: item.drinkQuantity,
+                        drinkType: item.drinkName,
+                        drinkSize: item.drinkSize,
+                    });
+                } else {
+                    // If the day doesn't exist, create a new entry for the day with the drink details
+                    const weeklyDrink: WeeklyDrinkSummaryProps = {
+                        day: item.day,
+                        drinks: [
+                            {
+                                drinkQuantity: item.drinkQuantity,
+                                drinkType: item.drinkName,
+                                drinkSize: item.drinkSize,
+                            },
+                        ],
+                    };
+            
+                    weekly_drink.push(weeklyDrink);
+                }
+            });
+            
+            console.log(weekly_drink);
         }
         showData();
     },[])
@@ -116,7 +144,7 @@ const WeeklyDrinkSummary = () => {
                     marginTop: 25,
                     // gap: 50,
                 }}
-                data={Data}
+                data={weekly_drink}
                 renderItem={({ item }) => (
                     // const filteredData = data.filter()
                 <View
@@ -139,8 +167,8 @@ const WeeklyDrinkSummary = () => {
                             right: 15,
                         }}
                         onPress={() => {
-                            // router.push(`/post-payment-onboarding/${item.day}`)
-                            console.log(item)
+                            router.push(`/post-payment-onboarding/${item.day}`)
+                            // console.log(item)
                         }}
                     >
                         <Feather
@@ -165,6 +193,7 @@ const WeeklyDrinkSummary = () => {
                             marginLeft: 60,
                         }}
                     >
+                        {/* <Text>sldkfjsd</Text> */}
                         {
                             item.drinks.length === 0 && <Text style={{ fontSize: 17, fontFamily: "Regular"}}>No alcohol</Text>
                         }
