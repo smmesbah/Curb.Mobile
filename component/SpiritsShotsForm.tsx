@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useImperativeHandle } from 'react'
 import RadioButtonRound from './ui/RadioButtonRound';
 import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { useDispatch } from 'react-redux';
 import { addDrink } from 'redux/actions/drinkActions';
@@ -14,7 +15,7 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
     const { day } = useGlobalSearchParams();
 
     useImperativeHandle(ref, () => ({
-        handleAddDrinkPress() {
+        async handleAddDrinkPress() {
             const drink = {
                 day: Array.isArray(day) || day === undefined ? '' : day,
                 drinks: {
@@ -24,6 +25,22 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
                 }
             }
             dispatch(addDrink(drink));
+
+            const token=await AsyncStorage.getItem('token');
+            const weekly_drink={
+                token: token,
+                day: day,
+                drinkType: "WINE_FIZZ",
+                drinkName: spiritsShotsType,
+                drinkVolume: value,
+                drinkQuantity: spiritsShotsCount
+            }
+            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
+            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
+            const data= await response.json();
+                if(!data.success){
+                    alert(data.message)
+                }
         }
     }));
 

@@ -34,18 +34,29 @@ const Login = () => {
         // const value=await AsyncStorage.getItem('token');
         // console.log("jwt token",value)
         // console.log("decoded",data.decoded);
-        router.push(`/homeScreen`)
+        while(router.canGoBack()){
+          router.back();
+        }
+        router.replace(`/homeScreen`)
       }
     }catch(err) {
       console.log(err);
     }
   }
 
+  const handleGoBack = async() => {
+    const token = await AsyncStorage.getItem('token');
+    // if(token===null){
+    //   router.replace('/')
+    // }
+    router.back();
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <Pressable style={{ justifyContent: 'center' }} onPress={()=>router.back()}>
+          <Pressable style={{ justifyContent: 'center' }} onPress={handleGoBack}>
             <Text>
               <AntDesign name="arrowleft" size={28} color="black" />
             </Text>

@@ -3,10 +3,36 @@ import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { router } from 'expo-router'
 import StatsComparisonCard from 'component/StatsComparisonCard';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('screen');
 
 const Comparison = () => {
+
+    const [spendPerWeek, setSpendPerWeek] = React.useState(0);
+    const [spendPerMonth, setSpendPerMonth] = React.useState(0);
+    const [spendPerYear, setSpendPerYear] = React.useState(0);
+    const [insights,setInsights]=React.useState("");
+
+    React.useEffect(() => {
+        const showData = async() => {
+        const token=await AsyncStorage.getItem('token');
+            const apiUrl=`http://localhost:8000/api/v1/onboarding/user-drinking-insights/7`
+            const response=await fetch(apiUrl, {method: 'GET'}); 
+            const res= await response.json();
+            if(!res.success){
+                alert(res.message)
+            }
+            const data=(res.data)
+            console.log(data)
+            setSpendPerWeek(data.spendPerWeek)
+            setSpendPerMonth(data.spendPerMonth)
+            setSpendPerYear(data.spendPerYear)
+            setInsights(data.insight)
+        }
+        showData();
+    },[])
+
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -49,15 +75,16 @@ const Comparison = () => {
                     }}
                 >
                     <StatsComparisonCard
+                        // headerText="You're in the top"
+                        Status={insights.slice(0,4)}
+                        SubheaderText={insights.slice(4,insights.length)}
+                    />
+                    <StatsComparisonCard
                         headerText="You're in the top"
                         Status="10th"
                         SubheaderText="Percentile of drink"
                     />
-                    <StatsComparisonCard
-                        // headerText="You're in the top"
-                        Status="78%"
-                        SubheaderText="of women your age drink less alcohol than you."
-                    />
+                    
                     <StatsComparisonCard
                         // headerText="You're in the top"
                         Status="8915"
@@ -94,7 +121,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€27</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerWeek}</Text>
                             <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per week</Text>
                         </View>
                         <View
@@ -111,7 +138,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€108</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerMonth}</Text>
                             <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per month</Text>
                         </View>
 
@@ -130,7 +157,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€1296</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>{spendPerYear}</Text>
                             <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per year</Text>
                         </View>
                     </View>
@@ -151,8 +178,8 @@ const Comparison = () => {
             >
                 <Pressable
                     onPress={() => router.push('post-payment-onboarding/WeekDrinking')}
-                    // onPress={handleAddDrinkPress}
-                    // onPress={() => beerCiderFormRef.current.handleAddDrinkPress()}
+                    // onPress={()=>console.log(data.spendPerWeek)}
+
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'center',

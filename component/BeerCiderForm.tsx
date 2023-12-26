@@ -54,10 +54,10 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState<string>('');
     const [items, setItems] = React.useState([
-        { label: 'Pint', value: 'pint' },
-        { label: 'Half Pint', value: 'half-pint' },
-        { label: 'Bottle', value: 'bottle' },
-        { label: 'Can', value: 'can' }
+        { label: 'Pint', value: 'Pint' },
+        { label: 'Half Pint', value: 'Half' },
+        { label: 'Bottle', value: 'Bottle' },
+        { label: 'Can', value: 'Can' }
     ]);
     const [drinkCount, setDrinkCount] = React.useState<number>(0);
 

@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native'
 import XClose from './icons/XClose';
 import LogOutModalIcon from './icons/LogOutModalIcon';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { router } from 'expo-router';
 
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
@@ -14,6 +16,17 @@ interface LogOutModalProps {
 const LogOutModal: React.FC<LogOutModalProps> = ({logOutModal, setLogoutModal}) => {
     const scaleValue = React.useRef(new Animated.Value(0)).current;
 
+    const handleLogOut = async() => {
+        setLogoutModal(false);
+        await AsyncStorage.removeItem('token');
+        // const value=await AsyncStorage.getItem('token');
+        // router.replace('/')
+        while(router.canGoBack()){
+            router.back();
+          }
+          router.replace(`/login`)
+    }
+
     React.useEffect(() => {
         toggleModal();
       }, [logOutModal]);
@@ -22,6 +35,7 @@ const LogOutModal: React.FC<LogOutModalProps> = ({logOutModal, setLogoutModal}) 
           setLogoutModal(true);
           Animated.spring(scaleValue, {
             toValue: 1,
+            // @ts-ignore
             duration: 300,
             useNativeDriver: true,
           }).start();
@@ -57,7 +71,7 @@ const LogOutModal: React.FC<LogOutModalProps> = ({logOutModal, setLogoutModal}) 
                         <Text style={Styles.btn_text}>No</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>setLogoutModal(true)}>
+                <TouchableOpacity onPress={handleLogOut}>
                     <View style={[Styles.btn, Styles.btn_yes]}>
                         <Text style={Styles.btn_text}>Yes</Text>
                     </View>

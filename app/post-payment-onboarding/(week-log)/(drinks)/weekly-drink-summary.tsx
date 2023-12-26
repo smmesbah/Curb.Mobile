@@ -1,15 +1,27 @@
 import { Dimensions, FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Feather from 'react-native-vector-icons/Feather'
 import HideWithKeyboard from 'react-native-hide-with-keyboard'
 import { useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('screen');
 
+interface WeeklyDrinkSummary {
+    day: string;
+    drinks: {
+        drinkQuantity: number;
+        drinkType: string;
+        drinkSize: string;
+    }[];
+
+}
+
 const WeeklyDrinkSummary = () => {
-    const data = useSelector((state: any) => state.drink.drink);
+    const Data = useSelector((state: any) => state.drink.drink);
+    let weekly_drink: any[] = []
     // const data = [
     //     {
     //         day: 'Monday',
@@ -49,6 +61,22 @@ const WeeklyDrinkSummary = () => {
     //     },
     // ];
 
+    useEffect(() => {
+        const showData = async() => {
+        const token=await AsyncStorage.getItem('token');
+            const apiUrl=`http://localhost:8000/api/v1/onboarding/weekly-drink/${token}`
+            const response=await fetch(apiUrl, {method: 'GET'}); 
+            const data= await response.json();
+            console.log(data)
+                if(!data.success){
+                    alert(data.message)
+                }
+            weekly_drink=(data.data);
+            console.log(weekly_drink)
+        }
+        showData();
+    },[])
+
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -73,13 +101,22 @@ const WeeklyDrinkSummary = () => {
                     </View>
                 </View>
             </View>
-
+            {/* {
+                <Pressable onPress={()=>console.log(weekly_drink[0])}>
+                    <Text>asdkf</Text>
+                </Pressable>
+            } */}
+            {/* {
+                weekly_drink.map((item: any, index: number) => (
+                    <Text>sdfkj</Text>
+                ))
+            } */}
             <FlatList
                 style={{
                     marginTop: 25,
                     // gap: 50,
                 }}
-                data={data}
+                data={Data}
                 renderItem={({ item }) => (
                     // const filteredData = data.filter()
                 <View
@@ -102,7 +139,8 @@ const WeeklyDrinkSummary = () => {
                             right: 15,
                         }}
                         onPress={() => {
-                            router.push(`/post-payment-onboarding/${item.day}`)
+                            // router.push(`/post-payment-onboarding/${item.day}`)
+                            console.log(item)
                         }}
                     >
                         <Feather

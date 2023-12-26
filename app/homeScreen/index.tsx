@@ -40,25 +40,33 @@ const Home = () => {
     // }
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
-      () => {
-        setKeyboardOpen(true);
-        console.log('keyboard open');
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
-      () => {
-        setKeyboardOpen(false);
-        console.log('keyboard closed');
-      }
-    );
+    // const keyboardDidShowListener = Keyboard.addListener(
+    //   Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+    //   () => {
+    //     setKeyboardOpen(true);
+    //     console.log('keyboard open');
+    //   }
+    // );
+    // const keyboardDidHideListener = Keyboard.addListener(
+    //   Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+    //   () => {
+    //     setKeyboardOpen(false);
+    //     console.log('keyboard closed');
+    //   }
+    // );
 
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
+    // return () => {
+    //   keyboardDidShowListener.remove();
+    //   keyboardDidHideListener.remove();
+    // };
+    const token_verification=async()=>{
+    const token=await AsyncStorage.getItem('token');
+    // console.log("token",token)
+    if(token===null){
+      router.replace('/login')
+    }
+  }
+  token_verification();
   }, []);
 
   return (

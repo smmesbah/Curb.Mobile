@@ -1,8 +1,9 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useGlobalSearchParams } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { removeDrink } from 'redux/actions/drinkActions';
 
@@ -14,7 +15,8 @@ const DrinkDetailsContainer = () => {
     const data = drink.filter((item: any) => item.day === day);
     console.log(data[0]);
 
-    const handleRemoveDrinkPress = (drink: any) => {
+
+    const handleRemoveDrinkPress = async(drink: any) => {
         const removeableDrink = {
             day: Array.isArray(day) ? day[0] : day || '',
             drinks: {
@@ -23,6 +25,21 @@ const DrinkDetailsContainer = () => {
                 drinkSize: drink.drinkSize,
             }
         }
+
+        const token=await AsyncStorage.getItem('token');
+            const weekly_drink={
+                token: token,
+                day: day,
+                drinkName: drink.drinkType,
+                drinkVolume: drink.drinkSize,
+                drinkQuantity: drink.drinkQuantity
+            }
+            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
+            const response=await fetch(apiUrl, {method: 'DELETE',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
+            const data= await response.json();
+                if(!data.success){
+                    alert(data.message)
+                }
         dispatch(removeDrink(removeableDrink));
     }
     return (

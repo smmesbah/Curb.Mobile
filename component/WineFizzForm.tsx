@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useImperativeHandle } from 'react'
 import RadioButtonRound from './ui/RadioButtonRound'
 import DropDownPicker from 'react-native-dropdown-picker'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { useDispatch } from 'react-redux'
 import { addDrink } from 'redux/actions/drinkActions'
@@ -20,14 +21,14 @@ const WineFizzForm = React.forwardRef((props,ref) => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState<string>('');
     const [items, setItems] = React.useState([
-        { label: 'Small glass', value: 'small-glass' },
-        { label: 'Large glass', value: 'large-glass' },
-        { label: 'Bootle', value: 'bottle' },
+        { label: 'Small glass', value: '175ml' },
+        { label: 'Large glass', value: '250ml' },
+        { label: 'Bootle', value: '750ml' },
     ]);
     const [wineCount, setWineCount] = React.useState<number>(0);
 
     useImperativeHandle(ref, () => ({
-        handleAddDrinkPress() {
+        async handleAddDrinkPress() {
             const drink = {
                 day: Array.isArray(day) || day === undefined ? '' : day,
                 drinks: {
@@ -37,6 +38,22 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                 }
             }
             dispatch(addDrink(drink));
+
+            const token=await AsyncStorage.getItem('token');
+            const weekly_drink={
+                token: token,
+                day: day,
+                drinkType: "WINE_FIZZ",
+                drinkName: wineFizzType,
+                drinkVolume: value,
+                drinkQuantity: wineCount
+            }
+            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
+            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
+            const data= await response.json();
+                if(!data.success){
+                    alert(data.message)
+                }
         }
     }));
 
