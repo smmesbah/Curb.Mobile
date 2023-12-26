@@ -4,11 +4,14 @@ import { View, Text, ScrollView, StyleSheet, Dimensions, Pressable } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import { TextInput } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
 
 const Width=Dimensions.get('screen').width;
 const Height=Dimensions.get('screen').height;
 
 const Records = () => {
+    const [text, onChangeText] = React.useState("");
   return (
     <SafeAreaView>
         <View style={Styles.header_container}>
@@ -48,7 +51,7 @@ const Records = () => {
                     <View style={[Styles.dot, {backgroundColor: '#33ae9c'}]}/>
                     <Text style={Styles.text_style4}>Your well being</Text>
                 </View>
-                <Pressable>
+                <Pressable onPress={()=>router.push('/checkInScreen/WellbeingRecords')}>
                     <View style={Styles.record_btn}>
                         <Feather name="plus" size={18} color="#fff" />
                         <Text style={Styles.btn_text}>Record all</Text>
@@ -58,13 +61,13 @@ const Records = () => {
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Sleep</Text>
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#33ae9c'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                     </View>
                 </View>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Mood</Text>
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#33ae9c'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                     </View>
                 </View>
@@ -72,13 +75,13 @@ const Records = () => {
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Energy</Text>
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#33ae9c'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                     </View>
                 </View>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>WillPower</Text>
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#33ae9c'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                     </View>
                 </View>
@@ -98,14 +101,14 @@ const Records = () => {
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                         <Text style={Styles.text_style5}>Place</Text>
                     </View>
                 </View>
                 <View style={{gap: 15}}>
                     {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                         <Text style={Styles.text_style5}>People</Text>
                     </View>
@@ -115,6 +118,28 @@ const Records = () => {
                 <Feather name="plus" size={18} color="#4E4F4E" />
                 <Text>Activity</Text>
             </View>
+            <View style={Styles.container5}>
+                <View style={Styles.text_container}>
+                    <View style={[Styles.dot, {backgroundColor: '#E64528'}]}/>
+                    <Text style={Styles.text_style4}>Add a note</Text>
+                </View>
+            </View>
+            <View style={Styles.container5}>
+                <TextInput
+                    style={Styles.input_styles}
+                    placeholder='Write your notes'
+                    placeholderTextColor={"#b0b0b4"}
+                    multiline={true}
+                    textAlignVertical='top'
+                    onChangeText={onChangeText}
+                    value={text}
+                />
+            </View>
+            <Pressable>
+                <View style={Styles.save_btn}>
+                    <Text style={Styles.save_text}>Save</Text>
+                </View>
+            </Pressable>
             <View style={{height: Width*.19}}></View>
         </ScrollView>
     </SafeAreaView>
@@ -250,25 +275,56 @@ const Styles=StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#33ae9c',
+        // borderColor: '#33ae9c',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
         width: Width*.42,
-        height: Height*.05
+        height: 50
     },
     btn_text3: {
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#33ae9c',
+        borderColor: '#7844ff',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
         width: Width*.9,
-        height: Height*.05,
-        marginHorizontal: 20
+        height: 50,
+        marginHorizontal: 20,
+        marginTop: 10
+    }, 
+    input_styles: {
+        width: Width*.9,
+        height: Height*.2,
+        padding: 15,
+        alignItems: 'flex-start',
+        borderRadius: 12,
+        borderWidth: 0.5,
+        borderColor: '#b0b0b4',
+        backgroundColor: '#fff',
+        paddingTop: 10
+    },
+    save_btn: {
+        width: Width*0.9,
+        height: 52,
+        borderRadius: 100,
+        paddingVertical: 2,
+        paddingHorizontal: 6,
+        backgroundColor: '#0d3f4a',
+        marginHorizontal: Width*.05,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+    save_text: {
+        color: '#fff',
+        textAlign: 'center',
+        fontFamily: 'Regular',
+        fontSize: 16,
+        letterSpacing: -.14,
     }
 })

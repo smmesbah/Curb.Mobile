@@ -9,18 +9,19 @@ const CaloriesAvoidedWidget = () => {
     <View style={styles.container}>
         <View style={styles.text_container}>
             <Text style={styles.text_number}>£56</Text>
-            <Text style={styles.text_info}>Money</Text>
+            
             <Text style={styles.text_info}>Saved</Text>
+            <Text style={styles.text_info}> </Text>
         </View>
         <View style={styles.text_container}>
             <Text style={styles.text_number}>1200</Text>
-            <Text style={styles.text_info}>Calories</Text>
-            <Text style={styles.text_info}>Avoided</Text>
+            <Text style={styles.text_info}>calories</Text>
+            <Text style={styles.text_info}>avoided</Text>
         </View>
         <View style={styles.text_container}>
             <Text style={styles.text_number}>20</Text>
-            <Text style={styles.text_info}>Units</Text>
-            <Text style={styles.text_info}>Saved</Text>
+            <Text style={styles.text_info}>units</Text>
+            <Text style={styles.text_info}>saved</Text>
         </View>
     </View>
   )

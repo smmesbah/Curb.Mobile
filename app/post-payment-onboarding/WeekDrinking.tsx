@@ -86,7 +86,7 @@ const WeekDrinking = () => {
                 </TouchableOpacity>
             </View>
             <View style={Styles.container5}>
-                <TouchableOpacity onPress={()=>router.push('/post-payment-onboarding/Payment')}>
+                <TouchableOpacity onPress={()=>router.push('/homeScreen')}>
                     <View style={Styles.btn_container2}>
                         <Text style={Styles.btn_text}>Next</Text>
                     </View>
