@@ -1,42 +1,87 @@
+import axios from 'axios';
 import TaskCard from 'components/TaskCard';
 import { CheckedFilled } from 'components/icons/checkedFilled';
-import React from 'react'
+import React, { useEffect } from 'react'
 import {View, Text, ScrollView, SafeAreaView, StyleSheet, Dimensions, Image, Touchable, Button, Pressable, TouchableOpacity} from 'react-native'
 
+
+interface tasks{
+    id: number,
+    title: string,
+    date: string,
+    imageUri: any,
+}
 
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
 
-const dummyValues=[
-    {
-        title: 'Play Basketball',
-        Description: 'Fri 25th, 2024',
-        imageUri: require('../../../assets/images/BasketBall.webp'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Fri 25th, 2024',
-        imageUri: require('../../../assets/images/BasketBall.webp'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Fri 25th, 2024',
-        imageUri: require('../../../assets/images/BasketBall.webp'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Fri 25th, 2024',
-        imageUri: require('../../../assets/images/BasketBall.webp'),
-    },
-    {
-        title: 'Play Basketball',
-        Description: 'Fri 25th, 2024',
-        imageUri: require('../../../assets/images/BasketBall.webp'),
-    }
-]
+// const dummyValues=[
+//     {
+//         title: 'Play Basketball',
+//         Description: 'Fri 25th, 2024',
+//         imageUri: require('../../../assets/images/BasketBall.webp'),
+//     },
+//     {
+//         title: 'Play Basketball',
+//         Description: 'Fri 25th, 2024',
+//         imageUri: require('../../../assets/images/BasketBall.webp'),
+//     },
+//     {
+//         title: 'Play Basketball',
+//         Description: 'Fri 25th, 2024',
+//         imageUri: require('../../../assets/images/BasketBall.webp'),
+//     },
+//     {
+//         title: 'Play Basketball',
+//         Description: 'Fri 25th, 2024',
+//         imageUri: require('../../../assets/images/BasketBall.webp'),
+//     },
+//     {
+//         title: 'Play Basketball',
+//         Description: 'Fri 25th, 2024',
+//         imageUri: require('../../../assets/images/BasketBall.webp'),
+//     }
+// ]
 
 const Tasks = () => {
     const [focused, setFocused]=React.useState('previous');
+    const [previousTasks, setPreviousTasks]=React.useState<tasks[]>([]);
+    const [upcomingTasks, setUpcomingTasks]=React.useState<tasks[]>([]);
+    const [todaysTasks, setTodaysTasks]=React.useState<tasks[]>([]);
+
+    useEffect(() => {
+        fetchTasks();
+    },[])
+
+    //fetch tasks from backend
+    const fetchTasks = async () => {
+        try {
+            const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/all-tasks/1`);
+            const formattedTasks = res.data.data.map((taskItem: any) => {
+                return {
+                    id: taskItem.id,
+                    title: taskItem.attributes.taskTitle,
+                    date: taskItem.date, // Use the date format you have
+                    imageUri: require('../../../assets/images/BasketBall.webp'), // Replace 'null' with the correct image URL
+                };
+            });
+    
+            const todayDate = new Date().toLocaleDateString();
+            const previous = formattedTasks.filter((task:tasks) => new Date(task.date).toLocaleDateString() < todayDate);
+            const today = formattedTasks.filter((task:tasks) => new Date(task.date).toLocaleDateString() === todayDate);
+            const upcoming = formattedTasks.filter((task:tasks) => new Date(task.date).toLocaleDateString() > todayDate);
+            
+            // console.log("Previous", previous)
+            // console.log("Today", today)
+            // console.log("Upcoming", upcoming)
+            setPreviousTasks(previous);
+            setTodaysTasks(today);
+            setUpcomingTasks(upcoming);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
   return (
     <SafeAreaView
         style={{
@@ -59,7 +104,7 @@ const Tasks = () => {
             <View style={Styles.today_task_right}>
                 <View style={Styles.today_task_texts}>
                     <Text style={Styles.today_task_text}>Today's Task</Text>
-                    <Text style={Styles.today_task_description}>Go on a Hike</Text>
+                    <Text style={Styles.today_task_description}>{todaysTasks[0]?.title}</Text>
                 </View>
                 <View style={Styles.task_checked}>
                     <CheckedFilled/>
@@ -83,11 +128,11 @@ const Tasks = () => {
 
         {focused==='previous' && 
             <View style={Styles.task_cards}>
-                {dummyValues.map((item, index)=>
+                {previousTasks.map((item: tasks, index: any)=>
                     <View key={index}>
                     <TaskCard 
                         title={item.title}
-                        description={item.Description}
+                        description={item.date}
                         imageUri={item.imageUri}
                         Width={0.89}
                         focus='previous'
@@ -99,11 +144,11 @@ const Tasks = () => {
         }
         {focused==='upcoming' && 
             <View style={Styles.task_cards}>
-                {dummyValues.map((item, index)=>
+                {upcomingTasks.map((item, index)=>
                     <View key={index}>
                     <TaskCard 
                         title={item.title}
-                        description={item.Description}
+                        description={item.date}
                         imageUri={item.imageUri}
                         Width={0.89}
                         focus='upcoming'
@@ -170,7 +215,7 @@ const Styles=StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         fontFamily: 'Regular',
-        letterSpacing: 1
+        letterSpacing: 1,
     }, 
     today_task_texts: {
         justifyContent: 'center',
