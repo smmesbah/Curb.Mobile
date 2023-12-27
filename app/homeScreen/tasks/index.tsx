@@ -56,7 +56,7 @@ const Tasks = () => {
     //fetch tasks from backend
     const fetchTasks = async () => {
         try {
-            const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/all-tasks/1`);
+            const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/all-tasks/10`);
             const formattedTasks = res.data.data.map((taskItem: any) => {
                 return {
                     id: taskItem.id,

@@ -21,7 +21,7 @@ const Login = () => {
       password: password
     }
     try{
-      const apiUrl='http://localhost:8000/api/v1/auth/login';
+      const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/login`;
       const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
       const data= await response.json();
       if(!data.success){

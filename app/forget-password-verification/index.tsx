@@ -22,7 +22,7 @@ const PasswordVerification = () => {
 
     const handleResendCode = async() => {
         try{
-            const apiUrl='http://localhost:8000/api/v1/auth/forget-password';
+            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
             const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email.email})});
             const data= await response.json();
             if(!data.success){
@@ -37,7 +37,7 @@ const PasswordVerification = () => {
     }
     const handleSubmit = async() => {
         try{
-            const apiUrl=`http://localhost:8000/api/v1/auth/verify-otp/${email.email}/${code}`;
+            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp/${email.email}/${code}`;
             const response=await fetch(apiUrl, {method: 'GET'});
             const data= await response.json();
             if(!data.success){

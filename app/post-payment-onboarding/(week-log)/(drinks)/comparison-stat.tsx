@@ -19,7 +19,7 @@ const Comparison = () => {
     React.useEffect(() => {
         const showData = async() => {
         const token=await AsyncStorage.getItem('token');
-            const apiUrl=`http://localhost:8000/api/v1/onboarding/user-drinking-insights/7`
+            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drinking-insights/7`
             const response=await fetch(apiUrl, {method: 'GET'}); 
             const res= await response.json();
             if(!res.success){

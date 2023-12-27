@@ -31,7 +31,7 @@ const Signup = () => {
       try{
         if(fullName && password) {
           console.log(user)
-        const apiUrl='http://localhost:8000/api/v1/auth/create-user';
+        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/create-user`;
         const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
         const data= await response.json();
         if(!data.success){

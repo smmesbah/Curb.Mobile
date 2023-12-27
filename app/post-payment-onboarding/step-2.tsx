@@ -48,7 +48,7 @@ const Goals = () => {
             goals: selectedItems.map(item => item.value)
         }
         console.log(userGoals)
-        const apiUrl="http://localhost:8000/api/v1/onboarding/user-goals"
+        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-goals`
         const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(userGoals)});
         const data= await response.json();
         if(!data.success){
