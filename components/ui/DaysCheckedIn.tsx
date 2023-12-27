@@ -1,6 +1,8 @@
 import DailyCheckInIcon from 'components/icons/DailyCheckInIcon'
 import DailyStreakIcon from 'components/icons/DailyStreakIcon'
 import DailyStreakNotFullfilled from 'components/icons/DailyStreakNotFullfilled'
+import DayCheckedIn from 'components/icons/DaysCheckedIn'
+import DaysNotCheckedIn from 'components/icons/DaysNotCheckedIn'
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native'
 
@@ -9,20 +11,20 @@ interface ProgressCircleTextProps {
     fullfilled: boolean,
 }
 
-const ProgressCircleText: React.FC<ProgressCircleTextProps> = ({day, fullfilled}) => {
+const DaysCheckedIn: React.FC<ProgressCircleTextProps> = ({day, fullfilled}) => {
   return (
         <View style={{marginTop: -7}}>
-            <View style={[Styles.container, {backgroundColor: fullfilled? '#0D3F4A': 'transparent'}]}>
+            <View style={[Styles.container, {backgroundColor: fullfilled? '#00053F': 'transparent'}]}>
                 {/* <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>{day}</Text>
                 <Text style={[Styles.text_style, {color: fullfilled? '#fff' : '#9D9E9C'}]}>Day</Text> */}
-                {fullfilled?<DailyStreakIcon/>:<DailyStreakNotFullfilled/>}
+                {fullfilled?<DayCheckedIn/>:<DaysNotCheckedIn/>}
                 
             </View>
         </View>
   )
 }
 
-export default ProgressCircleText
+export default DaysCheckedIn
 
 const Styles = StyleSheet.create({
     container: {

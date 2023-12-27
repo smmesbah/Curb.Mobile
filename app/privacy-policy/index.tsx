@@ -25,9 +25,28 @@ const PrivacyPolicy = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Regular" }}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    Mind Health AI Limited (t/a Curb) has a responsibility to document how we will protect your personal data. This is a 
+                    legal requirement of the Data Protection Act (2018), Part 2, within the UK GDPR ‘Right to be Informed’. This Privacy 
+                    Notice will outline our responsibilities to you. This Privacy Notice was last updated in December 2023.
+                </Text>
+                <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Medium", marginTop: 8  }}>
+                    1.0 Key Terms
+                </Text>
+                <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Regular", marginTop: 8  }}>
+                    1.1 Whilst every effort has been made to outline our responsibilities to you in as clear, concise, and easy to 
+                    understand manner as possible, we do need to use certain terms throughout this Privacy Notice. 
+                </Text>
+                <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Regular", marginTop: 8 }}>
+                    1.2 We will now provide an easy-to-understand definition of each term:
+                </Text>
+                    
+                <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Regular", marginTop: 8}}>
+                    <Text style={{fontFamily: 'Medium'}}>  App: </Text>An abbreviated form of the word application. An application is a software program that is designed to 
+                    perform a specific function directly for the user or, in some cases, for another software program. 
+                </Text>
+                <Text style={{ fontSize: 18, lineHeight: 30, fontFamily: "Regular", marginTop: 8}}>
+                    <Text style={{fontFamily: 'Medium'}}>  App: </Text>An abbreviated form of the word application. An application is a software program that is designed to 
+                    perform a specific function directly for the user or, in some cases, for another software program. 
                 </Text>
             </ScrollView>
         </SafeAreaView>

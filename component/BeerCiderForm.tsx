@@ -86,7 +86,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                     fontFamily: "Regular"
                 }}
             >
-                What kind of beer & cider?
+                What kind of beer or cider?
             </Text>
 
             <View>
@@ -111,7 +111,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                         fontFamily: "Regular"
                     }}
                 >
-                    How much?
+                    Which size?
                 </Text>
                 <DropDownPicker
                     open={open}

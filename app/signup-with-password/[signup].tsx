@@ -21,12 +21,14 @@ const Signup = () => {
   const Data=useGlobalSearchParams();
 
   const handleSignup = async() => {
+    console.log("Helloooooooo");
     if(password.length>8 && termsCondition && optIn && research){
       const user={
         name: fullName,
         email: Data.signup,
         password: password
       }
+      console.log(fullName, password)
 
       try{
         if(fullName && password) {

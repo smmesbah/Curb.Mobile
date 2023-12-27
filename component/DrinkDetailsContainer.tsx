@@ -65,7 +65,7 @@ const DrinkDetailsContainer = () => {
                     fontFamily: "Regular"
                 }}
             >
-                Your {day} drinks
+                Your drinks
             </Text>
 
             <View

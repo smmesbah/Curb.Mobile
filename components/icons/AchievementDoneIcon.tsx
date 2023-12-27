@@ -1,14 +1,16 @@
 import * as React from "react"
 import Svg, { G, Circle, Path, Defs } from "react-native-svg"
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
-const AchievementDoneIcon = () => (
+
+
+const AchievementDoneIcon = ({color}:{color:string}) => (
   <Svg
     width={44}
     height={44}
     fill="none"
   >
     <G filter="url(#a)">
-      <Circle cx={22} cy={18} r={16} fill="#33AE9C" />
+      <Circle cx={22} cy={18} r={16} fill={color} />
     </G>
     <Path
       fill="#fff"

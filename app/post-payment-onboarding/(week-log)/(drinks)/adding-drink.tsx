@@ -88,7 +88,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
             // const nextDayValue = nextDay.value;
             router.push(`/post-payment-onboarding/${selectedDays[1]}`);
         }
-        else if(day==='Log-Drink'){
+        else if(day==='Your drinks'){
             router.push('/checkInScreen/Records');
         }
         else{
@@ -190,7 +190,10 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     gap: 10
                                 }}
                             >
+                                {selectedDays.length > 0 ? 
                                 <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Go to next day</Text>
+                                : <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Submit</Text>
+                                    }
                             </Pressable>
                         ) : (
                             <Pressable

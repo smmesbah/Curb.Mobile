@@ -21,6 +21,7 @@ const Signup = () => {
 
   const handleSignup = async() => {
     try{
+      console.log("Hello");
       if(email) {
       const apiUrl='http://localhost:8000/api/v1/auth/signup';
       const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email})});

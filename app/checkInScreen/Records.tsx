@@ -40,13 +40,12 @@ const Records = () => {
             </LinearGradient>
             <View style={Styles.container4}>
                 <Text style={Styles.tell_text}>Tell us more</Text>
-                <Text style={Styles.tell_description}>Lorem ipsum dolor sit amet consectetur. Morbi
-                    volutpat mollis eget viverra turpis.</Text>
+                <Text style={Styles.tell_description}>Share your mood and activities to help discover your patterns of behaviour</Text>
             </View>
             <View style={Styles.container5}>
                 <View style={Styles.text_container}>
                     <View style={[Styles.dot, {backgroundColor: '#33ae9c'}]}/>
-                    <Text style={Styles.text_style4}>Your well being</Text>
+                    <Text style={Styles.text_style4}>Your wellbeing</Text>
                 </View>
                 <Pressable>
                     <View style={Styles.record_btn}>
