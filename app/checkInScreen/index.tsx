@@ -15,6 +15,7 @@ const index = () => {
     const [currMonth, setCurrMonth]=React.useState(new Date().getMonth());
     const [currYear, setCurrYear]=React.useState(new Date().getFullYear());
     const [openCalendar, setOpenCalendar]=React.useState(false);
+    const drink='Your drinks'
   return (
     <SafeAreaView style={{height: '100%'}}>
         <View style={Styles.container}>
@@ -24,9 +25,8 @@ const index = () => {
                 </TouchableOpacity>
                 <Text style={Styles.header_text}>Check In</Text>
             </View>
-            <Text style={Styles.header_description}>
-                Log your drinking, mood and activity and we'll use it to help you understand your patterns of behaviour
-            </Text>
+            <Text style={Styles.header_description}>Lorem ipsum dolor sit amet consectetur. Morbi
+                    volutpat mollis eget viverra turpis.</Text>
         </View>
         <View style={{backgroundColor: '#f5f6f4', flex: 1}}>
             <View>
@@ -34,12 +34,12 @@ const index = () => {
                     <View style={Styles.dot}/>
                     <Text style={Styles.drink_free_text}>Did you have a drink-free day?</Text>
                 </View>
-                {/* <Text style={Styles.drink_free_description}>
+                <Text style={Styles.drink_free_description}>
                     Lorem ipsum dolor sit amet consectetur. Morbi
                     volutpat mollis eget viverra turpis.
-                </Text> */}
+                </Text>
                 <View style={Styles.btn_container}>
-                    <Pressable onPress={()=>router.push('/post-payment-onboarding/Your drinks')}>
+                    <Pressable onPress={()=>router.push(`/post-payment-onboarding/${drink}`)}>
                         <View style={Styles.btn}>
                             <Text style={Styles.btn_text}>Yes</Text>
                         </View>
@@ -52,7 +52,7 @@ const index = () => {
                 </View>
             </View>
             <View style={Styles.container3}>
-                <Text style={Styles.text_style}>Change the day to log for a different day</Text>
+                <Text style={Styles.text_style}>Select the day to log for a different day</Text>
                 <View style={Styles.calendar_container}>
                     <Text>{currDay}/{currMonth}/{currYear}</Text>
                     <Pressable onPress={()=>setOpenCalendar(true)}>
@@ -122,10 +122,9 @@ const Styles=StyleSheet.create({
         lineHeight: 28,
         marginTop: 35,
         marginHorizontal: Width*0.045,
-        marginBottom: Height*0.02
+        marginBottom: Height*0.04
     }, 
     container2: {
-        paddingTop: 25,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -156,7 +155,6 @@ const Styles=StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 25,
         gap: Width*0.025,
-        marginTop: 25,
     },
     btn: {
         width: Width*0.43,

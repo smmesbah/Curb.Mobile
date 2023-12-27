@@ -15,7 +15,6 @@ const DrinkDetailsContainer = () => {
     const data = drink.filter((item: any) => item.day === day);
     console.log(data[0]);
 
-
     const handleRemoveDrinkPress = async(drink: any) => {
         const removeableDrink = {
             day: Array.isArray(day) ? day[0] : day || '',

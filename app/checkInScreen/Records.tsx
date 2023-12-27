@@ -1,14 +1,24 @@
 import BackArrow from 'components/icons/BackArrow'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, ScrollView, StyleSheet, Dimensions, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import { TextInput } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
+import { useSelector } from 'react-redux';
 
 const Width=Dimensions.get('screen').width;
 const Height=Dimensions.get('screen').height;
 
 const Records = () => {
+    const wellbeing=useSelector((state:any)=>state.wellbeing);
+    const [text, onChangeText] = React.useState("");
+    const borderColors=['#e64528', '#FFB800', '#7844ff', '#33AE9C', '#33AE9C'];
+    const texts=["Low", 'Barely', 'Neutral', 'Good', 'Fantastic']
+    useEffect(() => {
+        console.log(wellbeing)
+    },[])
   return (
     <SafeAreaView>
         <View style={Styles.header_container}>
@@ -40,14 +50,15 @@ const Records = () => {
             </LinearGradient>
             <View style={Styles.container4}>
                 <Text style={Styles.tell_text}>Tell us more</Text>
-                <Text style={Styles.tell_description}>Share your mood and activities to help discover your patterns of behaviour</Text>
+                <Text style={Styles.tell_description}>Lorem ipsum dolor sit amet consectetur. Morbi
+                    volutpat mollis eget viverra turpis.</Text>
             </View>
             <View style={Styles.container5}>
                 <View style={Styles.text_container}>
                     <View style={[Styles.dot, {backgroundColor: '#33ae9c'}]}/>
-                    <Text style={Styles.text_style4}>Your wellbeing</Text>
+                    <Text style={Styles.text_style4}>Your well being</Text>
                 </View>
-                <Pressable>
+                <Pressable onPress={()=>router.push('/checkInScreen/WellbeingRecords')}>
                     <View style={Styles.record_btn}>
                         <Feather name="plus" size={18} color="#fff" />
                         <Text style={Styles.btn_text}>Record all</Text>
@@ -57,29 +68,57 @@ const Records = () => {
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Sleep</Text>
-                    <View style={Styles.btn_text2}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
-                    </View>
+                    {wellbeing.sleepValue===-1?
+                        <View style={[Styles.btn_text2, {borderColor: '#33AE9C'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                        </View>
+                     : 
+                        <View style={[Styles.btn_text2, {borderColor: borderColors[wellbeing.sleepValue]}]}>
+                            {/* <Feather name="plus" size={18} color="#4E4F4E" /> */}
+                            <Text style={{color: borderColors[wellbeing.sleepValue], fontFamily: 'Regular', fontSize: 16}}>{texts[wellbeing.sleepValue]}</Text>
+                        </View>
+                    }   
                 </View>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Mood</Text>
-                    <View style={Styles.btn_text2}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
-                    </View>
+                    {wellbeing.moodValue===-1?
+                        <View style={[Styles.btn_text2, {borderColor: '#33AE9C'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                        </View>
+                     : 
+                        <View style={[Styles.btn_text2, {borderColor: borderColors[wellbeing.moodValue]}]}>
+                            {/* <Feather name="plus" size={18} color="#4E4F4E" /> */}
+                            <Text style={{color: borderColors[wellbeing.moodValue], fontFamily: 'Regular', fontSize: 16}}>{texts[wellbeing.moodValue]}</Text>
+                        </View>
+                    }
                 </View>
             </View>
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>Energy</Text>
-                    <View style={Styles.btn_text2}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
-                    </View>
+                    {wellbeing.energyValue===-1?
+                        <View style={[Styles.btn_text2, {borderColor: '#33AE9C'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                        </View>
+                     : 
+                        <View style={[Styles.btn_text2, {borderColor: borderColors[wellbeing.energyValue]}]}>
+                            {/* <Feather name="plus" size={18} color="#4E4F4E" /> */}
+                            <Text style={{color: borderColors[wellbeing.energyValue], fontFamily: 'Regular', fontSize: 16}}>{texts[wellbeing.energyValue]}</Text>
+                        </View>
+                    }
                 </View>
                 <View style={{gap: 15}}>
                     <Text style={Styles.text_style5}>WillPower</Text>
-                    <View style={Styles.btn_text2}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
-                    </View>
+                    {wellbeing.willPowerValue===-1?
+                        <View style={[Styles.btn_text2, {borderColor: '#33AE9C'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                        </View>
+                     : 
+                        <View style={[Styles.btn_text2, {borderColor: borderColors[wellbeing.willPowerValue]}]}>
+                            {/* <Feather name="plus" size={18} color="#4E4F4E" /> */}
+                            <Text style={{color: borderColors[wellbeing.willPowerValue], fontFamily: 'Regular', fontSize: 16}}>{texts[wellbeing.willPowerValue]}</Text>
+                        </View>
+                    }
                 </View>
             </View>
             <View style={Styles.container5}>
@@ -87,7 +126,7 @@ const Records = () => {
                     <View style={[Styles.dot, {backgroundColor: '#7844ff'}]}/>
                     <Text style={Styles.text_style4}>Your habits</Text>
                 </View>
-                <Pressable>
+                <Pressable onPress={()=>router.push('/checkInScreen/HabitRecords')}>
                     <View style={Styles.record_btn}>
                         <Feather name="plus" size={18} color="#fff" />
                         <Text style={Styles.btn_text}>Record all</Text>
@@ -97,14 +136,14 @@ const Records = () => {
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
                     {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                         <Text style={Styles.text_style5}>Place</Text>
                     </View>
                 </View>
                 <View style={{gap: 15}}>
                     {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={Styles.btn_text2}>
+                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
                         <Feather name="plus" size={18} color="#4E4F4E" />
                         <Text style={Styles.text_style5}>People</Text>
                     </View>
@@ -114,6 +153,28 @@ const Records = () => {
                 <Feather name="plus" size={18} color="#4E4F4E" />
                 <Text>Activity</Text>
             </View>
+            <View style={Styles.container5}>
+                <View style={Styles.text_container}>
+                    <View style={[Styles.dot, {backgroundColor: '#E64528'}]}/>
+                    <Text style={Styles.text_style4}>Add a note</Text>
+                </View>
+            </View>
+            <View style={Styles.container5}>
+                <TextInput
+                    style={Styles.input_styles}
+                    placeholder='Write your notes'
+                    placeholderTextColor={"#b0b0b4"}
+                    multiline={true}
+                    textAlignVertical='top'
+                    onChangeText={onChangeText}
+                    value={text}
+                />
+            </View>
+            <Pressable>
+                <View style={Styles.save_btn}>
+                    <Text style={Styles.save_text}>Save</Text>
+                </View>
+            </Pressable>
             <View style={{height: Width*.19}}></View>
         </ScrollView>
     </SafeAreaView>
@@ -249,25 +310,56 @@ const Styles=StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#33ae9c',
+        // borderColor: '#33ae9c',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
         width: Width*.42,
-        height: Height*.05
+        height: 50
     },
     btn_text3: {
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#33ae9c',
+        borderColor: '#7844ff',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
         width: Width*.9,
-        height: Height*.05,
-        marginHorizontal: 20
+        height: 50,
+        marginHorizontal: 20,
+        marginTop: 10
+    }, 
+    input_styles: {
+        width: Width*.9,
+        height: Height*.2,
+        padding: 15,
+        alignItems: 'flex-start',
+        borderRadius: 12,
+        borderWidth: 0.5,
+        borderColor: '#b0b0b4',
+        backgroundColor: '#fff',
+        paddingTop: 10
+    },
+    save_btn: {
+        width: Width*0.9,
+        height: 52,
+        borderRadius: 100,
+        paddingVertical: 2,
+        paddingHorizontal: 6,
+        backgroundColor: '#0d3f4a',
+        marginHorizontal: Width*.05,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+    save_text: {
+        color: '#fff',
+        textAlign: 'center',
+        fontFamily: 'Regular',
+        fontSize: 16,
+        letterSpacing: -.14,
     }
 })

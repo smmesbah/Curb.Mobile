@@ -190,7 +190,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     gap: 10
                                 }}
                             >
-                                {selectedDays.length > 0 ? 
+                                {day!=='Your drinks' ? 
                                 <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Go to next day</Text>
                                 : <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Submit</Text>
                                     }
