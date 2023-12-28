@@ -1,11 +1,19 @@
 import React from 'react'
 import {Text, SafeAreaView, ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, FlatList, Animated, Pressable} from 'react-native'
 import InsightCurbLogo from '../../../components/icons/InsightCurbLogo';
+import { router } from 'expo-router';
 
 const windowHeight=Dimensions.get('screen').height;
 const windowWidth=Dimensions.get('screen').width;
 
 const index = () => {
+
+    const handleBackToHomePress = () => {
+        while(router.canGoBack()){
+            router.back();
+        }
+        router.replace('/homeScreen')
+    }
   return (
     <SafeAreaView
         style={{
@@ -33,7 +41,7 @@ const index = () => {
                     you to review your
                     answers/results.
                 </Text>
-                    <Pressable>
+                    <Pressable onPress={handleBackToHomePress}>
                         <View style={Styles.btn}>
                             <Text style={Styles.btn_text}>Back to home</Text>
                         </View>
