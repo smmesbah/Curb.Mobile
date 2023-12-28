@@ -5,6 +5,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
 import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadLocalRawResourceAndroid } from 'react-native-svg/lib/typescript/LocalSvg';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -16,30 +18,33 @@ const Signup = () => {
   const [research, setResearch] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = React.useState('');
+ 
 
   const dispatch = useDispatch();
   const Data=useGlobalSearchParams();
 
   const handleSignup = async() => {
-    if(password.length>8 && termsCondition && optIn && research){
+    console.log("Helloooooooo");
+    if(password.length>=8 && termsCondition && optIn && research){
       const user={
         name: fullName,
         email: Data.signup,
         password: password
       }
+      console.log(fullName, password)
 
       try{
         if(fullName && password) {
-          console.log(user)
+          // console.log(user)
         const apiUrl='http://localhost:8000/api/v1/auth/create-user';
         const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
         const data= await response.json();
         if(!data.success){
           alert(data.message)
+          console.log(data)
         }
         else{
-          console.log(data);
-          router.push(`/login`)
+          router.push('/login')
         }
         
         }
@@ -57,11 +62,6 @@ const Signup = () => {
       alert('Please agree to all the terms and conditions');
     }
   }
-
-  useEffect(() => {
-    console.log('email', Data.signup);
-    console.log('code', );
-  })
 
 
   return (

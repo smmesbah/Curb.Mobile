@@ -9,6 +9,9 @@ import * as Progress from 'react-native-progress';
 import InfoIcon from 'components/icons/InfoIcon';
 import ProgressCircleText from 'components/ui/ProgressCircleText';
 import AchievementDoneIcon from 'components/icons/AchievementDoneIcon';
+import DaysCheckedIn from 'components/ui/DaysCheckedIn';
+import TaskCompleted from 'components/ui/TaskCompleted';
+import { Tooltip } from 'react-native-elements';
 
 const width=Dimensions.get('screen').width;
 const height=Dimensions.get('screen').height;
@@ -39,7 +42,7 @@ const Achievements = () => {
                         <Text style={Styles.badge_text}>Earned</Text>
                     </View>
                     <Text style={Styles.level_text}>You've reached Level 1</Text>
-                    <Text style={Styles.tree_text}>You’re tree is growing healthy</Text>
+                    <Text style={Styles.tree_text}>Like this sapling, you're at the begining of your journey</Text>
                     <View style={Styles.trees}>
                         <LevelTrees tree={'level1'} focused={focused}/>
                         <LevelTrees tree={'level2'} focused={focused}/>
@@ -47,7 +50,7 @@ const Achievements = () => {
                     </View>
                     <View style={Styles.progress_bar}>
                         <Progress.Bar progress={progress} width={width*.85} height={20} color={'#33AE9C'} style={Styles.progress_bar_style} />
-                        <Text style={Styles.progress_bar_text_style}>5 badges away from branching out into Level 2 </Text>
+                        <Text style={Styles.progress_bar_text_style}>You're just 5 badges away from branching out into Level 2 </Text>
                     </View>
                 </View>
             </View>
@@ -55,9 +58,16 @@ const Achievements = () => {
             <View>
                 <View style={Styles.streak_text_container}>
                     <Text style={Styles.streak_text}>Daily Streak</Text>
-                    <TouchableOpacity>
+                    <Tooltip
+                     popover={<View><Text style={Styles.popover_text}>This badge celebrates how many days </Text><Text style={Styles.popover_text}>you open the app in a row</Text></View>}
+                     backgroundColor='#fff'
+                     width={width*0.8}
+                     >
                         <InfoIcon/>
-                    </TouchableOpacity>
+                    </Tooltip>
+                    {/* <TouchableOpacity>
+                        <InfoIcon/>
+                    </TouchableOpacity> */}
                 </View>
                 <View>
                     <FlatList
@@ -78,9 +88,10 @@ const Achievements = () => {
 
                             {currDay>=item?
                                 <View style={{marginTop: -35, alignItems: 'flex-end'}}>
-                                    <AchievementDoneIcon/>
+                                    <AchievementDoneIcon color="#33AE9C"/>
                                 </View>
                             : <View style={{height: 7}}/>}
+                            <Text style={[Styles.day_text, {color: currDay>=item? '#33AE9C' :'#9d9e9c',paddingLeft: currDay>=item? 10: 0 }]}>{item} Day</Text>
                         </View> 
                         }
                         keyExtractor={item => item.toString()}
@@ -95,9 +106,16 @@ const Achievements = () => {
             <View>
                 <View style={Styles.streak_text_container}>
                     <Text style={Styles.streak_text}>Days Checked In</Text>
-                    <TouchableOpacity>
+                    <Tooltip
+                     popover={<View><Text style={Styles.popover_text}>This badge celebrates how many days </Text><Text style={Styles.popover_text}>you check in over the month</Text></View>}
+                     backgroundColor='#fff'
+                     width={width*0.8}
+                     >
                         <InfoIcon/>
-                    </TouchableOpacity>
+                    </Tooltip>
+                    {/* <TouchableOpacity>
+                        <InfoIcon/>
+                    </TouchableOpacity> */}
                 </View>
                 <View>
                     <FlatList
@@ -107,20 +125,21 @@ const Achievements = () => {
                                 <Progress.Circle 
                                 progress={currDay/item} 
                                 size={110} 
-                                color={'#33AE9C'} 
+                                color={'#7844FF'} 
                                 unfilledColor={'#ECEDE9'} 
                                 borderWidth={0}
                                 thickness={7}
                                 strokeCap='round'
                                 showsText={true}
-                                formatText={() => <ProgressCircleText day={item} fullfilled={currDay>=item?true:false}/>}
+                                formatText={() => <DaysCheckedIn day={item} fullfilled={currDay>=item?true:false}/>}
                                 style={{marginLeft: item===1? 20: 0, marginRight: item===day.length? 20: 0}}/>
 
                                 {currDay>=item?
                                     <View style={{marginTop: -35, alignItems: 'flex-end'}}>
-                                        <AchievementDoneIcon/>
+                                        <AchievementDoneIcon color="#7844FF"/>
                                     </View>
                                 : <View style={{height: 7}}/>}
+                                <Text style={[Styles.day_text, {color: currDay>=item? '#7844FF' :'#9d9e9c',paddingLeft: currDay>=item? 10: 0 }]}>{item} Day</Text>
                             </View> 
                         }
                         keyExtractor={item => item.toString()}
@@ -134,10 +153,17 @@ const Achievements = () => {
             </View>
             <View>
                 <View style={Styles.streak_text_container}>
-                    <Text style={Styles.streak_text}>Task completed</Text>
-                    <TouchableOpacity>
+                    <Text style={Styles.streak_text}>Tasks completed</Text>
+                    <Tooltip
+                     popover={<View><Text style={Styles.popover_text}>This badge celebrates how many tasks </Text><Text style={Styles.popover_text}>you completed</Text></View>}
+                     backgroundColor='#fff'
+                     width={width*0.8}
+                     >
                         <InfoIcon/>
-                    </TouchableOpacity>
+                    </Tooltip>
+                    {/* <TouchableOpacity>
+                        <InfoIcon/>
+                    </TouchableOpacity> */}
                 </View>
                 <View>
                     <FlatList
@@ -147,20 +173,21 @@ const Achievements = () => {
                             <Progress.Circle 
                             progress={currDay/item} 
                             size={110} 
-                            color={'#33AE9C'} 
+                            color={'#E64528'} 
                             unfilledColor={'#ECEDE9'} 
                             borderWidth={0}
                             thickness={7}
                             strokeCap='round'
                             showsText={true}
-                            formatText={() => <ProgressCircleText day={item} fullfilled={currDay>=item?true:false}/>}
+                            formatText={() => <TaskCompleted day={item} fullfilled={currDay>=item?true:false}/>}
                             style={{marginLeft: item===1? 20: 0, marginRight: item===day.length? 20: 0}}/>
 
                             {currDay>=item?
                                 <View style={{marginTop: -35, alignItems: 'flex-end'}}>
-                                    <AchievementDoneIcon/>
+                                    <AchievementDoneIcon color="#E64528"/>
                                 </View>
                             : <View style={{height: 7}}/>}
+                            <Text style={[Styles.day_text, {color: currDay>=item? '#E64528' :'#9d9e9c',paddingLeft: currDay>=item? 10: 0 }]}>{item} Day</Text>
                         </View> 
                         }
                         keyExtractor={item => item.toString()}
@@ -243,6 +270,8 @@ const Styles=StyleSheet.create({
         color: '#4E4F4E',
         fontFamily: 'Regular',
         fontSize: 16,
+        textAlign: 'center',
+        marginHorizontal: width*.01,
     },
     trees: {
         marginTop: 27.35,
@@ -267,7 +296,8 @@ const Styles=StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 14,
         textAlign: 'center',
-        letterSpacing: .19
+        letterSpacing: .19,
+        marginHorizontal: width*.03,
     },
     streak_text_container: {
         flexDirection: 'row',
@@ -284,5 +314,16 @@ const Styles=StyleSheet.create({
     },
     achievements_done:{
         flexDirection: 'column',
+        gap: 5,
+    },
+    day_text: {
+        textAlign: 'center',
+        fontFamily: 'Regular',
+        fontSize: 18,
+    },
+    popover_text: {
+        color: "b0b0b4",
+        fontFamily: 'Regular',
+        fontSize: 14,
     }
 })

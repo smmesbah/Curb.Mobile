@@ -56,8 +56,9 @@ const Insights = () => {
         <View style={{backgroundColor: '#ecedea'}}>
               <View style={Styles.header_container}>
                   {/* <Text style={Styles.title}>Insights</Text> */}
-                  <Text style={Styles.description}>Curb helps you recognize patterns of
-                      behaviour that inform your mood and habits</Text>
+                  <Text style={Styles.description}>
+                    Curb helps you recognise patterns of behaviour that inform your mood and habits
+                  </Text>
               </View>
 
               <View>

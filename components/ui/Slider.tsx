@@ -7,7 +7,7 @@ const Slider = () => {
     const current_date= new Date();
     const days_in_month= new Date(current_date.getFullYear(), current_date.getMonth()+1, 0).getDate();
     const percentage= current_date.getDate()/31*100;
-    const drinking_days=[2,5]
+    const drinking_days=[2,5,6]
     const monthNames = [
         'January', 'February', 'March', 'April',
         'May', 'June', 'July', 'August',

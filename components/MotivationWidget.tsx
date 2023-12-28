@@ -119,7 +119,7 @@ const MotivationWidget = () => {
       <View style={styles.why_style}>
         <Text
           style={styles.text_style}
-        >Your "Why"?</Text>
+        >Your "Why?"</Text>
         <View
           style={styles.add_edit_style}
         >

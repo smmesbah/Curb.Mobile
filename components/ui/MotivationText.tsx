@@ -90,13 +90,13 @@ const MotivationText: React.FC<MotivationTextProps> = ({ Data, id, answers, onCh
                 style={[styles.text_input, { color: '#ccc' }]}
                 onChangeText={(value) => setAnswer(value)}
                 value={answer}
-                placeholder='Write your Answer?'
+                placeholder='write your answer here'
                 placeholderTextColor={'#5f6f7b'}
                 textAlignVertical='top'
             />
             {/* } */}
             <View style={styles.edit_swipe_style}>
-                <Text style={styles.swipe}>* Swipe left to see more goals</Text>
+                <Text style={styles.swipe}>* Swipe left for more prompts</Text>
                 {
                     editOpen ?
                         <View style={{ flexDirection: 'row', gap: 7 }}>

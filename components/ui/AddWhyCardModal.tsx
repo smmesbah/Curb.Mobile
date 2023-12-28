@@ -58,7 +58,7 @@ const AddWhyCardModal = ({addModalOpen, setAddModalOpen, yourData}) => {
         style={Styles.question_input}
         onChangeText={setAnswer}
         value={Answer}
-        placeholder='Write your Answer?'
+        placeholder='write your answer here'
         placeholderTextColor={'#ccc'}
         textAlignVertical='top'
     />

@@ -15,6 +15,7 @@ const index = () => {
     const [currMonth, setCurrMonth]=React.useState(new Date().getMonth());
     const [currYear, setCurrYear]=React.useState(new Date().getFullYear());
     const [openCalendar, setOpenCalendar]=React.useState(false);
+    const drink='Your drinks'
   return (
     <SafeAreaView style={{height: '100%'}}>
         <View style={Styles.container}>
@@ -38,7 +39,7 @@ const index = () => {
                     volutpat mollis eget viverra turpis.
                 </Text>
                 <View style={Styles.btn_container}>
-                    <Pressable onPress={()=>router.push('/post-payment-onboarding/Log-Drink')}>
+                    <Pressable onPress={()=>router.push(`/post-payment-onboarding/${drink}`)}>
                         <View style={Styles.btn}>
                             <Text style={Styles.btn_text}>Yes</Text>
                         </View>

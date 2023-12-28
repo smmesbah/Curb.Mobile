@@ -50,7 +50,7 @@ const Day = () => {
                     >
                         <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
                             <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#7844ff', }} />
-                            <Text style={{ fontSize: 24, color: '#7844ff', fontFamily: "Regular" }}>Choose a drink</Text>
+                            <Text style={{ fontSize: 24, color: '#7844ff', fontFamily: "Regular" }}>Select drink</Text>
                         </View>
 
                         <View

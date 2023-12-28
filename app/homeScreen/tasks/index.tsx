@@ -90,20 +90,20 @@ const Tasks = () => {
         }}
     >
     <View style={[Styles.header_container, {backgroundColor: '#ecedea', paddingTop: windowHeight*.05,paddingBottom: 5}]}>
-            <Text style={Styles.title}>Tasks</Text>
+            <Text style={Styles.title}>Exercises</Text>
             
     </View>
     <ScrollView style={{backgroundColor: '#ecedea',}}>
         <View style={[Styles.header_container, {marginTop: 20}]}>
-            <Text style={Styles.description}>Daily bitesize educational content built by top
-            psychologists to help you understand yourself
-            and your habits better</Text>
+            <Text style={Styles.description}>
+                Understand yourself and your habits better with learning from top psychologists
+            </Text>
         </View>
         <View style={Styles.today_task_container}>
             <Image source={require('../../../assets/images/TasksImage.png')} style={Styles.image}/>
             <View style={Styles.today_task_right}>
                 <View style={Styles.today_task_texts}>
-                    <Text style={Styles.today_task_text}>Today's Task</Text>
+                    <Text style={Styles.today_task_text}>Today</Text>
                     <Text style={Styles.today_task_description}>{todaysTasks[0]?.title}</Text>
                 </View>
                 <View style={Styles.task_checked}>
