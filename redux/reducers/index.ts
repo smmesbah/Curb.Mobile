@@ -4,6 +4,7 @@ import counterReducer from './counterReducer';
 import drinkReducer from './drinkReducer';
 import selectedDaysReducer from './selectedDaysReducer';
 import wellbeingReducer from './wellbeingReducer';
+import habitReducer from './habitReducer';
 
 
 const myReducer = combineReducers({
@@ -11,6 +12,7 @@ const myReducer = combineReducers({
     drink: drinkReducer,
     selecedDays: selectedDaysReducer,
     wellbeing: wellbeingReducer,
+    habit: habitReducer,
 })
 
 export default myReducer;

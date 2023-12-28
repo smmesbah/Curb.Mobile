@@ -13,12 +13,23 @@ const Height=Dimensions.get('screen').height;
 
 const Records = () => {
     const wellbeing=useSelector((state:any)=>state.wellbeing);
+    const habit=useSelector((state:any)=>state.habit);
     const [text, onChangeText] = React.useState("");
     const borderColors=['#e64528', '#FFB800', '#7844ff', '#33AE9C', '#33AE9C'];
     const texts=["Low", 'Barely', 'Neutral', 'Good', 'Fantastic']
-    useEffect(() => {
-        console.log(wellbeing)
-    },[])
+    const loc=habit.setLocation
+    const act=habit.setActivity
+    const peo=habit.setPeople
+    const locArray = loc.split('-');
+    const actArray = act.split('-');
+    const peoArray = peo.split('-');
+    // useEffect(() => {
+    //     console.log(wellbeing)
+    //     console.log(habit)
+    //     console.log(locArray)
+    //     console.log(actArray)
+    //     console.log(peoArray)
+    // },[])
   return (
     <SafeAreaView>
         <View style={Styles.header_container}>
@@ -135,23 +146,82 @@ const Records = () => {
             </View>
             <View style={Styles.container5}>
                 <View style={{gap: 15}}>
-                    {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
+                    {locArray.length===1 && locArray[0]===''?
+                        <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                            <Text style={[Styles.text_style5]}>Place</Text>
+                        </View>
+                    : 
+                    <View>
                         <Text style={Styles.text_style5}>Place</Text>
+                        <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, marginTop: 10}}>
+                            {locArray.map((item: any, index: any)=>(
+                                <View key={index} style={Styles.container6}>
+                                    <Text style={[Styles.text_style6, {color: '#33AE9C'}]}>{item}</Text>
+                                </View>
+                            ))}
+                        </View>
                     </View>
+                    }
                 </View>
                 <View style={{gap: 15}}>
-                    {/* <Text style={Styles.text_style5}>WillPower</Text> */}
-                    <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
-                        <Feather name="plus" size={18} color="#4E4F4E" />
-                        <Text style={Styles.text_style5}>People</Text>
+                {peoArray.length===1 && peoArray[0]===''?
+                        <View style={[Styles.btn_text2, {borderColor: '#7844ff'}]}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                            <Text style={[Styles.text_style5]}>People</Text>
+                        </View>
+                    : 
+                    <View>
+                        <Text style={[Styles.text_style5]}>People</Text>
+                        <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, marginTop: 10}}>
+                            {peoArray.map((item: any, index: any)=>(
+                                <View key={index} style={{
+                                    paddingHorizontal: 15,
+                                    paddingVertical: 10,
+                                    alignItems: 'center',
+                                    gap: 8,
+                                    borderRadius: 12,
+                                    borderWidth: 1,
+                                    borderColor: "#E64528",
+                                    backgroundColor: 'rgba(230, 69, 40, 0.05)',
+                                    flexDirection: 'row'
+                                }}>
+                                    <Text style={[Styles.text_style6, {color: '#E64528'}]}>{item}</Text>
+                                </View>
+                            ))}
+                        </View>
                     </View>
+                    }
                 </View>
             </View>
-            <View style={Styles.btn_text3}>
-                <Feather name="plus" size={18} color="#4E4F4E" />
-                <Text>Activity</Text>
+            <View>
+            {actArray.length===1 && actArray[0]===''?
+                    <View style={Styles.btn_text3}>
+                            <Feather name="plus" size={18} color="#4E4F4E" />
+                            <Text style={[Styles.text_style5]}>Activities</Text>
+                     </View>   
+                    : 
+                    <View style={[{marginHorizontal: Width*0.05, backgroundColor: '#f7f8f6',}]}>
+                        <Text style={Styles.text_style5}>Activities</Text>
+                        <View style={{flexDirection: 'row', flexWrap: 'wrap',justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, marginTop: 10}}>
+                            {actArray.map((item: any, index: any)=>(
+                                <View key={index} style={{
+                                    paddingHorizontal: 15,
+                                    paddingVertical: 10,
+                                    alignItems: 'center',
+                                    gap: 8,
+                                    borderRadius: 12,
+                                    borderWidth: 1,
+                                    borderColor: "#7844FF",
+                                    backgroundColor: 'rgba(120, 68, 255, 0.05)',
+                                    flexDirection: 'row'
+                                }}>
+                                    <Text style={[Styles.text_style6, {color: '#7844FF'}]}>{item}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                    }
             </View>
             <View style={Styles.container5}>
                 <View style={Styles.text_container}>
@@ -170,7 +240,7 @@ const Records = () => {
                     value={text}
                 />
             </View>
-            <Pressable>
+            <Pressable onPress={()=>router.push('homeScreen/checkIn')}>
                 <View style={Styles.save_btn}>
                     <Text style={Styles.save_text}>Save</Text>
                 </View>
@@ -361,5 +431,20 @@ const Styles=StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 16,
         letterSpacing: -.14,
+    },
+    container6: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        alignItems: 'center',
+        gap: 8,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: "#33AE9C",
+        backgroundColor: 'rgba(51, 174, 156, 0.05)',
+        flexDirection: 'row'
+    },
+    text_style6: {
+        fontFamily: 'Regular',
+        fontSize: 17,
     }
 })

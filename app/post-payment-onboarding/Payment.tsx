@@ -53,12 +53,12 @@ const Payment = () => {
                 <TouchableOpacity onPress={()=>router.back()}>
                     <BackArrow/>
                 </TouchableOpacity>
-                <Text style={Styles.header_text}>Payment</Text>
+                <Text style={Styles.header_text}>Access Code</Text>
             </View>
-            <Text style={Styles.header_subtext}>Enter your promo code to get free membership from curb team</Text>
+            <Text style={Styles.header_subtext}>Enter your promo code to claim your free access from the Curb team</Text>
         </View>
         <View style={Styles.container2}>
-            <Text style={Styles.promo_code}>Enter your promo code</Text>
+            <Text style={Styles.promo_code}>Enter your code for FREE access</Text>
             <TextInput
                 style={[Styles.text_input, 
                     {backgroundColor: text===""?'#fff':text===code?'rgba(51, 174, 156, 0.05)':'rgba(230, 69, 40, 0.05)',
@@ -80,7 +80,7 @@ const Payment = () => {
                 
             }
             <TouchableOpacity
-                onPress={()=>router.push('/homeScreen')}
+                onPress={()=>router.push('/post-payment-onboarding/success-page')}
                 disabled={text!=code && text!=""? true: false}
             >
                 <View style={[Styles.btn_container,
