@@ -6,6 +6,7 @@ import AddWhyCardModal from './ui/AddWhyCardModal';
 import { AddIcon } from './icons/AddIcon';
 import { EditIcon } from './icons/EditIcon';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { FlatList } from 'react-native-gesture-handler';
 
 const windowHeight = Dimensions.get('screen').height;
@@ -70,7 +71,8 @@ const MotivationWidget = () => {
   // fetch answers from database
   const fetchYourWhyAnswers = async () => {
     try {
-      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/answer-why/1`);
+      const token= await AsyncStorage.getItem("token");
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/answer-why/${token}`);
       // console.log(response.data.data);
       if (response.data.success) {
         setYourWhyAnswers(response.data.data)

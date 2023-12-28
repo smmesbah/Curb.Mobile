@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TaskCard from 'components/TaskCard';
 import { CheckedFilled } from 'components/icons/checkedFilled';
@@ -56,7 +57,8 @@ const Tasks = () => {
     //fetch tasks from backend
     const fetchTasks = async () => {
         try {
-            const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/all-tasks/1`);
+            const token = await AsyncStorage.getItem('token');
+            const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/all-tasks/${token}`);
             const formattedTasks = res.data.data.map((taskItem: any) => {
                 return {
                     id: taskItem.id,
