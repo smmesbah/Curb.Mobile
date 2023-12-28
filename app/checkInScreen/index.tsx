@@ -39,12 +39,12 @@ const index = () => {
                     volutpat mollis eget viverra turpis.
                 </Text>
                 <View style={Styles.btn_container}>
-                    <Pressable onPress={()=>router.push(`/post-payment-onboarding/${drink}`)}>
+                    <Pressable onPress={() => router.push(`/homeScreen`)}>
                         <View style={Styles.btn}>
                             <Text style={Styles.btn_text}>Yes</Text>
                         </View>
                     </Pressable>
-                    <Pressable>
+                    <Pressable onPress={()=>router.push(`/checkInScreen/drink-log`)}>
                         <View style={Styles.btn}>
                             <Text style={Styles.btn_text}>No</Text>
                         </View>

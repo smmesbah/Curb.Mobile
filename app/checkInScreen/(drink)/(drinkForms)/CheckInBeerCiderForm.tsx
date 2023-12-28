@@ -1,42 +1,41 @@
 import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useImperativeHandle, useRef } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
-import RadioButtonRound from './ui/RadioButtonRound'
+// import RadioButtonRound from './ui/RadioButtonRound'
+import RadioButtonRound from 'component/ui/RadioButtonRound'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { addDrink } from 'redux/actions/drinkActions'
 import { useGlobalSearchParams } from 'expo-router'
+import axios from 'axios'
+import { addCheckinDrink } from 'redux/actions/checkinDrinkActions'
 
 const { width, height } = Dimensions.get('screen');
 
-const BeerCiderForm = React.forwardRef((props, ref) => {
+const CheckInBeerCiderForm = React.forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
-       async handleAddDrinkPress() {
-            const drink = {
-                day: Array.isArray(day) || day === undefined ? '' : day,
-                drinks: {
-                    drinkQuantity: drinkCount,
-                    drinkType: beerCiderType,
-                    drinkSize: value,
-                }
-            }
-            dispatch(addDrink(drink));
-
-            const token=await AsyncStorage.getItem('token');
-            const weekly_drink={
+        async handleAddDrinkPress() {
+            const token = await AsyncStorage.getItem('token');
+            const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/checkin/checkin-drink`,{
                 token: token,
-                day: day,
                 drinkType: "BEER_CIDER",
                 drinkName: beerCiderType,
                 drinkVolume: value,
                 drinkQuantity: drinkCount
-            }
-            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
-            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
-            const data= await response.json();
-                if(!data.success){
-                    alert(data.message)
+            })
+
+            if(res.data.success){
+                const checkinDrink = {
+                    id: res.data.data.id,
+                    drinkName: res.data.data.drinkName,
+                    drinkVolume: res.data.data.drinkVolume,
+                    drinkQuantity: res.data.data.drinkQuantity,
                 }
+                dispatch(addCheckinDrink(checkinDrink));
+                console.log(res.data.message);
+            }else{
+                console.log(res.data.message);
+            }
         }
     }));
 
@@ -175,7 +174,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                             fontSize: 40,
                             fontWeight: '400',
                             textAlign: 'center',
-                            color: '#27284e', 
+                            color: '#27284e',
                             fontFamily: "Regular"
                         }}
                         onChangeText={(text) => setDrinkCount(Number(text))}
@@ -184,15 +183,10 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                     />
                 </View>
             </View>
-            {/* <TouchableOpacity
-                onPress={handleAddDrinkPress}
-            >
-                <Text>Click me.</Text>
-            </TouchableOpacity> */}
         </View>
     )
 });
 
-export default BeerCiderForm;
+export default CheckInBeerCiderForm;
 
 const styles = StyleSheet.create({})

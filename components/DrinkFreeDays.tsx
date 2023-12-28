@@ -3,7 +3,12 @@ import {View,Text, StyleSheet} from 'react-native';
 import { COLORS } from 'constants/Constants';
 import Slider from 'components/ui/Slider';
 
-const DrinkFreeDays = () => {
+interface drinkFreeDaysProps { 
+    drinkFreeDays: Array<number>
+    drinkingDays: Array<number>
+}
+
+const DrinkFreeDays: React.FC<drinkFreeDaysProps> = ({drinkFreeDays, drinkingDays}) => {
   return (
     <View style={{justifyContent: 'flex-start'}}>
         <View
@@ -12,7 +17,7 @@ const DrinkFreeDays = () => {
             <Text
                 style={Styles.number_style}
             >
-                14
+                {drinkFreeDays?.length}
             </Text>
             <Text
                 style={Styles.text_style}
@@ -23,7 +28,7 @@ const DrinkFreeDays = () => {
         <View style={{
             height: 15,
         }}>
-        <Slider/>
+        <Slider drinkingDays={drinkingDays}/>
         </View>
         
     </View>

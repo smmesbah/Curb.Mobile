@@ -2,12 +2,12 @@ import React from 'react'
 import { View,StyleSheet, Dimensions,Text } from 'react-native'
 const windowWidth=Dimensions.get('screen').width;
 const windowHeight=Dimensions.get('screen').height;
-const Slider = () => {
+const Slider = ({drinkingDays}: {drinkingDays: Array<number>}) => {
     
     const current_date= new Date();
     const days_in_month= new Date(current_date.getFullYear(), current_date.getMonth()+1, 0).getDate();
     const percentage= current_date.getDate()/31*100;
-    const drinking_days=[2,5,6]
+    const drinking_days= drinkingDays;
     const monthNames = [
         'January', 'February', 'March', 'April',
         'May', 'June', 'July', 'August',
@@ -21,7 +21,7 @@ const Slider = () => {
         style={styles.outer_view}
     >
         <View style={[styles.inner_view, { width: `${percentage}%` }]}>
-            {drinking_days.map((day,index)=>(
+            {drinking_days?.map((day,index)=>(
                 <View
                 key={index}
                 style={[styles.drinking_days, {width: 5.5, left: (329/31)*day}]}>

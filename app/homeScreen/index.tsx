@@ -41,6 +41,11 @@ const Home = () => {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [calandermodalOpen, setCalanderModalOpen] = useState(false);
   const [task, setTask] = useState<taskMetaData>();
+  const [drinkFreeDays, setDrinkFreeDays] = useState([]);
+  const [drinkDays, setDrinkDays] = useState([]);
+  const [moneySaved,setMoneySaved]=useState(0);
+  const [caloriesAvoided,setCaloriesAvoided]=useState(0);
+  const [unitsAvoided,setUnitsAvoided]=useState(0);
 
   useEffect(() => {
     // const keyboardDidShowListener = Keyboard.addListener(
@@ -58,7 +63,8 @@ const Home = () => {
     //   }
     // );
     fetchThisWeekTasks();
-
+    fetchDrinkFreeDaysAndDrinkDays();
+    fetchMoneySavedCaloriesAvoidedAndUnitsAvoided();
 
     // return () => {
     //   keyboardDidShowListener.remove();
@@ -87,6 +93,39 @@ const Home = () => {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  //fetch drink free days and drink days
+  const fetchDrinkFreeDaysAndDrinkDays = async() => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/drink-free-days/${token}`)
+      if(res.data.success){
+        setDrinkFreeDays(res.data.data.drinkFreeDaysList)
+        setDrinkDays(res.data.data.drinkDaysWithinCurrentMonth)
+      }else{
+        console.log(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // fetch money saved calories avoided and units avoided
+  const fetchMoneySavedCaloriesAvoidedAndUnitsAvoided = async() => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/calculation/${token}`)
+      if(res.data.success){
+        setMoneySaved(res.data.data.moneySaved)
+        setCaloriesAvoided(res.data.data.caloriesAvoided)
+        setUnitsAvoided(res.data.data.unitsAvoided)
+      }else{
+        console.log(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -126,10 +165,10 @@ const Home = () => {
               </View>
             </View>
             <View style={Styles.drinkFreeDays}>
-              <DrinkFreeDays />
+              <DrinkFreeDays drinkFreeDays={drinkFreeDays} drinkingDays={drinkDays}/>
             </View>
             <View>
-              <CaloriesAvoidedWidget />
+              <CaloriesAvoidedWidget moneySaved={moneySaved} caloriesAvoided={caloriesAvoided} unitsAvoided={unitsAvoided} />
             </View>
             <View>
               <View style={{ paddingHorizontal: 15 }}>
