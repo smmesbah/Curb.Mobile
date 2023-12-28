@@ -1,4 +1,4 @@
-import { Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Linking, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { router } from 'expo-router'
@@ -12,20 +12,20 @@ const Comparison = () => {
     const [spendPerWeek, setSpendPerWeek] = React.useState(0);
     const [spendPerMonth, setSpendPerMonth] = React.useState(0);
     const [spendPerYear, setSpendPerYear] = React.useState(0);
-    const [insights,setInsights]=React.useState("");
-    const [calories,setCalories]=React.useState(0);
+    const [insights, setInsights] = React.useState("");
+    const [calories, setCalories] = React.useState(0);
 
 
     React.useEffect(() => {
-        const showData = async() => {
-        const token=await AsyncStorage.getItem('token');
-            const apiUrl=`http://localhost:8000/api/v1/onboarding/user-drinking-insights/${token}`
-            const response=await fetch(apiUrl, {method: 'GET'}); 
-            const res= await response.json();
-            if(!res.success){
+        const showData = async () => {
+            const token = await AsyncStorage.getItem('token');
+            const apiUrl = `http://localhost:8000/api/v1/onboarding/user-drinking-insights/${token}`
+            const response = await fetch(apiUrl, { method: 'GET' });
+            const res = await response.json();
+            if (!res.success) {
                 alert(res.message)
             }
-            const data=(res.data)
+            const data = (res.data)
             console.log(data)
             setSpendPerWeek(parseFloat(data.spendPerWeek))
             setSpendPerMonth(parseFloat(data.spendPerMonth))
@@ -34,7 +34,7 @@ const Comparison = () => {
             setCalories(data.totalCaloriesConsumed)
         }
         showData();
-    },[])
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -66,7 +66,7 @@ const Comparison = () => {
                         marginRight: 20,
                     }}
                 >
-                    
+
                 </View>
 
                 <View
@@ -79,15 +79,15 @@ const Comparison = () => {
                 >
                     <StatsComparisonCard
                         // headerText="You're in the top"
-                        Status={insights.slice(0,4)}
-                        SubheaderText={insights.slice(4,insights.length)}
+                        Status={insights.slice(0, 4)}
+                        SubheaderText={insights.slice(4, insights.length)}
                     />
                     <StatsComparisonCard
                         headerText="You're in the top"
                         Status="10th"
                         SubheaderText="Percentile of drink"
                     />
-                    
+
                     <StatsComparisonCard
                         // headerText="You're in the top"
                         Status={calories.toString()}
@@ -142,7 +142,7 @@ const Comparison = () => {
                             }}
                         >
                             <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerMonth}</Text>
-                            <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per month</Text>
+                            <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per month</Text>
                         </View>
 
                         <View
@@ -161,12 +161,16 @@ const Comparison = () => {
                             }}
                         >
                             <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerYear}</Text>
-                            <Text style={{ fontSize: 17 , fontFamily: "Regular"}}>Per year</Text>
+                            <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per year</Text>
                         </View>
                     </View>
                 </View>
-
-                <Text style={{fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular", marginBottom: 5}}>*Sources:</Text>
+                <View style={{gap: 5}}>
+                    <Text style={{ fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular", marginBottom: 5 }}>Sources</Text>
+                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://beerandpub.com/data-statistics/beer-prices/')}>Cost of alcohol</Text>
+                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calculating-alcohol-units/')}>Units in alcohol</Text>
+                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calories-in-alcohol/')}>Calories in alcohol</Text>
+                </View>
             </ScrollView>
             <View
                 style={{

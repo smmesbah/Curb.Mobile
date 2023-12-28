@@ -1,112 +1,148 @@
 import React from 'react'
-import {Text, View, StyleSheet, Dimensions, TouchableOpacity, ScrollView, TextInput, Modal, Animated, Easing} from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity, ScrollView, TextInput, Modal, Animated, Easing } from 'react-native';
 import BackArrow from 'components/icons/BackArrow';
 import { router, useNavigation } from 'expo-router';
 import NotValidIcon from 'components/icons/NotValidIcon';
 import * as Progress from 'react-native-progress';
 import ProcessingIcon from 'components/icons/ProcessingIcon';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Width=Dimensions.get('screen').width;
-const Height=Dimensions.get('screen').height;
+const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('screen').height;
 
-const code="CURBX";
+const codeStartedWith = ['HK', 'NHK'];
 const Payment = () => {
 
     const navigation = useNavigation();
     const [text, onChangeText] = React.useState("");
-    const [processModal, setProcessModal]=React.useState(false);
+    const [processModal, setProcessModal] = React.useState(false);
+
 
 
     const rotation = React.useRef(new Animated.Value(0)).current;
-
-  const rotateImage = () => {
-    Animated.timing(rotation, {
-      toValue: 360,
-      duration: 2000,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start(() => {
-      rotation.setValue(0);
-      rotateImage();
-    });
-  };
-
-  React.useEffect(() => {
-    rotateImage();
-  }, []);
-
-  const rotateStyle = {
-    transform: [
-      {
-        rotate: rotation.interpolate({
-          inputRange: [0, 360],
-          outputRange: ['0deg', '360deg'],
-        }),
-      },
-    ],
-  };
-
-  return (
-    <ScrollView style={{backgroundColor: '#f5f6f4'}}>
-        <View style={Styles.container}>
-            <View style={Styles.header_container}>
-                <TouchableOpacity onPress={()=>router.back()}>
-                    <BackArrow/>
-                </TouchableOpacity>
-                <Text style={Styles.header_text}>Access Code</Text>
-            </View>
-            <Text style={Styles.header_subtext}>Enter your promo code to claim your free access from the Curb team</Text>
-        </View>
-        <View style={Styles.container2}>
-            <Text style={Styles.promo_code}>Enter your code for FREE access</Text>
-            <TextInput
-                style={[Styles.text_input, 
-                    {backgroundColor: text===""?'#fff':text===code?'rgba(51, 174, 156, 0.05)':'rgba(230, 69, 40, 0.05)',
-                        borderColor: text===""?'#b0b0b4':text===code?'#33AE9C':'#E64528',
-                }]}
-                onChangeText={onChangeText}
-                value={text}
-                placeholder='Enter your promo code'
-                placeholderTextColor='#b0b0b4'
-                textAlign='center'
-            />
-            {   
-                text===code? <Text style={[Styles.text_style,{color: '#33AE9C'}]}>Code is valid</Text>: 
-                text===""? null:
-                <View style={Styles.invalid}>
-                    <NotValidIcon/>
-                    <Text style={[Styles.text_style, {color: '#E64528'}]}>Code not valid, please try again.</Text>
-                </View>
-                
+    const handleApplyCode = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+            const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-referrel-code`, {
+                token: token,
+                referrelCode: text
+            })
+            if (res.data.success) {
+                setProcessModal(true);
+                setTimeout(() => {
+                    setProcessModal(false);
+                    router.push('/homeScreen')
+                }, 2000)
+            }else{
+                alert(res.data.message)
             }
-            <TouchableOpacity
-                onPress={()=>router.push('/post-payment-onboarding/success-page')}
-                disabled={text!=code && text!=""? true: false}
-            >
-                <View style={[Styles.btn_container,
-                    {backgroundColor: (text!=code && text!="")?"#bfcccd": '#0D3F4A',
-                     borderColor: (text!=code && text!="")?"#fff": '#33AE9C'}]}>
-                    <Text style={Styles.btn_text}>Apply code</Text>
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const rotateImage = () => {
+        Animated.timing(rotation, {
+            toValue: 360,
+            duration: 2000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start(() => {
+            rotation.setValue(0);
+            rotateImage();
+        });
+    };
+
+    React.useEffect(() => {
+        rotateImage();
+    }, []);
+
+    const rotateStyle = {
+        transform: [
+            {
+                rotate: rotation.interpolate({
+                    inputRange: [0, 360],
+                    outputRange: ['0deg', '360deg'],
+                }),
+            },
+        ],
+    };
+
+    return (
+        <ScrollView style={{ backgroundColor: '#f5f6f4' }}>
+            <View style={Styles.container}>
+                <View style={Styles.header_container}>
+                    <TouchableOpacity onPress={() => router.back()}>
+                        <BackArrow />
+                    </TouchableOpacity>
+                    <Text style={Styles.header_text}>Access Code</Text>
                 </View>
-            </TouchableOpacity>
-        </View>
-        <Modal visible={processModal} transparent>
-            <View style={Styles.modal_style}>
-                <Animated.View
-                    style={[rotateStyle]}
-                >
-                    <ProcessingIcon/>
-                </Animated.View>
-                <Text style={Styles.modal_text}>Processing...</Text>
+                <Text style={Styles.header_subtext}>Enter your promo code to claim your free access from the Curb team</Text>
             </View>
-        </Modal>
-    </ScrollView>
-  )
+            <View style={Styles.container2}>
+                <Text style={Styles.promo_code}>Enter your code for FREE access</Text>
+                <TextInput
+                    style={[Styles.text_input,
+                    {
+                        backgroundColor:
+                            text === '' ? '#fff' : codeStartedWith.some(prefix => text.startsWith(prefix)) ? 'rgba(51, 174, 156, 0.05)' : 'rgba(230, 69, 40, 0.05)',
+                        borderColor:
+                            text === '' ? '#b0b0b4' : codeStartedWith.some(prefix => text.startsWith(prefix)) ? '#33AE9C' : '#E64528',
+                    },]}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder='Enter your promo code'
+                    placeholderTextColor='#b0b0b4'
+                    textAlign='center'
+                />
+                {/* {
+                    text === code ? <Text style={[Styles.text_style, { color: '#33AE9C' }]}>Code is valid</Text> :
+                        text === "" ? null :
+                            <View style={Styles.invalid}>
+                                <NotValidIcon />
+                                <Text style={[Styles.text_style, { color: '#E64528' }]}>Code not valid, please try again.</Text>
+                            </View>
+
+                } */}
+                {codeStartedWith.some(prefix => text.startsWith(prefix)) ? (
+                    <Text style={[Styles.text_style, { color: '#33AE9C' }]}>Code is valid</Text>
+                ) : text === '' ? null : (
+                    <View style={Styles.invalid}>
+                        <NotValidIcon />
+                        <Text style={[Styles.text_style, { color: '#E64528' }]}>Code not valid, please try again.</Text>
+                    </View>
+                )}
+                <TouchableOpacity
+                    onPress={handleApplyCode}
+                    disabled={!codeStartedWith.some(prefix => text.startsWith(prefix))}
+                >
+                    <View style={[Styles.btn_container,
+                    {
+                        backgroundColor: codeStartedWith.some(prefix => text.startsWith(prefix)) ? '#0D3F4A' : '#bfcccd',
+                        borderColor: codeStartedWith.some(prefix => text.startsWith(prefix)) ? '#33AE9C' : '#fff',
+                    },]}>
+                        <Text style={Styles.btn_text}>Apply code</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <Modal visible={processModal} transparent>
+                <View style={Styles.modal_style}>
+                    <Animated.View
+                        style={[rotateStyle]}
+                    >
+                        <ProcessingIcon />
+                    </Animated.View>
+                    <Text style={Styles.modal_text}>Processing...</Text>
+                </View>
+            </Modal>
+
+        </ScrollView>
+    )
 }
 
 export default Payment
 
-const Styles=StyleSheet.create({
+const Styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItem: 'center',
@@ -114,7 +150,7 @@ const Styles=StyleSheet.create({
         backgroundColor: '#fff',
         paddingBottom: 20,
     },
-    header_container:{
+    header_container: {
         marginTop: 30,
         paddingTop: 25,
         paddingHorizontal: 20,
@@ -136,7 +172,7 @@ const Styles=StyleSheet.create({
         lineHeight: 28,
         marginLeft: 20,
         marginRight: 20,
-    }, 
+    },
     promo_code: {
         marginTop: 30,
         color: '#080D09',
@@ -145,7 +181,7 @@ const Styles=StyleSheet.create({
         textAlign: 'center'
     },
     text_input: {
-        width: Width*.84,
+        width: Width * .84,
         height: 52,
         paddingVertical: 12,
         paddingHorizontal: 15,
@@ -162,9 +198,9 @@ const Styles=StyleSheet.create({
         alignItems: 'center',
         gap: 20,
         backgroundColor: '#f5f6f4'
-    }, 
+    },
     btn_container: {
-        width: Width*.84,
+        width: Width * .84,
         height: 52,
         justifyContent: 'center',
         alignItems: 'center',
@@ -186,13 +222,13 @@ const Styles=StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 14,
 
-    }, 
+    },
     invalid: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 5
-    }, 
+    },
     modal_style: {
         justifyContent: 'center',
         alignItems: 'center',
