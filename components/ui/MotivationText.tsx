@@ -6,6 +6,7 @@ import { SubmitIcon } from 'components/icons/SubmitIcon';
 import CancelIcon from 'components/icons/CancelIcon';
 import { YourWhyAnswers } from 'components/MotivationWidget';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
@@ -39,9 +40,10 @@ const MotivationText: React.FC<MotivationTextProps> = ({ Data, id, answers, onCh
     }
     const handleSubmit = async () => {
         try {
+            const token=await AsyncStorage.getItem('token');
             setEditOpen(!editOpen);
             const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/answer-why`, {
-                userId: 1,
+                token: token,
                 strapiId: id,
                 answer: answer,
             })
