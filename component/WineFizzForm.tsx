@@ -48,7 +48,7 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                 drinkVolume: value,
                 drinkQuantity: wineCount
             }
-            const apiUrl="http://localhost:8000/api/v1/onboarding/weekly-drink"
+            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/weekly-drink`
             const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
             const data= await response.json();
                 if(!data.success){

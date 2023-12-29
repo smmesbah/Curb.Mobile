@@ -41,7 +41,7 @@ const Login = () => {
       } else {
         // console.log(data)
         await AsyncStorage.setItem("token", data.token);
-        console.log(data.user.userLoginCount);
+        // console.log(data.user.userLoginCount);
         if (data.user.userLoginCount === 0) {
           const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
           const res = await axios.put(apiUrl);

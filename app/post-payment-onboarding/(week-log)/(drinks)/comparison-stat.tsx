@@ -19,14 +19,14 @@ const Comparison = () => {
     React.useEffect(() => {
         const showData = async () => {
             const token = await AsyncStorage.getItem('token');
-            const apiUrl = `http://localhost:8000/api/v1/onboarding/user-drinking-insights/${token}`
+            const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drinking-insights/${token}`
             const response = await fetch(apiUrl, { method: 'GET' });
             const res = await response.json();
             if (!res.success) {
                 alert(res.message)
             }
             const data = (res.data)
-            console.log(data)
+            // console.log(data)
             setSpendPerWeek(parseFloat(data.spendPerWeek))
             setSpendPerMonth(parseFloat(data.spendPerMonth))
             setSpendPerYear(parseFloat(data.spendPerYear))

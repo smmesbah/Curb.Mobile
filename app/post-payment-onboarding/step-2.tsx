@@ -47,8 +47,8 @@ const Goals = () => {
             token: token,
             goals: selectedItems.map(item => item.value)
         }
-        console.log(userGoals)
-        const apiUrl="http://localhost:8000/api/v1/onboarding/user-goals"
+        // console.log(userGoals)
+        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-goals`
         const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(userGoals)});
         const data= await response.json();
         if(!data.success){
@@ -60,7 +60,7 @@ const Goals = () => {
     }
 
     React.useEffect(() => {
-        console.log('Selected Items:', selectedItems.map(item => item.value));
+        // console.log('Selected Items:', selectedItems.map(item => item.value));
     }, [selectedItems]);
 
     return (

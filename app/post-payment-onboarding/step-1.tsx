@@ -64,7 +64,7 @@ const PostPaymentStep1 = () => {
       postcode: postcode,
     };
 
-    const apiUrl = "http://localhost:8000/api/v1/onboarding/user-metadata";
+    const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -79,7 +79,7 @@ const PostPaymentStep1 = () => {
   };
 
   useEffect(() => {
-    console.log(value)
+    // console.log(value)
   }, []);
 
   return (

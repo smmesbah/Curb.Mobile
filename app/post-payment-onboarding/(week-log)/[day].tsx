@@ -14,7 +14,7 @@ const Day = () => {
     const { day } = useGlobalSearchParams();
     const Day= selectedDays[0] === undefined ? day : selectedDays[0];
     // const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
-    console.log(selectedDays);
+    // console.log(selectedDays);
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>

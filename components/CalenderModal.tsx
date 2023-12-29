@@ -91,7 +91,7 @@ const CalenderModal: React.FC<CalenderModalProps> = ({ calandermodalOpen, setCal
         />
         <Calendar
           onDayPress={(day) => {
-            console.log('selected day', day);
+            // console.log('selected day', day);
             // setDrinkDays((prevDrinkDays) => [...prevDrinkDays, day.dateString]);
           }}
           markedDates={{

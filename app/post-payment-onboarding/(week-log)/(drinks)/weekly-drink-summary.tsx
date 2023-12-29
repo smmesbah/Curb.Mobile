@@ -64,10 +64,10 @@ const WeeklyDrinkSummary = () => {
     useEffect(() => {
         const showData = async() => {
         const token=await AsyncStorage.getItem('token');
-            const apiUrl=`http://localhost:8000/api/v1/onboarding/weekly-drink/${token}`
+            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/weekly-drink/${token}`
             const response=await fetch(apiUrl, {method: 'GET'}); 
             const data= await response.json();
-            console.log(data)
+            // console.log(data)
                 if(!data.success){
                     alert(data.message)
                 }
@@ -100,7 +100,7 @@ const WeeklyDrinkSummary = () => {
                 }
             });
             
-            console.log(weekly_drink);
+            // console.log(weekly_drink);
         }
         showData();
     },[])

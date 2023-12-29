@@ -13,14 +13,14 @@ const ForgetPassword = () => {
 
   const handleOTP = async() => {
     try{
-      const apiUrl='http://localhost:8000/api/v1/auth/forget-password';
+      const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
       const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email})});
       const data= await response.json();
       if(!data.success){
         alert(data.message)
       }
       else{
-        console.log(data.email)
+        // console.log(data.email)
         router.push({pathname: `/forget-password-verification/`,params: {post: "random", id: 32, email: data.email}})
       }
     }catch(err) {
