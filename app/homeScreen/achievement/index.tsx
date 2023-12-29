@@ -322,7 +322,7 @@ const Styles=StyleSheet.create({
         fontSize: 18,
     },
     popover_text: {
-        color: "b0b0b4",
+        color: "#b0b0b4",
         fontFamily: 'Regular',
         fontSize: 14,
     }

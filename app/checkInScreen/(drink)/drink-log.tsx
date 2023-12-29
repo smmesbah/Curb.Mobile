@@ -24,7 +24,7 @@ const Day = () => {
 
                 <View style={{ marginTop: 15 }}>
                     <View style={{ gap: 35, }}>
-                        <Text style={styles.headerText}>Log Drink</Text>
+                        <Text style={styles.headerText}>Your Drink</Text>
                         <Text style={styles.subheaderText}>What did you drink?</Text>
                     </View>
                 </View>
