@@ -24,19 +24,19 @@ const Signup = () => {
   const Data=useGlobalSearchParams();
 
   const handleSignup = async() => {
-    console.log("Helloooooooo");
+    // console.log("Helloooooooo");
     if(password.length>=8 && termsCondition && optIn && research){
       const user={
         name: fullName,
         email: Data.signup,
         password: password
       }
-      console.log(fullName, password)
+      // console.log(fullName, password)
 
       try{
         if(fullName && password) {
           // console.log(user)
-        const apiUrl='http://localhost:8000/api/v1/auth/create-user';
+        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/create-user`;
         const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(user)});
         const data= await response.json();
         if(!data.success){
@@ -153,8 +153,8 @@ const Signup = () => {
               {termsCondition ? <CheckedFilled/> : <View style={styles.radio}/>}
             </View>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.rememberMeText}>I agree to our <Link href='./terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link></Text> 
-              <Text style={styles.rememberMeText}>and <Link href='./privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
+              <Text style={styles.rememberMeText}>I agree to our <Link href='/terms-condition' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Terms & Conditions</Link></Text> 
+              <Text style={styles.rememberMeText}>and <Link href='/privacy-policy' style={{ color: "#6d5eff", fontFamily: "Regular"}}>Privacy Policy</Link></Text>
             </View>
           </TouchableOpacity>
 

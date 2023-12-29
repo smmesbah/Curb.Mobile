@@ -10,7 +10,7 @@ const WeekDays = () => {
     // const selectedDays: string[]=[];
     const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
     useEffect(() => {
-        console.log(selectedDays)
+        // console.log(selectedDays)
     })
     return (
         <SafeAreaView style={styles.container}>

@@ -22,7 +22,7 @@ const Slider = () => {
     };
 
     const handleOnViewableItemsChange = useRef(({viewableItems}: { viewableItems: ViewToken[] }) => {
-        console.log('Currently Viewed Item:', viewableItems.map((item) => item.index));
+        // console.log('Currently Viewed Item:', viewableItems.map((item) => item.index));
     }).current;
 
     return (

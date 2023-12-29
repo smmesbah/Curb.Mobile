@@ -78,7 +78,7 @@ const HabitRecords = () => {
     };
 
     useEffect(() => {
-        console.log(selectedItems, selectedActivities, selectedPeople)
+        // console.log(selectedItems, selectedActivities, selectedPeople)
     }, [selectedItems, selectedActivities, selectedPeople]);
 
     const handleSave = () => {
@@ -99,7 +99,7 @@ const HabitRecords = () => {
         dispatch(setActivities(act));
         dispatch(setPeople(peo));
 
-        console.log(habit);
+        // console.log(habit);
 
         if(loc==='' && act==='' && peo===''){
             alert("Please select all the fields")

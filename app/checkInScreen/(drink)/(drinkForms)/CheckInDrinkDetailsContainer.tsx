@@ -19,7 +19,7 @@ const CheckInDrinkDetailsContainer = () => {
         try {
             const removedDrink = await axios.delete(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/checkin/checkin-drink/${drink.id}`)
 
-            console.log(removedDrink.data.success)
+            // console.log(removedDrink.data.success)
             if (removedDrink.data.success) {
                 const removeDrinkFromRedux = {
                     id: removedDrink.data.data.id,

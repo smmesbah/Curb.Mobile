@@ -107,7 +107,7 @@ const EditProfile = () => {
       alert(response.data.message);
     }
     if (changedAgeRange !== ageRange && changedAgeRange!=="") {
-        console.log(changedAgeRange,ageRange)
+        // console.log(changedAgeRange,ageRange)
       const response2 = await axios.put(
         `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/profile/update-age-range/${token}`,
         { ageRange: changedAgeRange }
@@ -117,7 +117,7 @@ const EditProfile = () => {
       }
     }
     if (changedGender !== gender && changedGender!=="") {
-        console.log("2")
+        // console.log("2")
       const response3 = await axios.put(
         `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/profile/update-gender/${token}`,
         { gender: changedGender }
@@ -127,7 +127,7 @@ const EditProfile = () => {
       }
     }
     if (changedPostcode !== postcode && changedPostcode!=="") {
-        console.log("3")
+        // console.log("3")
       const response4 = await axios.put(
         `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/profile/update-postcode/${token}`,
         { postcode: changedPostcode }
