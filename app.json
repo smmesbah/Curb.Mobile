@@ -1,17 +1,15 @@
 {
   "expo": {
     "name": "Curb.Mobile",
-    "slug": "Curb.Mobile",
-    "scheme": "Curb.Mobile",
+    "slug": "curb-mobile",
+    "scheme": "curb-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "experiments": {
       "tsconfigPaths": true
     },
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,20 +17,28 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.samina123.curbmobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.samina123.curbmobile"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3ef86b48-7fbb-4a61-8ce7-5d3d868c4f14"
+      }
+    }
   }
 }
