@@ -242,6 +242,9 @@ const Home = () => {
             setCalanderModalOpen={setCalanderModalOpen}
           />
         </Modal>
+        {/* <Pressable onPress={()=>router.push('/post-payment-onboarding/success-page')}>
+          <Text>success page</Text>
+        </Pressable> */}
         <View style={{ height: windowHeight * 0.15 }}></View>
       </ScrollView>
     </SafeAreaView>

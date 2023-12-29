@@ -23,9 +23,9 @@ const WeekLogStart = () => {
 
 
                 <View style={{ marginTop: 25, marginLeft: 25, gap: 10, }}>
-                    <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Description why we are asking this</Text>
-                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
-                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
+                    <Text style={{ fontSize: 18,fontFamily: "Regular" }}>We’re going to ask you to fill in everything you might drink during a typical week. Try to be as accurate as possible - we will use this information to calculate and share where you rank among your peers for alcohol consumption. </Text>
+                    {/* <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Description why we are asking this</Text> */}
                 </View>
 
                 <View style={styles.button}>

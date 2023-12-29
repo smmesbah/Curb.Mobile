@@ -82,7 +82,9 @@ const Records = () => {
     return (
         <SafeAreaView>
             <View style={Styles.header_container}>
+                <Pressable onPress={()=>router.back()}>
                 <BackArrow />
+                </Pressable>
                 <Text style={Styles.header_text}>Mon 1st Jan</Text>
             </View>
             <ScrollView>

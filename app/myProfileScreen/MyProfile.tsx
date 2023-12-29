@@ -10,12 +10,36 @@ import OptionCard from 'components/ui/OptionCard';
 import LogOutIcon from 'components/icons/LogOutIcon';
 import LogOutModal from 'components/LogOutModal';
 import { router } from 'expo-router';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Width=Dimensions.get('screen').width;
 
 const MyProfile = () => {
   const navigation = useNavigation();
   const [logoutModal, setLogoutModal]=React.useState(false);
+  const [name, setName]=React.useState('');
+  const [abbreviation, setAbbreviation]=React.useState('');
+
+  
+
+  const fetchNameEmail = async () => {
+    const token=await AsyncStorage.getItem('token');
+    const response =await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/profile/myprofile/${token}`)
+    if(response.data.success){
+      setName(response.data.data.name);
+      const words=name.split(' ');
+      const abbre = words.map(word => word.charAt(0)).join('');
+
+      setAbbreviation(abbre)
+   }
+}
+
+React.useEffect(() => {
+    fetchNameEmail();
+  }, [fetchNameEmail])
+
+
   return (
     <SafeAreaView style={{backgroundColor: '#ecedea', height: '100%'}}>
         <View style={Styles.header_container}>
@@ -28,21 +52,21 @@ const MyProfile = () => {
             <View style={Styles.container}>
                 
                 <View style={Styles.profile_container}>
-                    <Text style={Styles.profile_text_style}>RJ</Text>
+                    <Text style={Styles.profile_text_style}>{abbreviation}</Text>
                 </View>
                 <TouchableOpacity onPress={()=>router.push('/editProfileScreen/EditProfile')}>
                     <View style={Styles.profile_edit}>
                         <ProfileEdit color="#fff"/>
                     </View>
                 </TouchableOpacity>
-                <Text style={Styles.profile_name}>Rebecca Smith</Text>
+                <Text style={Styles.profile_name}>{name}</Text>
             </View>
             <View style={Styles.drink_score}>
                 <DrinkScore/>
             </View>
-            <View style={Styles.option_card}>
+            {/* <View style={Styles.option_card}>
                 <OptionCard text='Your average drinking week before curb' toggle={false} redirect="/myProfileScreen/MyProfile"/>
-            </View>
+            </View> */}
             <View style={Styles.option_header}>
                 <View style={[Styles.circle, {backgroundColor: "#33AE9C"}]}/>
                 <Text style={Styles.option_text}>Permissions</Text>

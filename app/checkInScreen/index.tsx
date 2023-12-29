@@ -28,7 +28,7 @@ const index = () => {
             <Text style={Styles.header_description}>Lorem ipsum dolor sit amet consectetur. Morbi
                     volutpat mollis eget viverra turpis.</Text>
         </View>
-        <View style={{backgroundColor: '#f5f6f4', flex: 1}}>
+        <View style={{ marginTop: 30,backgroundColor: '#f5f6f4', flex: 1}}>
             <View>
                 <View style={Styles.container2}>
                     <View style={Styles.dot}/>
@@ -51,7 +51,7 @@ const index = () => {
                     </Pressable>
                 </View>
             </View>
-            <View style={Styles.container3}>
+            {/* <View style={Styles.container3}>
                 <Text style={Styles.text_style}>Select the day to log for a different day</Text>
                 <View style={Styles.calendar_container}>
                     <Text>{currDay}/{currMonth}/{currYear}</Text>
@@ -59,9 +59,9 @@ const index = () => {
                         <IconCalendar/>
                     </Pressable>
                 </View>
-            </View>
+            </View> */}
         </View>
-        <Modal visible={openCalendar} transparent>
+        {/* <Modal visible={openCalendar} transparent>
                 <View style={Styles.modal_container}>
                     <View style={{backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', padding: 10}}>
                         <View style={Styles.container4}>
@@ -86,7 +86,7 @@ const index = () => {
                         />
                     </View>
                 </View>
-        </Modal>
+        </Modal> */}
     </SafeAreaView>
   )
 }

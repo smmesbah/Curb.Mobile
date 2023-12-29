@@ -24,7 +24,7 @@ const Slider = ({drinkingDays}: {drinkingDays: Array<number>}) => {
             {drinking_days?.map((day,index)=>(
                 <View
                 key={index}
-                style={[styles.drinking_days, {width: 5.5, left: (329/31)*day}]}>
+                style={[styles.drinking_days, {width: (windowWidth*0.81)/days_in_month, left: ((windowWidth*0.81)/days_in_month)*(day-1)}]}>
                 </View>
             ))}   
         </View>
