@@ -33,6 +33,7 @@ const Login = () => {
       password: password,
     };
     try {
+      // console.log(user)
       const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/login`;
       const response = await axios.post(apiUrl, user);
       const data = response.data;
