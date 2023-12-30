@@ -102,11 +102,13 @@ const Tasks = () => {
             </Text>
         </View>
         <View style={Styles.today_task_container}>
-            <Image source={require('../../../assets/images/TasksImage.png')} style={Styles.image}/>
+            <Image source={require('../../../assets/images/TasksImage.png')} style={Styles.image} resizeMode='cover'/>
             <View style={Styles.today_task_right}>
                 <View style={Styles.today_task_texts}>
                     <Text style={Styles.today_task_text}>Today</Text>
-                    <Text style={Styles.today_task_description}>{todaysTasks[0]?.title}</Text>
+                    <ScrollView style={{height: windowHeight*0.14}}>
+                        <Text style={Styles.today_task_description}>{todaysTasks[0]?.title}</Text>
+                    </ScrollView>
                 </View>
                 <View style={Styles.task_checked}>
                     <CheckedFilled/>
@@ -193,21 +195,24 @@ const Styles=StyleSheet.create({
         width: windowWidth*.35,
         height: windowHeight*.18,
         alignSelf: 'center',
-        marginTop: windowHeight*.05,
-        marginBottom: windowHeight*.05,
+        // marginTop: windowHeight*.05,
+        // marginBottom: windowHeight*.05,
     },
     today_task_container: {
         flexDirection: 'row',
         width: windowWidth,
-        height: windowHeight*.18,
+        height: 'auto',
         marginTop: 28
     },
     today_task_right: {
         backgroundColor: '#00053F',
         width: '100%',
         flexDirection: 'row',
+        // flexWrap: 'wrap',
     },
     today_task_text: {
+        marginTop: 10,
+        marginBottom: 5,
         color: '#fff',
         fontSize: 14,
         fontFamily: 'Regular',
@@ -220,12 +225,16 @@ const Styles=StyleSheet.create({
         letterSpacing: 1,
     }, 
     today_task_texts: {
+        height: windowHeight*.18,
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
         paddingLeft: 20,
+        width: '40%',
+        overflowY: 'auto'
     }, 
     task_checked: {
-        width: '40%',
+        width: '35%',
         justifyContent: 'center',
         alignItems: 'center'
     },

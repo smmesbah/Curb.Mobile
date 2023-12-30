@@ -110,7 +110,7 @@ const WeekDrinking = () => {
             </View>
           </View>
           <Pressable onPress={()=>router.push('/source')}>
-            <Text style={Styles.calculate_text}>How we calculate these numbers</Text>
+            <Text style={Styles.calculate_text}>How we calculate these numbers?</Text>
           </Pressable>
         </View>
         <View style={Styles.container2}>
@@ -320,9 +320,9 @@ const Styles = StyleSheet.create({
     fontSize: 42,
   },
   calculate_text: {
-    color: '#000',
+    color: '#7844ff',
     fontFamily: 'Regular',
-    fontSize: 14,
+    fontSize: 17,
     textAlign: 'center',
     marginTop: 10,
   }
