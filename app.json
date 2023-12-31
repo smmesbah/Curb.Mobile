@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Curb.Mobile",
+    "name": "Curb Health",
     "slug": "curb-mobile",
-    "scheme": "curb-mobile",
+    "scheme": "curb-health",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -19,11 +19,13 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.samina123.curbmobile"
+      "bundleIdentifier": "com.samina123.curbmobile",
+      "icon": "./assets/images/square_green.png"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/images/square_green.png"
       },
       "package": "com.samina123.curbmobile"
     },
