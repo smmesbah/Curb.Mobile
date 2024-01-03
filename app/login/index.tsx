@@ -1,36 +1,43 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import ShowPasswordIcon from "components/icons/ShowPasswordIcon";
+import { CheckedFilled } from "components/icons/checkedFilled";
+import { Link, router } from "expo-router";
+import React from "react";
 import {
+  Dimensions,
+  Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  Image,
-  Dimensions,
-  ScrollView,
-  Pressable,
+  View
 } from "react-native";
-import React from "react";
-import { Link } from "expo-router";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { CheckedFilled } from "components/icons/checkedFilled";
-import ShowPasswordIcon from "components/icons/ShowPasswordIcon";
-import { router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [optIn, setOptIn] = React.useState(false);
+  const [rememberMe, setRememberMe] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleLogin = async () => {
+    if(email === ""){
+      alert('Please enter a valid email')
+      return
+    }
+    if(password === ""){
+      alert('Please enter password')
+      return
+    }
     const user = {
       email: email,
       password: password,
+      rememberMe: rememberMe,
     };
     try {
       // console.log(user)
@@ -51,7 +58,7 @@ const Login = () => {
             router.back();
           }
           router.replace("/post-payment-onboarding/step-1");
-        }else{
+        } else {
           const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
           const res = await axios.put(apiUrl);
           while (router.canGoBack()) {
@@ -98,9 +105,9 @@ const Login = () => {
           >
             Login
           </Text>
-          <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
+          {/* <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
             Please enter your details to continue.
-          </Text>
+          </Text> */}
         </View>
 
         <View style={{ marginVertical: 20 }}>
@@ -202,11 +209,11 @@ const Login = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => setOptIn(!optIn)}
+            onPress={() => setRememberMe(!rememberMe)}
             style={styles.rememberMe}
           >
             <View style={styles.radio}>
-              {optIn ? <CheckedFilled /> : <View style={styles.radio} />}
+              {rememberMe ? <CheckedFilled /> : <View style={styles.radio} />}
             </View>
             <Text style={styles.rememberMeText}>Remember me</Text>
           </TouchableOpacity>

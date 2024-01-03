@@ -1,8 +1,10 @@
 import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link, router } from 'expo-router';
 import { CheckedFilled } from 'components/icons/checkedFilled';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
@@ -13,6 +15,24 @@ const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
   const handleLoginWithHealthKeyPress = () => {
     alert('Login with Health Key');
+  }
+
+  useEffect(() => {
+    authentication();
+  },[])
+
+  //check if the user is logged in or not means token exists or not
+  const authentication = async() => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      // console.log(token);
+      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/isAuthenticated/${token}`)
+      if(res.data.success){
+        router.replace(`/homeScreen`)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <SafeAreaView style={styles.container}>
