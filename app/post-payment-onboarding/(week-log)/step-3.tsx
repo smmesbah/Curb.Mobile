@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: 'center',
         width: null,
-        height: windowHeight * .7,
+        height: windowHeight * .53,
         marginHorizontal: 15,
         marginTop: 30,
         position: 'relative',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 25,
         marginHorizontal: 30,
-        marginTop: windowHeight * .05,
+        marginTop: windowHeight * .03,
         padding: 10,
     },
     buttonText: {

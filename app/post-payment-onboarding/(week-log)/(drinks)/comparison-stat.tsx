@@ -19,7 +19,7 @@ const Comparison = () => {
 
     React.useEffect(() => {
         const showData = async () => {
-            console.log("Hello")
+            // console.log("Hello")
             const token = await AsyncStorage.getItem('token');
             const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drinking-insights/${token}`
             const response = await axios.get(apiUrl);
@@ -50,15 +50,9 @@ const Comparison = () => {
                     <AntDesign name="arrowleft" size={28} color="white" />
                 </Text>
             </Pressable>
-            <View style={{ gap: 30, paddingRight: 20, paddingBottom: 15 }}>
-                <View>
+            <View style={{ gap: 5, paddingRight: 20, paddingBottom: 15 }}>
                     <Text style={styles.headerText}>How do</Text>
                     <Text style={styles.headerText}>you compare?</Text>
-                </View>
-                <View>
-                    <Text style={styles.subheaderText}>This is how you compare</Text>
-                    <Text style={styles.subheaderText}>with other people your age.</Text>
-                </View>
             </View>
             <ScrollView
                 style={{
@@ -77,12 +71,12 @@ const Comparison = () => {
                     style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginTop: 30,
+                        marginTop: 15,
                         gap: 20,
                     }}
                 >
                     <StatsComparisonCard
-                        // headerText="You're in the top"
+                        headerText=""
                         Status={insights.slice(0, 4)}
                         SubheaderText={insights.slice(4, insights.length)}
                     />
@@ -93,7 +87,7 @@ const Comparison = () => {
                     />
 
                     <StatsComparisonCard
-                        // headerText="You're in the top"
+                        headerText=""
                         Status={calories.toString()}
                         SubheaderText="of women your age drink less alcohol than you."
                     />
@@ -117,10 +111,10 @@ const Comparison = () => {
                             borderRadius: 20,
                             gap: 20,
                             paddingVertical: 20,
-                            paddingHorizontal: 40,
+                            paddingHorizontal: 15,
                         }}
                     >
-                        <Text style={{ fontSize: 17, textAlign: 'center', fontFamily: "Regular" }}>Based on your typical week, this is how much you spend on alcohol</Text>
+                        <Text style={{ fontSize: 17, textAlign: 'center', fontFamily: "Regular", paddingHorizontal: 25 }}>Based on your typical week, this is how much you spend on alcohol</Text>
                         <View
                             style={{
                                 justifyContent: 'center',
@@ -128,12 +122,12 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerWeek}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>£{spendPerWeek}</Text>
                             <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per week</Text>
                         </View>
                         <View
                             style={{
-                                width: '100%',
+                                width: '80%',
                                 height: 1,
                                 backgroundColor: '#707070',
                             }}
@@ -145,13 +139,13 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerMonth}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>£{spendPerMonth}</Text>
                             <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per month</Text>
                         </View>
 
                         <View
                             style={{
-                                width: '100%',
+                                width: '80%',
                                 height: 1,
                                 backgroundColor: '#707070',
                             }}
@@ -164,7 +158,7 @@ const Comparison = () => {
                                 gap: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>€{spendPerYear}</Text>
+                            <Text style={{ fontSize: 60, color: '#71b5b8', fontWeight: '500', fontFamily: "Regular" }}>£{spendPerYear}</Text>
                             <Text style={{ fontSize: 17, fontFamily: "Regular" }}>Per year</Text>
                         </View>
                     </View>

@@ -91,6 +91,8 @@ const WeeklyDrinkSummary = () => {
     // const res = data.data;
     const res = data.data;
 
+    // console.log(res)
+
   setWeekly_drink((prevWeeklyDrink) => {
     const updatedWeeklyDrink = [...prevWeeklyDrink];
 
@@ -108,7 +110,7 @@ const WeeklyDrinkSummary = () => {
             {
               drinkQuantity: item.drinkQuantity,
               drinkType: item.drinkName,
-              drinkSize: item.drinkSize,
+              drinkSize: item.drinkVolume,
             },
           ],
         };
@@ -120,7 +122,7 @@ const WeeklyDrinkSummary = () => {
             {
               drinkQuantity: item.drinkQuantity,
               drinkType: item.drinkName,
-              drinkSize: item.drinkSize,
+              drinkSize: item.drinkVolume,
             },
           ],
         };
@@ -150,14 +152,14 @@ const WeeklyDrinkSummary = () => {
           marginRight: 20,
         }}
       >
-        <View style={{ gap: 30 }}>
+        <View style={{ gap: 15 }}>
           <Text style={styles.headerText}>Your week in drinking</Text>
           <View>
             <Text style={styles.subheaderText}>
               Here is your weekly summary.
             </Text>
             <Text style={styles.subheaderText}>
-              You can edit this at any stage.
+            You can update this any time in your Profile section on the app.
             </Text>
           </View>
         </View>
@@ -182,11 +184,11 @@ const WeeklyDrinkSummary = () => {
           // const filteredData = data.filter()
           <View
             style={{
-              height: 130,
+              // height: 130,
               position: "relative",
               backgroundColor: "white",
               paddingHorizontal: 50,
-              paddingVertical: 40,
+              paddingVertical: 10,
               flexDirection: "row",
               justifyContent: "flex-start",
               alignItems: "center",
@@ -230,12 +232,21 @@ const WeeklyDrinkSummary = () => {
               )}
               {item.drinks.length !== 0 &&
                 item.drinks.map((drink: any, index: number) => (
+                  <View>
+                  {drink.drinkQuantity > 1?
                   <Text
                     key={index}
                     style={{ fontSize: 17, fontFamily: "Regular" }}
                   >
-                    {drink.drinkQuantity} {drink.drinkSize} of {drink.drinkType}
+                    {drink.drinkQuantity}x {drink.drinkSize} of {drink.drinkType}
                   </Text>
+                  : <Text
+                  key={index}
+                  style={{ fontSize: 17, fontFamily: "Regular" }}
+                >
+                  {drink.drinkSize} of {drink.drinkType}
+                </Text>}
+                  </View>
                 ))}
             </View>
           </View>

@@ -64,8 +64,22 @@ const WeekDrinking = () => {
         // console.log(goals)
       }
   }  
+
+  const [isFixed, setIsFixed] = React.useState(false);
+
+  const handleScroll = (event) => {
+    const scrollOffset = event.nativeEvent.contentOffset.y;
+    
+    // Adjust the threshold value based on when you want the component to become fixed
+    const threshold = goals.length+1.5;
+
+    // Check if the scroll offset exceeds the threshold
+    setIsFixed(scrollOffset > threshold);
+  };
+
   return (
     <SafeAreaView style={{ height: "100%" }}>
+      <View style={{backgroundColor: "#eae8e2", }}>
       <View style={Styles.header_container}>
         <TouchableOpacity onPress={() => router.back()}>
           <BackArrow />
@@ -73,9 +87,10 @@ const WeekDrinking = () => {
         <View style={{ flexDirection: "column", paddingTop: 25 }}>
           <Text style={Styles.header_text}>Your week</Text>
           <Text style={Styles.header_text}>in drinking</Text>
-        </View>
+        </View></View>
+      {isFixed && <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>}
       </View>
-      <ScrollView>
+      <ScrollView onScroll={handleScroll}>
         <View style={Styles.container}>
           <Text style={Styles.goal_text}>Your goals</Text>
           <View style={Styles.text_portion}>
@@ -85,7 +100,7 @@ const WeekDrinking = () => {
                 ))
             }
           </View>
-          <Text style={Styles.text_style2}>In 31 days we will help you</Text>
+          <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>
           <View style={Styles.avoid_portion}>
             {/* {Data.map((item, index) => (
               <View key={index}>
@@ -119,28 +134,21 @@ const WeekDrinking = () => {
             <DailyCheckInIcon />
             <Text style={Styles.subtext1}>Daily check ins</Text>
             <Text style={Styles.subtext2}>
-              Share your mood, be accountable to
-            </Text>
-            <Text style={Styles.subtext2}> yourself and your community.</Text>
+              Share your mood, be accountable to yourself and your community.</Text>
           </View>
           <View style={Styles.container3}>
             <ToolsIcon />
             <Text style={Styles.subtext1}>Tools</Text>
             <Text style={Styles.subtext2}>
-              Tools to improve self-awareness and
-            </Text>
-            <Text style={Styles.subtext2}>self-knowledge around your</Text>
-            <Text style={Styles.subtext2}>drinking behaviour.</Text>
+              Tools to improve self-awareness and self-knowledge around your drinking behaviour.</Text>
           </View>
           <View style={Styles.container3}>
             <SupportIcon />
             <Text style={Styles.subtext1}>Support</Text>
-            <Text style={Styles.subtext2}>Phychological support for you</Text>
-            <Text style={Styles.subtext2}>for challenging moments</Text>
-            <Text style={Styles.subtext2}>on your journey</Text>
+            <Text style={Styles.subtext2}>Psychological support for you for challenging moments on your journey</Text>
           </View>
         </View>
-        <View style={Styles.container4}>
+        {/* <View style={Styles.container4}>
           <TouchableOpacity>
             <View style={Styles.btn_container}>
               <Text style={Styles.btn_text}>
@@ -155,7 +163,7 @@ const WeekDrinking = () => {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
         
         <View style={Styles.container5}>
           <TouchableOpacity
@@ -187,7 +195,6 @@ const Styles = StyleSheet.create({
     width: Width,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom: 20,
     backgroundColor: "#eae8e2",
   },
   header_text: {
@@ -217,7 +224,7 @@ const Styles = StyleSheet.create({
     marginRight: Width * 0.25,
   },
   text_style2: {
-    marginTop: 30,
+    marginTop: 5,
     color: "#678596",
     fontSize: 18,
     lineHeight: 25,
@@ -325,5 +332,12 @@ const Styles = StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     marginTop: 10,
-  }
+  },
+  fixed: {
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
 });

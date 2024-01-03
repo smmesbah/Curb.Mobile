@@ -37,7 +37,7 @@ const WeekDays = () => {
                 elevation: 5
             }}>
                 <Text style={{ fontSize: 30, fontWeight: '400', fontFamily: "Regular"}}>Your Current Habits</Text>
-                <Text style={{ fontSize: 18, fontWeight: '400', fontFamily: "Regular" }}>Let's understand your drinking patterns to offer more personalised insights.</Text>
+                <Text style={{ fontSize: 18, fontWeight: '400', fontFamily: "Regular" }}>Share your typical drinking habits to receive more personalized insights.</Text>
             </View>
 
             <ScrollView
