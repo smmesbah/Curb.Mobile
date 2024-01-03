@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -35,6 +36,7 @@ const PostPaymentStep1 = () => {
   const [gender, setGender] = React.useState<string | null>(null);
   const [postcode, setPostcode] = React.useState<string | undefined>("");
   const [value, setValue] = React.useState(0);
+  const [modal, setModal] = React.useState(false);
   const data = [
     {
       // id: 3,
@@ -151,7 +153,6 @@ const PostPaymentStep1 = () => {
               }}
               onValueChange={(value) => setValue(value[0])}
               value={value}
-
             />
 
             <View
@@ -244,13 +245,39 @@ const PostPaymentStep1 = () => {
             </Text>
           </View>
         </Pressable>
-        <Pressable onPress={() => router.push("/source")}>
+        <Pressable onPress={() => setModal(true)}>
           <Text
-            style={{ textAlign: "center", fontSize: 14, fontFamily: "Regular" }}
+            style={{
+              textAlign: "center",
+              fontSize: 14,
+              fontFamily: "Regular",
+              paddingBottom: 15,
+            }}
           >
             Why do you need this information?
           </Text>
         </Pressable>
+        <Modal visible={modal} transparent animationType="fade">
+          <View style={styles.modalContainer}>
+            <View style={styles.text_container}>
+              <Pressable onPress={() => setModal(false)}>
+                <AntDesign
+                  name="close"
+                  size={20}
+                  color="black"
+                  onPress={() => setModal(false)}
+                  style={{ textAlign: "right" }}
+                />
+              </Pressable>
+              <Text style={styles.modal_text}>
+                We're asking you broad demographic data questions so that we can
+                provide useful comparisons and ranking for your drinking
+                behavior. In the future, we hope to be able to signpost you to
+                local events and services that could be helpful
+              </Text>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
@@ -281,5 +308,23 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     fontFamily: "Regular",
+  },
+  modalContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: '#fff',
+    height: "100%",
+  },
+  text_container: {
+    backgroundColor: "#fff",
+    width: width * 0.8,
+    padding: 20,
+    borderRadius: 10,
+    gap: 5,
+  },
+  modal_text: {
+    fontFamily: "Regular",
+    fontSize: 16,
+    textAlign: "left",
   },
 });

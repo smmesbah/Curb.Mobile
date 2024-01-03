@@ -4,6 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import { router } from 'expo-router'
 import StatsComparisonCard from 'component/StatsComparisonCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -18,10 +19,12 @@ const Comparison = () => {
 
     React.useEffect(() => {
         const showData = async () => {
+            console.log("Hello")
             const token = await AsyncStorage.getItem('token');
             const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drinking-insights/${token}`
-            const response = await fetch(apiUrl, { method: 'GET' });
-            const res = await response.json();
+            const response = await axios.get(apiUrl);
+            // console.log(response)
+            const res = await response.data;
             if (!res.success) {
                 alert(res.message)
             }
@@ -32,6 +35,7 @@ const Comparison = () => {
             setSpendPerYear(parseFloat(data.spendPerYear))
             setInsights(data.insight)
             setCalories(data.totalCaloriesConsumed)
+            // console.log(spendPerWeek)
         }
         showData();
     }, [])
