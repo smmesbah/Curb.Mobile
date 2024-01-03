@@ -21,21 +21,21 @@ const Onbording1 = () => {
 
                     <View style={styles.flex}>
                         <Text style={styles.text1}>Your path to a better relationship with alcohol.</Text>
-                        <Text style={styles.text2}>Curb helps people who want to change their relationshiop with alcohol.</Text>
+                        <Text style={styles.text2}>Curb helps people who want to make healthier choices about their drinking</Text>
                     </View>
                 </ImageBackground>
 
                 {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
                 <View style={styles.button}>
-                    <Link href="/step-2"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
-                        Get Started
+                    <Link href="/login"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
+                        Log in with email
                     </Link>
                 </View>
 
                 <View style={styles.alreadyHaveAnAccount}>
-                    <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>
-                    <TouchableOpacity onPress={()=>router.push('/login')}>
-                        <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Log-in</Text>
+                    <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Don't have an account?</Text>
+                    <TouchableOpacity onPress={()=>router.push('/')}>
+                        <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Sign up here</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: 'center',
         width: null,
-        height: Height*0.75,
+        height: Height*.7,
         marginHorizontal: 15,
         marginTop: 30,
         position: 'relative',
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 25,
         marginHorizontal: 30,
-        marginVertical: 15,
+        marginBottom: 15,
+        marginTop: 25,
         padding: 10,
     },
     buttonText: {

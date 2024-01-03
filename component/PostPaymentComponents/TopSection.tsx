@@ -25,8 +25,10 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: '500',
         lineHeight: 50,
-        marginLeft: width * 0.45,
-        fontFamily: "Regular"
+        // textAlign: 'right',
+        marginLeft: width * 0.40,
+        fontFamily: "Regular",
+        paddingRight: 14
     },
     subheaderText: {
         fontSize: 18,

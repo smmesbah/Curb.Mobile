@@ -24,20 +24,20 @@ const Index = () => {
         </View>
 
         <View style={styles.flex}>
-          <Text style={styles.text1}>Your path to a better relationship with alcohol.</Text>
-          <Text style={styles.text2}>Curb helps people who want to change their relationshiop with alcohol.</Text>
+          <Text style={styles.text1}>Welcome to Curb</Text>
+          <Text style={styles.text2}>You've taken your first step towards better habits</Text>
         </View>
       </ImageBackground>
 
-      <Pressable style={styles.button} onPress={()=>router.push('/login')}>
-        <Text style={styles.buttonText}>Log in with email</Text>
+      <Pressable style={styles.button} onPress={()=>router.push('/step-2')}>
+        <Text style={styles.buttonText}>Get Started</Text>
       </Pressable>
 
 
       <View style={styles.dontHaveAccount}>
-        <Text style={styles.rememberMeText}>Don't have an account? </Text>
+        <Text style={styles.rememberMeText}>Already have an account?</Text>
         <TouchableOpacity>
-          <Link href="step-1" style={[styles.rememberMeText, {color: '#5B4AFF'}]}>Sign Up here</Link>
+          <Link href="step-1" style={[styles.rememberMeText, {color: '#5B4AFF'}]}>Log in</Link>
           {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
         </TouchableOpacity>
       </View>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     flexDirection: 'column',
-    gap: 20,
+    gap: 10,
     padding: 10,
   },
   button: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginHorizontal: 30,
     marginTop: 25,
-    marginBottom: 5,
+    // marginBottom: 5,
     padding: 10,
   },
   buttonText: {
