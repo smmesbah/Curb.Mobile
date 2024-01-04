@@ -64,6 +64,19 @@ const WeekDrinking = () => {
         // console.log(goals)
       }
   }  
+
+  const handleNextPress = async() => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+        token: token,
+        onboardingSteps: 6
+      })
+      router.push("/post-payment-onboarding/Payment")
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <View style={Styles.header_container}>
@@ -159,7 +172,8 @@ const WeekDrinking = () => {
         
         <View style={Styles.container5}>
           <TouchableOpacity
-            onPress={() => router.push("/post-payment-onboarding/Payment")}
+            onPress={handleNextPress}
+            // onPress={() => router.push("/post-payment-onboarding/Payment")}
           >
             <View style={Styles.btn_container2}>
               <Text style={Styles.btn_text}>Next</Text>

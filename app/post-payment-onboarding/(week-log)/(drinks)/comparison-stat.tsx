@@ -19,7 +19,6 @@ const Comparison = () => {
 
     React.useEffect(() => {
         const showData = async () => {
-            console.log("Hello")
             const token = await AsyncStorage.getItem('token');
             const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drinking-insights/${token}`
             const response = await axios.get(apiUrl);
@@ -40,6 +39,18 @@ const Comparison = () => {
         showData();
     }, [])
 
+    const handleNextPress = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+            const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+                token: token,
+                onboardingSteps: 5
+            })
+            router.push('post-payment-onboarding/WeekDrinking')
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -169,11 +180,11 @@ const Comparison = () => {
                         </View>
                     </View>
                 </View>
-                <View style={{gap: 5}}>
+                <View style={{ gap: 5 }}>
                     <Text style={{ fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular", marginBottom: 5 }}>Sources</Text>
-                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://beerandpub.com/data-statistics/beer-prices/')}>Cost of alcohol</Text>
-                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calculating-alcohol-units/')}>Units in alcohol</Text>
-                    <Text style={{fontSize: 17, textAlign: 'center', color: '#5B4AFF'}} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calories-in-alcohol/')}>Calories in alcohol</Text>
+                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://beerandpub.com/data-statistics/beer-prices/')}>Cost of alcohol</Text>
+                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calculating-alcohol-units/')}>Units in alcohol</Text>
+                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calories-in-alcohol/')}>Calories in alcohol</Text>
                 </View>
             </ScrollView>
             <View
@@ -188,7 +199,7 @@ const Comparison = () => {
                 }}
             >
                 <Pressable
-                    onPress={() => router.push('post-payment-onboarding/WeekDrinking')}
+                    onPress={handleNextPress}
                     // onPress={()=>console.log(data.spendPerWeek)}
 
                     style={{

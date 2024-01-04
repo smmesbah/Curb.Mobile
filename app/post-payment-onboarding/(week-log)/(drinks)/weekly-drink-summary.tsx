@@ -14,6 +14,7 @@ import Feather from "react-native-vector-icons/Feather";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -28,8 +29,8 @@ interface WeeklyDrinkSummaryProps {
 
 const WeeklyDrinkSummary = () => {
   const Data = useSelector((state: any) => state.drink.drink);
-//   let weekly_drink: WeeklyDrinkSummaryProps[] = [];
-  const [weekly_drink, setWeekly_drink] = React.useState<WeeklyDrinkSummaryProps[]> ([]);
+  //   let weekly_drink: WeeklyDrinkSummaryProps[] = [];
+  const [weekly_drink, setWeekly_drink] = React.useState<WeeklyDrinkSummaryProps[]>([]);
   // const data = [
   //     {
   //         day: 'Monday',
@@ -69,14 +70,14 @@ const WeeklyDrinkSummary = () => {
   //     },
   // ];
 
-//   useEffect(() => {
-    
-//     showData();
-//   }, []);
+  //   useEffect(() => {
+
+  //     showData();
+  //   }, []);
 
   useLayoutEffect(() => {
     showData();
-  },[])
+  }, [])
 
   //
   const showData = async () => {
@@ -91,49 +92,62 @@ const WeeklyDrinkSummary = () => {
     // const res = data.data;
     const res = data.data;
 
-  setWeekly_drink((prevWeeklyDrink) => {
-    const updatedWeeklyDrink = [...prevWeeklyDrink];
+    setWeekly_drink((prevWeeklyDrink) => {
+      const updatedWeeklyDrink = [...prevWeeklyDrink];
 
-    res.forEach((item: any) => {
-      const existingDayIndex = updatedWeeklyDrink.findIndex(
-        (d) => d.day === item.day
-      );
+      res.forEach((item: any) => {
+        const existingDayIndex = updatedWeeklyDrink.findIndex(
+          (d) => d.day === item.day
+        );
 
-      if (existingDayIndex !== -1) {
-        // If the day exists, update the existing day's drinks array
-        updatedWeeklyDrink[existingDayIndex] = {
-          ...updatedWeeklyDrink[existingDayIndex],
-          drinks: [
-            ...updatedWeeklyDrink[existingDayIndex].drinks,
-            {
-              drinkQuantity: item.drinkQuantity,
-              drinkType: item.drinkName,
-              drinkSize: item.drinkSize,
-            },
-          ],
-        };
-      } else {
-        // If the day doesn't exist, create a new entry for the day with the drink details
-        const newWeeklyDrink: WeeklyDrinkSummaryProps = {
-          day: item.day,
-          drinks: [
-            {
-              drinkQuantity: item.drinkQuantity,
-              drinkType: item.drinkName,
-              drinkSize: item.drinkSize,
-            },
-          ],
-        };
+        if (existingDayIndex !== -1) {
+          // If the day exists, update the existing day's drinks array
+          updatedWeeklyDrink[existingDayIndex] = {
+            ...updatedWeeklyDrink[existingDayIndex],
+            drinks: [
+              ...updatedWeeklyDrink[existingDayIndex].drinks,
+              {
+                drinkQuantity: item.drinkQuantity,
+                drinkType: item.drinkName,
+                drinkSize: item.drinkSize,
+              },
+            ],
+          };
+        } else {
+          // If the day doesn't exist, create a new entry for the day with the drink details
+          const newWeeklyDrink: WeeklyDrinkSummaryProps = {
+            day: item.day,
+            drinks: [
+              {
+                drinkQuantity: item.drinkQuantity,
+                drinkType: item.drinkName,
+                drinkSize: item.drinkSize,
+              },
+            ],
+          };
 
-        updatedWeeklyDrink.push(newWeeklyDrink);
-      }
+          updatedWeeklyDrink.push(newWeeklyDrink);
+        }
+      });
+
+      return updatedWeeklyDrink;
     });
-
-    return updatedWeeklyDrink;
-  });
 
     // console.log(weekly_drink);
   };
+
+  const handleNextPress = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+        token: token,
+        onboardingSteps: 4
+      })
+      router.push("post-payment-onboarding/comparison-stat")
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Pressable
@@ -255,9 +269,7 @@ const WeeklyDrinkSummary = () => {
           }}
         >
           <Pressable
-            onPress={() =>
-              router.push("post-payment-onboarding/comparison-stat")
-            }
+            onPress={handleNextPress}
             // onPress={handleGoToNextDayPress}
             style={{
               flexDirection: "row",

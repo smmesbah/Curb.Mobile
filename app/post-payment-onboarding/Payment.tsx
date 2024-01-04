@@ -57,6 +57,11 @@ const Payment = () => {
       );
       if (res.data.success) {
         setProcessModal(true);
+        await axios.put(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/update-login-count/${token}`)
+        const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+          token: token,
+          onboardingSteps: 7
+        })
         setTimeout(() => {
           setProcessModal(false);
           router.push("/post-payment-onboarding/success-page");
@@ -118,14 +123,14 @@ const Payment = () => {
                 text === ""
                   ? "#fff"
                   : codes.find((item) => item === text)
-                  ? "rgba(51, 174, 156, 0.05)"
-                  : "rgba(230, 69, 40, 0.05)",
+                    ? "rgba(51, 174, 156, 0.05)"
+                    : "rgba(230, 69, 40, 0.05)",
               borderColor:
                 text === ""
                   ? "#b0b0b4"
                   : codes.find((item) => item === text)
-                  ? "#33AE9C"
-                  : "#E64528",
+                    ? "#33AE9C"
+                    : "#E64528",
             },
           ]}
           onChangeText={onChangeText}
