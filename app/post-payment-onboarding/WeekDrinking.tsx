@@ -32,7 +32,7 @@ const WeekDrinking = () => {
   const [calories, setCalories] = React.useState(0);
   const [units, setUnits] = React.useState(0);
   const [drinks, setDrinks] = React.useState(0);
-  const [goals, setGoals] = React.useState([])
+  const [goals, setGoals] = React.useState([]);
   React.useEffect(() => {
     getAvoidDrinkingInfo();
     getGoals();
@@ -45,7 +45,7 @@ const WeekDrinking = () => {
       `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-drink-avoid-calculation/${token}`
     );
     if (response.data.success) {
-    //   console.log(response.data.data);
+      //   console.log(response.data.data);
       setSpend(response.data.data.spendPerMonth);
       setCalories(response.data.data.totalCaloriesConsumed);
       setUnits(response.data.data.totalDrinkUnitsConsumed);
@@ -58,47 +58,36 @@ const WeekDrinking = () => {
       `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-goals/${token}`
     );
     if (response.data.success) {
-        const goalData = response.data.data;
-        const goalsArray = goalData.map((item: { goal: any; }) => item.goal);
-        setGoals(goalsArray);
-        // console.log(goals)
-      }
-  }  
-
-  const [isFixed, setIsFixed] = React.useState(false);
-
-  const handleScroll = (event) => {
-    const scrollOffset = event.nativeEvent.contentOffset.y;
-    
-    // Adjust the threshold value based on when you want the component to become fixed
-    const threshold = goals.length+1.5;
-
-    // Check if the scroll offset exceeds the threshold
-    setIsFixed(scrollOffset > threshold);
+      const goalData = response.data.data;
+      const goalsArray = goalData.map((item: { goal: any }) => item.goal);
+      setGoals(goalsArray);
+      // console.log(goals)
+    }
   };
 
   return (
     <SafeAreaView style={{ height: "100%" }}>
-      <View style={{backgroundColor: "#eae8e2", }}>
-      <View style={Styles.header_container}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <BackArrow />
-        </TouchableOpacity>
-        <View style={{ flexDirection: "column", paddingTop: 25 }}>
-          <Text style={Styles.header_text}>Your week</Text>
-          <Text style={Styles.header_text}>in drinking</Text>
-        </View></View>
-      {isFixed && <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>}
+      <View style={{ backgroundColor: "#eae8e2" }}>
+        <View style={Styles.header_container}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <BackArrow />
+          </TouchableOpacity>
+          <View style={{ flexDirection: "column", paddingTop: 25 }}>
+            <Text style={Styles.header_text}>Your week</Text>
+            <Text style={Styles.header_text}>in drinking</Text>
+          </View>
+        </View>
+        <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>
       </View>
-      <ScrollView onScroll={handleScroll}>
+      <ScrollView>
         <View style={Styles.container}>
           <Text style={Styles.goal_text}>Your goals</Text>
           <View style={Styles.text_portion}>
-            {
-                goals.map((item, index) => (
-                    <Text style={Styles.text_style} key={index}>{index+1}. {item}</Text>
-                ))
-            }
+            {goals.map((item, index) => (
+              <Text style={Styles.text_style} key={index}>
+                {index + 1}. {item}
+              </Text>
+            ))}
           </View>
           <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>
           <View style={Styles.avoid_portion}>
@@ -107,7 +96,7 @@ const WeekDrinking = () => {
                 <AvoidComponent text={item} />
               </View>
             ))} */}
-             <View style={[Styles.avoid_container]}>
+            <View style={[Styles.avoid_container]}>
               <Text style={Styles.avoid_text}>Avoid</Text>
               <Text style={Styles.avoid_text_style}>{drinks} drinks</Text>
             </View>
@@ -124,8 +113,10 @@ const WeekDrinking = () => {
               <Text style={Styles.avoid_text_style}>€{spend}</Text>
             </View>
           </View>
-          <Pressable onPress={()=>router.push('/source')}>
-            <Text style={Styles.calculate_text}>How we calculate these numbers?</Text>
+          <Pressable onPress={() => router.push("/source")}>
+            <Text style={Styles.calculate_text}>
+              How we calculate these numbers?
+            </Text>
           </Pressable>
         </View>
         <View style={Styles.container2}>
@@ -134,18 +125,24 @@ const WeekDrinking = () => {
             <DailyCheckInIcon />
             <Text style={Styles.subtext1}>Daily check ins</Text>
             <Text style={Styles.subtext2}>
-              Share your mood, be accountable to yourself and your community.</Text>
+              Share your mood, be accountable to yourself and your community.
+            </Text>
           </View>
           <View style={Styles.container3}>
             <ToolsIcon />
             <Text style={Styles.subtext1}>Tools</Text>
             <Text style={Styles.subtext2}>
-              Tools to improve self-awareness and self-knowledge around your drinking behaviour.</Text>
+              Tools to improve self-awareness and self-knowledge around your
+              drinking behaviour.
+            </Text>
           </View>
           <View style={Styles.container3}>
             <SupportIcon />
             <Text style={Styles.subtext1}>Support</Text>
-            <Text style={Styles.subtext2}>Psychological support for you for challenging moments on your journey</Text>
+            <Text style={Styles.subtext2}>
+              Psychological support for you for challenging moments on your
+              journey
+            </Text>
           </View>
         </View>
         {/* <View style={Styles.container4}>
@@ -164,7 +161,7 @@ const WeekDrinking = () => {
             </View>
           </TouchableOpacity>
         </View> */}
-        
+
         <View style={Styles.container5}>
           <TouchableOpacity
             onPress={() => router.push("/post-payment-onboarding/Payment")}
@@ -327,14 +324,14 @@ const Styles = StyleSheet.create({
     fontSize: 42,
   },
   calculate_text: {
-    color: '#7844ff',
-    fontFamily: 'Regular',
+    color: "#7844ff",
+    fontFamily: "Regular",
     fontSize: 17,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 10,
   },
   fixed: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
     left: 0,
     right: 0,

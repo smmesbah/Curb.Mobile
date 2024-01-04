@@ -180,9 +180,10 @@ const WeeklyDrinkSummary = () => {
           // gap: 50,
         }}
         data={weekly_drink}
-        renderItem={({ item }) => (
+        renderItem={({ item,index }) => (
           // const filteredData = data.filter()
           <View
+          key={index}
             style={{
               // height: 130,
               position: "relative",

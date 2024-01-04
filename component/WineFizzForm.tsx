@@ -123,7 +123,8 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                         width: width * 0.65,
                         height: height * 0.05,
                         borderWidth: 1,
-                        borderColor: '#d9d9d9'
+                        borderColor: '#d9d9d9',
+                        backgroundColor: '#fff'
                     }}
                     textStyle={{
                         fontSize: 17,
@@ -133,10 +134,11 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                         fontFamily: "Regular"
                     }}
                     dropDownContainerStyle={{
+                        position: 'absolute',
                         width: width * 0.65,
-                        backgroundColor: "white",
+                        backgroundColor: "#fff",
                         borderColor: '#d9d9d9',
-                        zIndex: 1000,
+                        zIndex: 9999,
                         shadowColor: '#52006A',
                         elevation: 5,
                     }}
