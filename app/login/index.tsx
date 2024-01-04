@@ -97,19 +97,71 @@ const Login = () => {
       if (!data.success) {
         alert(data.message);
       } else {
-        // console.log(data)
         await AsyncStorage.setItem("token", data.token);
         // console.log(data.user.userLoginCount);
         if (data.user.userLoginCount === 0) {
-          const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
-          const res = await axios.put(apiUrl);
-          const resData = res.data;
-          while (router.canGoBack()) {
-            router.back();
+          // check the onboarding steps
+          const onboardingSteps = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding//onboarding-steps/${data.token}`);
+          // console.log(onboardingSteps.data)
+          //if the onboarding steps = 0 then redirect to the onboarding step 1
+          if (onboardingSteps.data.data.stepCompleted === 0) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/step-1");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 1) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/step-2");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 2) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/step-3");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 3) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/weekly-drink-summary");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 4) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/comparison-stat");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 5) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/WeekDrinking");
+            return;
+          } else if (onboardingSteps.data.data.stepCompleted === 6) {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/post-payment-onboarding/Payment");
+            return;
+          } else {
+            while (router.canGoBack()) {
+              router.back();
+            }
+            router.replace("/homeScreen");
+            return;
           }
-          router.replace("/post-payment-onboarding/step-1");
+          // const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/update-login-count/${data.token}`;
+          // const res = await axios.put(apiUrl);
+          // const resData = res.data;
+          // while (router.canGoBack()) {
+          //   router.back();
+          // }
+          // router.replace("/post-payment-onboarding/step-1");
         } else {
-          const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
+          const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/update-login-count/${data.token}`;
           const res = await axios.put(apiUrl);
           while (router.canGoBack()) {
             router.back();

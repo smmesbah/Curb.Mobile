@@ -14,11 +14,12 @@ import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { addSelectedDay, removeSelectedDay } from 'redux/actions/selectedDaysActions';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 
 const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) => {
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const drinks = useSelector((state: any) => state.drink);
     const selectedDays = useSelector((state: any) => state.selecedDays.selectedDays);
     const { day, drink } = useGlobalSearchParams();
@@ -35,7 +36,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
 
     React.useEffect(() => {
         // console.log(addingDrink);
-        
+
         // setLength(selectedDays.length);
         // console.log(selectedDays.length);
         const dayIndex = dayTrack.findIndex((item: any) => item.value === day);
@@ -62,7 +63,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
     const spiritsShotsFormRef = useRef<any>();
     const wineFizzFormRef = useRef<any>();
 
-    const handleAddDrinkPress = async() => {
+    const handleAddDrinkPress = async () => {
         setAddingDrink(null);
 
         if (addingDrink === 'beer-cider') {
@@ -74,7 +75,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
         }
     }
 
-    const handleGoToNextDayPress = () => {
+    const handleGoToNextDayPress = async() => {
         setAddingDrink(null);
         // Find the next day that is not selected
         // const nextDay=selectedDays[1]
@@ -88,21 +89,26 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
             // const nextDayValue = nextDay.value;
             router.push(`/post-payment-onboarding/${selectedDays[1]}`);
         }
-        else if(day==='Your drinks'){
+        else if (day === 'Your drinks') {
             router.push('/checkInScreen/Records');
         }
-        else{
+        else {
+            const token = await AsyncStorage.getItem('token');
+            const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+                token: token,
+                onboardingSteps: 3
+            })
             router.push('/post-payment-onboarding/weekly-drink-summary');
             // Check if all days are selected
             // const allDaysSelected = dayTrack.every((item: any) => item.isSelected);
             // if (selectedDays.length===0) {
-                
+
             // }
         }
     }
 
 
-    
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -190,10 +196,10 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     gap: 10
                                 }}
                             >
-                                {day!=='Your drinks' ? 
-                                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Go to next day</Text>
-                                : <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular"}}>Submit</Text>
-                                    }
+                                {day !== 'Your drinks' ?
+                                    <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Go to next day</Text>
+                                    : <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Submit</Text>
+                                }
                             </Pressable>
                         ) : (
                             <Pressable

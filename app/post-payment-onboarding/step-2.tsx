@@ -5,6 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import TopSection from 'component/PostPaymentComponents/TopSection'
 import CustomSelect from 'component/ui/CustomSelect'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 
 const { width, height } = Dimensions.get('screen');
 
@@ -55,6 +56,10 @@ const Goals = () => {
             alert(data.message)
         }
         else{
+            const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+                token: token,
+                onboardingSteps: 2
+              })
             router.push('/post-payment-onboarding/step-3')
         }
     }

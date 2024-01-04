@@ -16,6 +16,7 @@ import TopSection from "component/PostPaymentComponents/TopSection";
 import { Slider } from "@miblanchard/react-native-slider";
 import RadioButton from "component/ui/RadioButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -53,31 +54,40 @@ const PostPaymentStep1 = () => {
   ];
 
   const handleNext = async () => {
-    const token = await AsyncStorage.getItem("token");
-    const ageRange =
-      value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
-    const Gender =
-      gender === "Male" ? "MALE" : gender === "Female" ? "FEMALE" : "OTHER";
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const ageRange =
+        value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
+      const Gender =
+        gender === "Male" ? "MALE" : gender === "Female" ? "FEMALE" : "OTHER";
 
-    const user_metadata = {
-      token: token,
-      ageRange: ageRange,
-      gender: Gender,
-      postcode: postcode,
-    };
+      const user_metadata = {
+        token: token,
+        ageRange: ageRange,
+        gender: Gender,
+        postcode: postcode,
+      };
 
-    const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(user_metadata),
-    });
-    const data = await response.json();
-    if (!data.success) {
-      alert(data.message);
-    } else {
-      router.push("/post-payment-onboarding/step-2");
+      const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(user_metadata),
+      });
+      const data = await response.json();
+      if (!data.success) {
+        alert(data.message);
+      } else {
+        const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+          token: token,
+          onboardingSteps: 1
+        })
+        router.push("/post-payment-onboarding/step-2");
+      }
+    } catch (error) {
+      console.log(error)
     }
+
   };
 
   useEffect(() => {
@@ -233,8 +243,8 @@ const PostPaymentStep1 = () => {
             placeholder="e.g. NW1"
           />
         </View>
-        <Pressable onPress={handleNext}>
-          <View style={styles.button}>
+        <Pressable onPress={handleNext} style={styles.button}>
+          <View >
             <Text
               style={[
                 styles.buttonText,
