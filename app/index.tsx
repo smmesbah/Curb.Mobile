@@ -1,46 +1,76 @@
-import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView} from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, Pressable, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
+import React, { useEffect } from 'react'
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link, router } from 'expo-router';
 import { CheckedFilled } from 'components/icons/checkedFilled';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
-const windowWidth=Dimensions.get('window').width;
-const windowHeight=Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
   const handleLoginWithHealthKeyPress = () => {
     alert('Login with Health Key');
   }
+  useEffect(() => {
+    redirectToScreen();
+  }, [])
+
+  // first check the user is already logged in or not
+  // if logged in then redirect to home screen
+  // else 
+  // check the user is already created any account or not
+  // if created then redirect to login screen
+  // else remain on this screen
+  const redirectToScreen = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token')
+      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/isAuthenticated/${token}`)
+      if (res.data.success) {
+        router.replace('/homeScreen')
+      } else {
+        const value = await AsyncStorage.getItem('CurbUser')
+        if (value !== null) {
+          router.replace('/login')
+        } else {
+          console.log('This user just downloaded the app.')
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{backgroundColor: 'white'}}>
-      <ImageBackground source={require('../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
-        <View style={styles.curb}>
-          <Text style={styles.curbText}>curb</Text>
-          <View style={styles.dot}></View>
+      <ScrollView style={{ backgroundColor: 'white' }}>
+        <ImageBackground source={require('../assets/onbording1.jpg')} style={styles.image} imageStyle={{ borderRadius: 15, height: "100%", width: "100%" }}>
+          <View style={styles.curb}>
+            <Text style={styles.curbText}>curb</Text>
+            <View style={styles.dot}></View>
+          </View>
+
+          <View style={styles.flex}>
+            <Text style={styles.text1}>Welcome to Curb</Text>
+            <Text style={styles.text2}>You've taken your first step towards better habits</Text>
+          </View>
+        </ImageBackground>
+
+        <Pressable style={styles.button} onPress={() => router.push('/step-2')}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </Pressable>
+
+
+        <View style={styles.dontHaveAccount}>
+          <Text style={styles.rememberMeText}>Already have an account?</Text>
+          <TouchableOpacity>
+            <Link href="step-1" style={[styles.rememberMeText, { color: '#5B4AFF' }]}>Log in</Link>
+            {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.flex}>
-          <Text style={styles.text1}>Welcome to Curb</Text>
-          <Text style={styles.text2}>You've taken your first step towards better habits</Text>
-        </View>
-      </ImageBackground>
-
-      <Pressable style={styles.button} onPress={()=>router.push('/step-2')}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </Pressable>
-
-
-      <View style={styles.dontHaveAccount}>
-        <Text style={styles.rememberMeText}>Already have an account?</Text>
-        <TouchableOpacity>
-          <Link href="step-1" style={[styles.rememberMeText, {color: '#5B4AFF'}]}>Log in</Link>
-          {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
-        </TouchableOpacity>
-      </View>
       </ScrollView>
     </SafeAreaView>
   )
@@ -59,7 +89,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     justifyContent: 'center',
     width: null,
-    height: windowHeight*.7,
+    height: windowHeight * .7,
     marginHorizontal: 15,
     marginTop: 30,
     position: 'relative',
@@ -177,7 +207,7 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     fontSize: 18,
-    fontFamily: "Regular", 
+    fontFamily: "Regular",
   },
   dontHaveAccount: {
     flexDirection: 'row',
@@ -186,7 +216,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     gap: 10,
-    marginBottom:15
+    marginBottom: 15
   },
 });
 

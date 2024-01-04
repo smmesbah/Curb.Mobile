@@ -9,6 +9,7 @@ import {
   Dimensions,
   ScrollView,
   Pressable,
+  Alert,
 } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
@@ -24,13 +25,41 @@ const { width, height } = Dimensions.get("screen");
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [optIn, setOptIn] = React.useState(false);
+  const [rememberMe, setRememberMe] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleLogin = async () => {
+    if (email === "" && password === "") {
+      Alert.alert(
+        "Email and Password",
+        "Please enter your Email and Password.",
+        [{ text: "OK" }],
+        { cancelable: false }
+      )
+      return;
+    }
+    else if (email === "") {
+      Alert.alert(
+        "Email is required",
+        "Please enter your email address",
+        [{ text: "OK" }],
+        { cancelable: false }
+      )
+      return;
+    }
+    else if (password === "") {
+      Alert.alert(
+        "Password is required",
+        "Please enter your password",
+        [{ text: "OK" }],
+        { cancelable: false }
+      )
+      return;
+    }
     const user = {
       email: email,
       password: password,
+      rememberMe: rememberMe,
     };
     try {
       // console.log(user)
@@ -51,7 +80,7 @@ const Login = () => {
             router.back();
           }
           router.replace("/post-payment-onboarding/step-1");
-        }else{
+        } else {
           const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
           const res = await axios.put(apiUrl);
           while (router.canGoBack()) {
@@ -96,11 +125,11 @@ const Login = () => {
           <Text
             style={{ fontSize: 42, fontWeight: "500", fontFamily: "Regular" }}
           >
-            Login
+            Log in
           </Text>
-          <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
+          {/* <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
             Please enter your details to continue.
-          </Text>
+          </Text> */}
         </View>
 
         <View style={{ marginVertical: 20 }}>
@@ -138,6 +167,7 @@ const Login = () => {
               onChangeText={(text) => setEmail(text.toLowerCase())}
               value={email}
               placeholder="Enter Email Address"
+              autoComplete="email"
             />
           </View>
 
@@ -202,11 +232,11 @@ const Login = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => setOptIn(!optIn)}
+            onPress={() => setRememberMe(!rememberMe)}
             style={styles.rememberMe}
           >
             <View style={styles.radio}>
-              {optIn ? <CheckedFilled /> : <View style={styles.radio} />}
+              {rememberMe ? <CheckedFilled /> : <View style={styles.radio} />}
             </View>
             <Text style={styles.rememberMeText}>Remember me</Text>
           </TouchableOpacity>
@@ -218,15 +248,15 @@ const Login = () => {
           </Link>
         </View>
 
-        <Pressable onPress={handleLogin}>
-          <View style={styles.button}>
+        <Pressable onPress={handleLogin} style={styles.button}>
+          <View >
             <Text
               style={[
                 styles.buttonText,
                 { width: "100%", fontFamily: "Regular" },
               ]}
             >
-              Login
+              Log in
             </Text>
           </View>
         </Pressable>
@@ -344,7 +374,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
-    marginTop: height * 0.09,
+    marginTop: height * 0.04,
   },
   buttonText: {
     fontSize: 20,
