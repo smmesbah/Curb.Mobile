@@ -9,8 +9,12 @@ import {
   Dimensions,
   ScrollView,
   Pressable,
+  KeyboardAvoidingView,
+  Modal,
+  Keyboard,
+  Platform,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "expo-router";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { CheckedFilled } from "components/icons/checkedFilled";
@@ -18,6 +22,7 @@ import ShowPasswordIcon from "components/icons/ShowPasswordIcon";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import HideWithKeyboard from "react-native-hide-with-keyboard";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -26,6 +31,29 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
   const [optIn, setOptIn] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow",
+      () => {
+        setKeyboardOpen(true);
+        //   console.log('keyboard open');
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide",
+      () => {
+        setKeyboardOpen(false);
+        //   console.log('keyboard closed');
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const handleLogin = async () => {
     const user = {
@@ -51,7 +79,7 @@ const Login = () => {
             router.back();
           }
           router.replace("/post-payment-onboarding/step-1");
-        }else{
+        } else {
           const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth//update-login-count/${data.token}`;
           const res = await axios.put(apiUrl);
           while (router.canGoBack()) {
@@ -75,7 +103,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView automaticallyAdjustKeyboardInsets={true}>
         <View style={styles.header}>
           <Pressable
             style={{ justifyContent: "center" }}
@@ -190,7 +218,6 @@ const Login = () => {
             </View>
           </View>
         </View>
-
         <View
           style={{
             flexDirection: "row",
@@ -217,9 +244,10 @@ const Login = () => {
             </Text>
           </Link>
         </View>
+        <HideWithKeyboard>
+          <Pressable onPress={handleLogin} style={styles.button}>
+            {/* <View style={styles.button}> */}
 
-        <Pressable onPress={handleLogin}>
-          <View style={styles.button}>
             <Text
               style={[
                 styles.buttonText,
@@ -228,21 +256,27 @@ const Login = () => {
             >
               Login
             </Text>
-          </View>
-        </Pressable>
 
-        <View style={styles.alreadyHaveAnAccount}>
-          <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
-            Don't have an account?
-          </Text>
-          <TouchableOpacity onPress={() => router.push("/signup")}>
-            <Text
-              style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}
-            >
-              Sign up
+            {/* </View> */}
+          </Pressable>
+
+          <View style={styles.alreadyHaveAnAccount}>
+            <Text style={{ fontSize: 18, fontFamily: "Regular" }}>
+              Don't have an account?
             </Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={() => router.push("/signup")}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: "#6d5eff",
+                  fontFamily: "Regular",
+                }}
+              >
+                Sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </HideWithKeyboard>
       </ScrollView>
     </SafeAreaView>
   );
@@ -282,7 +316,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   signupTextSection: {
-    marginTop: height * 0.05,
+    marginTop: height * 0.01,
     marginLeft: width * 0.1,
     gap: 20,
   },
@@ -348,7 +382,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: "500",
     textAlign: "center",
     fontFamily: "Regular",
   },

@@ -87,7 +87,7 @@ const Records = () => {
                 </Pressable>
                 <Text style={Styles.header_text}>Mon 1st Jan</Text>
             </View>
-            <ScrollView>
+            <ScrollView automaticallyAdjustKeyboardInsets={true}>
                 <LinearGradient
                     colors={['#377C8B', '#0D3F4A', '#0D3F4A']}
                     locations={[0.0, 0.2, 0.6]}

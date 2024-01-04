@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useImperativeHandle } from 'react'
+import { Dimensions, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
 import RadioButtonRound from './ui/RadioButtonRound';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -60,7 +60,31 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
         { label: 'Double', value: 'double' },
     ]);
     const [spiritsShotsCount, setSpiritsShotsCount] = React.useState<number>(0);
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+            () => {
+              setKeyboardOpen(true);
+            //   console.log('keyboard open');
+            }
+          );
+          const keyboardDidHideListener = Keyboard.addListener(
+            Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+            () => {
+              setKeyboardOpen(false);
+            //   console.log('keyboard closed');
+            }
+          );
+
+          return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
+          };
+    }, []);
     return (
+        <ScrollView style={{marginTop: keyboardOpen?-250: 0}}> 
         <View
             style={{
                 flex: 1,
@@ -184,6 +208,7 @@ const SpiritsShotsForm = React.forwardRef((props, ref) => {
                 />
             </View>
         </View>
+        </ScrollView>
     )
 });
 

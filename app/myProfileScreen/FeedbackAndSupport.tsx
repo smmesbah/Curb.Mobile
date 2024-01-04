@@ -36,7 +36,7 @@ const FeedbackAndSupport = () => {
                         <Text style={Styles.header_text2}>Lorem ipsum dolor sit amet consectetur. Platea vestibulum fringilla viverra nec purus. Laoreet.<QuestionIcon/></Text>
                     </View>
                 </View>
-                <ScrollView>
+                <ScrollView automaticallyAdjustKeyboardInsets={true}>
                     <View style={Styles.input_container}>
                         <TextInput
                                 style={Styles.text_input}

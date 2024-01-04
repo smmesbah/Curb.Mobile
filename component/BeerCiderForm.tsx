@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useImperativeHandle, useRef } from 'react'
+import { Dimensions, Keyboard, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import RadioButtonRound from './ui/RadioButtonRound'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -57,8 +57,32 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
         { label: 'Can', value: 'Can' }
     ]);
     const [drinkCount, setDrinkCount] = React.useState<number>(0);
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+            () => {
+              setKeyboardOpen(true);
+            //   console.log('keyboard open');
+            }
+          );
+          const keyboardDidHideListener = Keyboard.addListener(
+            Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+            () => {
+              setKeyboardOpen(false);
+            //   console.log('keyboard closed');
+            }
+          );
+
+          return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
+          };
+    }, []);
 
     return (
+        <ScrollView style={{marginTop: keyboardOpen?-200: 0}}>
         <View
             style={{
                 flex: 1,
@@ -190,6 +214,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
                 <Text>Click me.</Text>
             </TouchableOpacity> */}
         </View>
+        </ScrollView>
     )
 });
 

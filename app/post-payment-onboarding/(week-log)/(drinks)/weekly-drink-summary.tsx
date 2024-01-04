@@ -213,7 +213,7 @@ const WeeklyDrinkSummary = () => {
               style={{
                 fontSize: 30,
                 fontWeight: "500",
-                width: "25%",
+                width: "20%",
                 fontFamily: "Regular",
               }}
             >
@@ -239,7 +239,7 @@ const WeeklyDrinkSummary = () => {
                     key={index}
                     style={{ fontSize: 17, fontFamily: "Regular" }}
                   >
-                    {drink.drinkQuantity}x {drink.drinkSize} of {drink.drinkType}
+                    {drink.drinkQuantity}x {drink.drinkSize} of {drink.drinkType} {drink.drinkType==='Sparkling'?'wine':''}
                   </Text>
                   : <Text
                   key={index}

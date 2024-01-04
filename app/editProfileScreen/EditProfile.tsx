@@ -149,7 +149,7 @@ const EditProfile = () => {
         </TouchableOpacity>
         <Text style={Styles.header_text}>Edit Profile</Text>
       </View>
-      <ScrollView style={{ backgroundColor: "#ecedea" }}>
+      <ScrollView style={{ backgroundColor: "#ecedea" }} automaticallyAdjustKeyboardInsets={true}>
         <View style={Styles.container}>
           <View style={[Styles.text_container, { marginTop: 50 }]}>
             <View style={[Styles.circle, { backgroundColor: "#33AE9C" }]} />

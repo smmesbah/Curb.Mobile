@@ -87,7 +87,7 @@ const Goals = () => {
                 }}>
                     <View
                         style={{
-                            padding: width * 0.08,
+                            padding: width * 0.03,
                         }}
                     >
                         <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
@@ -95,7 +95,7 @@ const Goals = () => {
                             <Text style={{ fontSize: 24, color: '#7844ff', fontFamily: "Regular" }}>I want to</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 15, marginTop: width * 0.08 }}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 7, marginTop: width * 0.08 }}>
                             {goals.map((goal) => (
                                 <CustomSelect
                                     key={goal.id}

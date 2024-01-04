@@ -77,9 +77,8 @@ const WeekDrinking = () => {
             <Text style={Styles.header_text}>in drinking</Text>
           </View>
         </View>
-        <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>
       </View>
-      <ScrollView>
+      <ScrollView stickyHeaderIndices={[1,3]}>
         <View style={Styles.container}>
           <Text style={Styles.goal_text}>Your goals</Text>
           <View style={Styles.text_portion}>
@@ -89,7 +88,11 @@ const WeekDrinking = () => {
               </Text>
             ))}
           </View>
+          </View>
+          <View style={[Styles.container, {paddingBottom: 10}]}>
           <Text style={[Styles.text_style2]}>In 31 days we will help you</Text>
+          </View>
+          <View style={Styles.container}>
           <View style={Styles.avoid_portion}>
             {/* {Data.map((item, index) => (
               <View key={index}>
@@ -110,7 +113,7 @@ const WeekDrinking = () => {
             </View>
             <View style={[Styles.avoid_container]}>
               <Text style={Styles.avoid_text}>Avoid</Text>
-              <Text style={Styles.avoid_text_style}>€{spend}</Text>
+              <Text style={Styles.avoid_text_style}>£{spend}</Text>
             </View>
           </View>
           <Pressable onPress={() => router.push("/source")}>
@@ -119,6 +122,7 @@ const WeekDrinking = () => {
             </Text>
           </Pressable>
         </View>
+        <View></View>
         <View style={Styles.container2}>
           <Text style={Styles.text_style3}>How we'll get there</Text>
           <View style={Styles.container3}>

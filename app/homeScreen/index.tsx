@@ -54,33 +54,28 @@ const Home = () => {
   const [task, setTask] = useState<taskMetaData>();
   const [drinkFreeDays, setDrinkFreeDays] = useState([]);
   const [drinkDays, setDrinkDays] = useState([]);
-  const [moneySaved,setMoneySaved]=useState(0);
-  const [caloriesAvoided,setCaloriesAvoided]=useState(0);
-  const [unitsAvoided,setUnitsAvoided]=useState(0);
+  const [moneySaved, setMoneySaved] = useState(0);
+  const [caloriesAvoided, setCaloriesAvoided] = useState(0);
+  const [unitsAvoided, setUnitsAvoided] = useState(0);
 
   useEffect(() => {
-    // const keyboardDidShowListener = Keyboard.addListener(
-    //   Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
-    //   () => {
-    //     setKeyboardOpen(true);
-    //     console.log('keyboard open');
-    //   }
-    // );
-    // const keyboardDidHideListener = Keyboard.addListener(
-    //   Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
-    //   () => {
-    //     setKeyboardOpen(false);
-    //     console.log('keyboard closed');
-    //   }
-    // );
+    const keyboardDidShowListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      () => {
+        setKeyboardOpen(true);
+        // console.log('keyboard open');
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      () => {
+        setKeyboardOpen(false);
+        // console.log('keyboard closed');
+      }
+    );
     fetchThisWeekTasks();
     fetchDrinkFreeDaysAndDrinkDays();
     fetchMoneySavedCaloriesAvoidedAndUnitsAvoided();
-
-    // return () => {
-    //   keyboardDidShowListener.remove();
-    //   keyboardDidHideListener.remove();
-    // };
     const token_verification = async () => {
       const token = await AsyncStorage.getItem("token");
       // console.log("token",token)
@@ -89,12 +84,18 @@ const Home = () => {
       }
     };
     token_verification();
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+    
   }, []);
 
   // api call for today's task
   const fetchThisWeekTasks = async () => {
     try {
-      const token= await AsyncStorage.getItem("token");
+      const token = await AsyncStorage.getItem("token");
       // console.log(token)
       const res = await axios.get(
         `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/this-week-task/${token}`
@@ -111,37 +112,41 @@ const Home = () => {
   };
 
   //fetch drink free days and drink days
-  const fetchDrinkFreeDaysAndDrinkDays = async() => {
+  const fetchDrinkFreeDaysAndDrinkDays = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/drink-free-days/${token}`)
-      if(res.data.success){
-        setDrinkFreeDays(res.data.data.drinkFreeDaysList)
-        setDrinkDays(res.data.data.drinkDaysWithinCurrentMonth)
-      }else{
+      const token = await AsyncStorage.getItem("token");
+      const res = await axios.get(
+        `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/drink-free-days/${token}`
+      );
+      if (res.data.success) {
+        setDrinkFreeDays(res.data.data.drinkFreeDaysList);
+        setDrinkDays(res.data.data.drinkDaysWithinCurrentMonth);
+      } else {
         console.log(res.data.message);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // fetch money saved calories avoided and units avoided
-  const fetchMoneySavedCaloriesAvoidedAndUnitsAvoided = async() => {
+  const fetchMoneySavedCaloriesAvoidedAndUnitsAvoided = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      const res = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/calculation/${token}`)
-      if(res.data.success){
-        setMoneySaved(res.data.data.moneySaved)
-        setCaloriesAvoided(res.data.data.caloriesAvoided)
-        setUnitsAvoided(res.data.data.unitsAvoided)
-      }else{
+      const token = await AsyncStorage.getItem("token");
+      const res = await axios.get(
+        `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/home/calculation/${token}`
+      );
+      if (res.data.success) {
+        setMoneySaved(res.data.data.moneySaved);
+        setCaloriesAvoided(res.data.data.caloriesAvoided);
+        setUnitsAvoided(res.data.data.unitsAvoided);
+      } else {
         console.log(res.data.message);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -190,10 +195,17 @@ const Home = () => {
               </View>
             </View>
             <View style={Styles.drinkFreeDays}>
-              <DrinkFreeDays drinkFreeDays={drinkFreeDays} drinkingDays={drinkDays}/>
+              <DrinkFreeDays
+                drinkFreeDays={drinkFreeDays}
+                drinkingDays={drinkDays}
+              />
             </View>
             <View>
-              <CaloriesAvoidedWidget moneySaved={moneySaved} caloriesAvoided={caloriesAvoided} unitsAvoided={unitsAvoided} />
+              <CaloriesAvoidedWidget
+                moneySaved={moneySaved}
+                caloriesAvoided={caloriesAvoided}
+                unitsAvoided={unitsAvoided}
+              />
             </View>
             <View>
               <View style={{ paddingHorizontal: 15 }}>

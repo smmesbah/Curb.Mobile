@@ -106,7 +106,7 @@ const MotivationWidget = () => {
     )(event);
   }
 
-  const handleOnViewableItemsChanged = React.useRef(({ viewableItems }) => {
+  const handleOnViewableItemsChanged = React.useRef(({ viewableItems }: { viewableItems: any[] }) => {
     if (viewableItems.length > 0) {
       setIndex(viewableItems[0].index);
     }

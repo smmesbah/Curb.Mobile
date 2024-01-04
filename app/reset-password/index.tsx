@@ -42,7 +42,7 @@ const ResetPassword = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView automaticallyAdjustKeyboardInsets={true}>
         <View style={styles.header}>
           <Pressable onPress={()=>router.back()}>
             <View style={{ justifyContent: 'center' }}>
