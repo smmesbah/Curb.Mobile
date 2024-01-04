@@ -82,7 +82,7 @@ const BeerCiderForm = React.forwardRef((props, ref) => {
     }, []);
 
     return (
-        <ScrollView style={{marginTop: keyboardOpen?-200: 0}}>
+        <ScrollView style={{marginTop: keyboardOpen?(-1)*height*0.3: 0}}>
         <View
             style={{
                 flex: 1,

@@ -213,7 +213,7 @@ const WeeklyDrinkSummary = () => {
               style={{
                 fontSize: 30,
                 fontWeight: "500",
-                width: "20%",
+                width: "22%",
                 fontFamily: "Regular",
               }}
             >
@@ -233,7 +233,7 @@ const WeeklyDrinkSummary = () => {
               )}
               {item.drinks.length !== 0 &&
                 item.drinks.map((drink: any, index: number) => (
-                  <View>
+                  <View key={index}>
                   {drink.drinkQuantity > 1?
                   <Text
                     key={index}

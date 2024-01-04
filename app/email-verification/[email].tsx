@@ -46,7 +46,7 @@ const EmailVerification = () => {
                 alert(data.message)
             }
             else{
-                console.log(data.message);
+                // console.log(data.message);
             // const Data=[email,code]
             router.push(`/signup-with-password/${email.email}`)
             }
