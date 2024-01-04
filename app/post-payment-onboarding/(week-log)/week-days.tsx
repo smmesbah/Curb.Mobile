@@ -36,7 +36,7 @@ const WeekDays = () => {
                 marginTop: 20,
                 elevation: 5
             }}>
-                <Text style={{ fontSize: 30, fontWeight: '400', fontFamily: "Regular"}}>Your Current Habits</Text>
+                <Text style={{ fontSize: 30, fontWeight: '400', fontFamily: "Regular" }}>Your Current Habits</Text>
                 <Text style={{ fontSize: 18, fontWeight: '400', fontFamily: "Regular" }}>Let's understand your drinking patterns to offer more personalised insights.</Text>
             </View>
 
@@ -91,29 +91,30 @@ const WeekDays = () => {
                                     text={day}
                                     redirect={{
                                         pathname: '/post-payment-onboarding/[day]',
-                                        params: { 
+                                        params: {
                                             day: day,
                                             // week: "Hello",
                                         }
                                     }}
-                                    // selectedDays={selectedDays}
+                                // selectedDays={selectedDays}
                                 />
                             ))
                         }
                     </View>
                 </View>
 
-                <View style={styles.button}>
-                    {
-                        <Pressable onPress={()=>selectedDays.length>0?router.push(`/post-payment-onboarding/${selectedDays[0]}`): null}>
-                            <Text style={[styles.buttonText, { width: '100%',}]}>
-                                Next
-                            </Text>
-                        </Pressable>
-                    }
-                    
-                </View>
-                <View style={{height: 15}}/>
+                <Pressable
+                    style={styles.button}
+                    onPress={() => selectedDays.length > 0 ? router.push(`/post-payment-onboarding/${selectedDays[0]}`) : null}
+                >
+                    <View>
+                        <Text style={[styles.buttonText, { width: '100%', }]}>
+                            Next
+                        </Text>
+                    </View>
+                </Pressable>
+
+                <View style={{ height: 15 }} />
             </ScrollView>
         </SafeAreaView>
     )

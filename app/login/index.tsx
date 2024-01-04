@@ -10,6 +10,7 @@ import {
   ScrollView,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
@@ -27,8 +28,10 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
   const [rememberMe, setRememberMe] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleLogin = async () => {
+    setIsLoading(true);
     if (email === "" && password === "") {
       Alert.alert(
         "Email and Password",
@@ -36,6 +39,7 @@ const Login = () => {
         [{ text: "OK" }],
         { cancelable: false }
       )
+      setIsLoading(false);
       return;
     }
     else if (email === "") {
@@ -45,6 +49,7 @@ const Login = () => {
         [{ text: "OK" }],
         { cancelable: false }
       )
+      setIsLoading(false);
       return;
     }
     else if (password === "") {
@@ -54,6 +59,7 @@ const Login = () => {
         [{ text: "OK" }],
         { cancelable: false }
       )
+      setIsLoading(false);
       return;
     }
     const user = {
@@ -68,6 +74,7 @@ const Login = () => {
       const data = response.data;
       if (!data.success) {
         alert(data.message);
+        setIsLoading(false);
       } else {
         await AsyncStorage.setItem("token", data.token);
         // console.log(data.user.userLoginCount);
@@ -80,48 +87,56 @@ const Login = () => {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/step-1");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 1) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/step-2");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 2) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/step-3");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 3) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/weekly-drink-summary");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 4) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/comparison-stat");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 5) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/WeekDrinking");
             return;
           } else if (onboardingSteps.data.data.stepCompleted === 6) {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/post-payment-onboarding/Payment");
             return;
           } else {
             while (router.canGoBack()) {
               router.back();
             }
+            setIsLoading(false);
             router.replace("/homeScreen");
             return;
           }
@@ -138,11 +153,13 @@ const Login = () => {
           while (router.canGoBack()) {
             router.back();
           }
+          setIsLoading(false);
           router.replace("/homeScreen");
         }
       }
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
 
@@ -301,16 +318,24 @@ const Login = () => {
         </View>
 
         <Pressable onPress={handleLogin} style={styles.button}>
-          <View >
-            <Text
-              style={[
-                styles.buttonText,
-                { width: "100%", fontFamily: "Regular" },
-              ]}
-            >
-              Log in
-            </Text>
-          </View>
+          {
+            isLoading ?
+              <ActivityIndicator color='black' animating={isLoading} />
+              :
+              (
+                <View >
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      { width: "100%", fontFamily: "Regular" },
+                    ]}
+                  >
+                    Log in
+                  </Text>
+                </View>
+              )
+          }
+
         </Pressable>
 
         <View style={styles.alreadyHaveAnAccount}>

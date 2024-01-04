@@ -86,7 +86,8 @@ const Index = () => {
       } else {
         const value = await AsyncStorage.getItem('CurbUser')
         if (value !== null) {
-          router.replace('/login')
+          // console.log("Hello")
+          router.replace('/step-1')
         } else {
           console.log('This user just downloaded the app.')
         }

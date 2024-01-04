@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -10,21 +10,26 @@ const { width, height } = Dimensions.get('screen');
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleOTP = async() => {
-    try{
-      const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
-      const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email})});
-      const data= await response.json();
-      if(!data.success){
+  const handleOTP = async () => {
+    try {
+      setIsLoading(true);
+      const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
+      const response = await fetch(apiUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email }) });
+      const data = await response.json();
+      if (!data.success) {
         alert(data.message)
+        setIsLoading(false);
       }
-      else{
+      else {
         // console.log(data.email)
-        router.push({pathname: `/forget-password-verification/`,params: {post: "random", id: 32, email: data.email}})
+        setIsLoading(false);
+        router.push({ pathname: `/forget-password-verification/`, params: { post: "random", id: 32, email: data.email } })
       }
-    }catch(err) {
+    } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   }
 
@@ -32,13 +37,13 @@ const ForgetPassword = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-            <Pressable onPress={()=>router.back()}>
-                <View style={{ justifyContent: 'center' }}>
-                    <Text>
-                        <AntDesign name="arrowleft" size={28} color="black" />
-                    </Text>
-                </View >
-            </Pressable>
+          <Pressable onPress={() => router.back()}>
+            <View style={{ justifyContent: 'center' }}>
+              <Text>
+                <AntDesign name="arrowleft" size={28} color="black" />
+              </Text>
+            </View >
+          </Pressable>
 
           <View style={styles.curb}>
             <Text style={styles.curbText}>curb</Text>
@@ -48,7 +53,7 @@ const ForgetPassword = () => {
 
         <View style={styles.signupTextSection}>
           <Text style={{ fontSize: 37, fontWeight: '500', fontFamily: "Regular" }}>Forgot password?</Text>
-          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Enter your email address and we will send you an email with a temporary password to reset. </Text>
+          <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Enter your email address and we will send you an email with a temporary password to reset. </Text>
         </View>
 
         <View style={{ marginVertical: 20 }}>
@@ -69,20 +74,28 @@ const ForgetPassword = () => {
                   fontFamily: "Regular"
                 }
               }
-              onChangeText={(text)=>setEmail(text.toLowerCase())}
+              onChangeText={(text) => setEmail(text.toLowerCase())}
               value={email}
               placeholder='Enter Email Address'
             />
           </View>
         </View>
 
-        
-        <Pressable onPress={handleOTP}>
-          <View style={styles.button}>
-            <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-                Send email
-            </Text>
-          </View>
+
+        <Pressable onPress={handleOTP} style={styles.button}>
+          {
+            isLoading ?
+              <ActivityIndicator color='black' animating={isLoading} />
+              :
+              (
+                <View>
+                  <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                    Send email
+                  </Text>
+                </View>
+              )
+          }
+
         </Pressable>
 
       </ScrollView>
@@ -186,7 +199,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
-    marginTop: height*0.2
+    marginTop: height * 0.2
   },
   buttonText: {
     fontSize: 20,

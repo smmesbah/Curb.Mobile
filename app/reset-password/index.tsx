@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Link, router, useLocalSearchParams } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,35 +8,43 @@ import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
 const { width, height } = Dimensions.get('screen');
 
 const ResetPassword = () => {
-  const userEmail=useLocalSearchParams();
+  const userEmail = useLocalSearchParams();
   const [email, setEmail] = React.useState('');
   const [newpassword, setNewPassword] = React.useState('');
   const [confirmpassword, setConfirmPassword] = React.useState('');
   const [optIn, setOptIn] = React.useState(false);
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     console.log(userEmail);
   }, [])
 
-  const handleResetPassword = async() => {
-    if(newpassword===confirmpassword){
-      try{
-        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/reset-password`;
-        const response=await fetch(apiUrl, {method: 'PUT',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: userEmail.email, password: newpassword})});
-        const data= await response.json();
-        if(!data.success){
-            alert(data.message)
+  const handleResetPassword = async () => {
+    setIsLoading(true);
+    if (newpassword === confirmpassword) {
+      try {
+        const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/reset-password`;
+        const response = await fetch(apiUrl, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: userEmail.email, password: newpassword }) });
+        const data = await response.json();
+        if (!data.success) {
+          alert(data.message)
+          setIsLoading(false);
         }
-        else{
-            // console.log(data.message);
-            router.push('/login')
+        else {
+          // console.log(data.message);
+          setIsLoading(false);
+          router.push('/login')
         }
-        
-    }catch(err) {
+
+      } catch (err) {
         console.log(err);
-    }
+        setIsLoading(false);
+      }
+    }else{
+      alert("Password and confirm password must be same")
+      setIsLoading(false);
     }
   }
 
@@ -44,7 +52,7 @@ const ResetPassword = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <Pressable onPress={()=>router.back()}>
+          <Pressable onPress={() => router.back()}>
             <View style={{ justifyContent: 'center' }}>
               <Text>
                 <AntDesign name="arrowleft" size={28} color="black" />
@@ -60,7 +68,7 @@ const ResetPassword = () => {
 
         <View style={styles.signupTextSection}>
           <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Reset Password</Text>
-          <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Create a new password for rebeccasmith@google.com</Text>
+          <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Create a new password</Text>
         </View>
 
         <View style={{ marginVertical: 20 }}>
@@ -71,32 +79,32 @@ const ResetPassword = () => {
             </View>
 
             <View style={
-                {
-                  height: 50,
-                  borderWidth: 1,
-                  padding: 10,
-                  borderRadius: 8,
-                  backgroundColor: '#fff',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }
-            }>
-            <TextInput
-              style={
-                {
-                  width: '90%',
-                  fontFamily: "Regular"
-                }
+              {
+                height: 50,
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 8,
+                backgroundColor: '#fff',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }
-              onChangeText={setNewPassword}
-              value={newpassword}
-              secureTextEntry={!showNewPassword}
-              placeholder='Enter Password provided'
-            />
-            <Pressable onPress={()=>setShowNewPassword(!showNewPassword)}>
-                <ShowPasswordIcon/>
-            </Pressable>
+            }>
+              <TextInput
+                style={
+                  {
+                    width: '90%',
+                    fontFamily: "Regular"
+                  }
+                }
+                onChangeText={setNewPassword}
+                value={newpassword}
+                secureTextEntry={!showNewPassword}
+                placeholder='Enter Password provided'
+              />
+              <Pressable onPress={() => setShowNewPassword(!showNewPassword)}>
+                <ShowPasswordIcon />
+              </Pressable>
             </View>
           </View>
 
@@ -106,43 +114,51 @@ const ResetPassword = () => {
               <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Confirm password</Text>
             </View>
             <View style={
-                {
-                  height: 50,
-                  borderWidth: 1,
-                  padding: 10,
-                  borderRadius: 8,
-                  backgroundColor: '#fff',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }
-            }>
-            <TextInput
-              style={
-                {
-                  width: '90%',
-                  fontFamily: "Regular"
-                }
+              {
+                height: 50,
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 8,
+                backgroundColor: '#fff',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }
-              onChangeText={setConfirmPassword}
-              value={confirmpassword}
-              secureTextEntry={!showConfirmPassword}
-              placeholder='Enter Password'
-            />
-            <Pressable onPress={()=>setShowConfirmPassword(!showConfirmPassword)}>
-                <ShowPasswordIcon/>
-            </Pressable>
+            }>
+              <TextInput
+                style={
+                  {
+                    width: '90%',
+                    fontFamily: "Regular"
+                  }
+                }
+                onChangeText={setConfirmPassword}
+                value={confirmpassword}
+                secureTextEntry={!showConfirmPassword}
+                placeholder='Enter Password'
+              />
+              <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                <ShowPasswordIcon />
+              </Pressable>
             </View>
-            
+
           </View>
         </View>
-        
-        <Pressable onPress={handleResetPassword}>
-          <View style={styles.button}>
-            <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-              Reset password
-            </Text>
-          </View>
+
+        <Pressable onPress={handleResetPassword} style={styles.button}>
+          {
+            isLoading ?
+              <ActivityIndicator color='black' animating={isLoading} />
+              :
+              (
+                <View>
+                  <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                    Reset password
+                  </Text>
+                </View>
+              )
+          }
+
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -245,7 +261,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 15,
     padding: 10,
-    marginTop: height*0.08
+    marginTop: height * 0.08
   },
   buttonText: {
     fontSize: 20,

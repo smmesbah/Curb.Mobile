@@ -34,7 +34,7 @@ const Onbording1 = () => {
 
                 <View style={styles.alreadyHaveAnAccount}>
                     <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Don't have an account?</Text>
-                    <TouchableOpacity onPress={()=>router.push('/')}>
+                    <TouchableOpacity onPress={()=>router.push('/signup')}>
                         <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Sign up here</Text>
                     </TouchableOpacity>
                 </View>

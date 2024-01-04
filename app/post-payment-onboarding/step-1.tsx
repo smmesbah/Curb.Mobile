@@ -1,4 +1,6 @@
 import {
+  ActivityIndicator,
+  Alert,
   Dimensions,
   Modal,
   Pressable,
@@ -38,6 +40,7 @@ const PostPaymentStep1 = () => {
   const [postcode, setPostcode] = React.useState<string | undefined>("");
   const [value, setValue] = React.useState(0);
   const [modal, setModal] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const data = [
     {
       // id: 3,
@@ -54,38 +57,51 @@ const PostPaymentStep1 = () => {
   ];
 
   const handleNext = async () => {
-    try {
-      const token = await AsyncStorage.getItem("token");
-      const ageRange =
-        value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
-      const Gender =
-        gender === "Male" ? "MALE" : gender === "Female" ? "FEMALE" : "OTHER";
+    setIsLoading(true);
+    if (gender !== null && postcode !== "") {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const ageRange =
+          value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
+        const Gender =
+          gender === "Male" ? "MALE" : gender === "Female" ? "FEMALE" : "OTHER";
 
-      const user_metadata = {
-        token: token,
-        ageRange: ageRange,
-        gender: Gender,
-        postcode: postcode,
-      };
-
-      const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(user_metadata),
-      });
-      const data = await response.json();
-      if (!data.success) {
-        alert(data.message);
-      } else {
-        const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+        const user_metadata = {
           token: token,
-          onboardingSteps: 1
-        })
-        router.push("/post-payment-onboarding/step-2");
+          ageRange: ageRange,
+          gender: Gender,
+          postcode: postcode,
+        };
+
+        const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(user_metadata),
+        });
+        const data = await response.json();
+        if (!data.success) {
+          alert(data.message);
+          setIsLoading(false);
+        } else {
+          const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
+            token: token,
+            onboardingSteps: 1
+          })
+          setIsLoading(false);
+          router.push("/post-payment-onboarding/step-2");
+        }
+      } catch (error) {
+        console.log(error)
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      Alert.alert(
+        "Fill All Fields",
+        "Please fill all fields to continue",
+        [{ text: "OK" }]
+      )
+      setIsLoading(false);
     }
 
   };
@@ -244,16 +260,24 @@ const PostPaymentStep1 = () => {
           />
         </View>
         <Pressable onPress={handleNext} style={styles.button}>
-          <View >
-            <Text
-              style={[
-                styles.buttonText,
-                { width: "100%", fontFamily: "Regular" },
-              ]}
-            >
-              Next
-            </Text>
-          </View>
+          {
+            isLoading ?
+              <ActivityIndicator color='black' animating={isLoading} />
+              :
+              (
+                <View >
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      { width: "100%", fontFamily: "Regular" },
+                    ]}
+                  >
+                    Next
+                  </Text>
+                </View>
+              )
+          }
+
         </Pressable>
         <Pressable onPress={() => setModal(true)}>
           <Text
