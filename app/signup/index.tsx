@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Dimensions, ScrollView, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Link, router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,9 +17,12 @@ const Signup = () => {
   const [research, setResearch] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const handleSignup = async () => {
+    setIsLoading(true);
     if (password.length >= 8 && termsCondition) {
       try {
         if (email) {
@@ -28,23 +31,30 @@ const Signup = () => {
           const data = await response.json();
           if (!data.success) {
             alert(data.message)
+            setIsLoading(false);
           }
           else {
             console.log(data.message);
             // router.push(`/email-verification/${email.toString()}`)
             router.push({ pathname: `/email-verification/${email.toString()}`, params: { fullName: fullName, password: password } })
+            setIsLoading(false);
           }
+          setIsLoading(false);
         }
         else {
           alert('Please enter email address');
+          setIsLoading(false);
         }
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
       }
     } else if (password.length < 8) {
       alert('Password must be of 8 characters');
+      setIsLoading(false);
     } else if (!termsCondition) {
       alert('Please agree to our terms and conditions');
+      setIsLoading(false);
     }
   }
 
@@ -184,13 +194,21 @@ const Signup = () => {
           </View>
         </View>
 
-        <View style={styles.button}>
-          <Pressable onPress={handleSignup}>
-            <View style={[{ width: '100%' }]}>
-              <Text style={styles.buttonText}>Create account </Text>
-            </View>
-          </Pressable>
-        </View>
+        <Pressable onPress={handleSignup} style={styles.button}>
+          {
+            isLoading ?
+              <ActivityIndicator color='black' animating={isLoading}/>
+              :
+              (
+                <View>
+                  <View style={[{ width: '100%' }]}>
+                    <Text style={styles.buttonText}>Create account </Text>
+                  </View>
+                </View>
+              )
+          }
+
+        </Pressable>
 
         <View style={styles.alreadyHaveAnAccount}>
           <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Already have an account?</Text>

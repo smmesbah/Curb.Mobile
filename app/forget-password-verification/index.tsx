@@ -1,4 +1,4 @@
-import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Link, useGlobalSearchParams, useLocalSearchParams } from 'expo-router'
 import OTPTextView from 'react-native-otp-textinput';
@@ -9,7 +9,9 @@ const { width, height } = Dimensions.get('screen');
 
 const PasswordVerification = () => {
     const [code, setCode] = React.useState('');
-    const email=useLocalSearchParams();
+    const [isLoadingResend, setIsLoadingResend] = React.useState(false);
+    const [isLoadingSubmit, setIsLoadingSubmit] = React.useState(false);
+    const email = useLocalSearchParams();
 
     React.useEffect(() => {
         // console.log(email.email);
@@ -20,42 +22,50 @@ const PasswordVerification = () => {
         setCode(code)
     }
 
-    const handleResendCode = async() => {
-        try{
-            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
-            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify({email: email.email})});
-            const data= await response.json();
-            if(!data.success){
-              alert(data.message)
-            }
-            else{
-              alert("code resend successfully")
-            }
-          }catch(err) {
-            console.log(err);
-          }
-    }
-    const handleSubmit = async() => {
-        try{
-            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp/${email.email}/${code}`;
-            const response=await fetch(apiUrl, {method: 'GET'});
-            const data= await response.json();
-            if(!data.success){
+    const handleResendCode = async () => {
+        try {
+            setIsLoadingResend(true)
+            const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email.email }) });
+            const data = await response.json();
+            if (!data.success) {
                 alert(data.message)
+                setIsLoadingResend(false);
             }
-            else{
-                // console.log(data.message);
-                router.push({pathname: `/reset-password`, params: {email: email.email}})
+            else {
+                alert("code resend successfully")
+                setIsLoadingResend(false);
             }
-            
-        }catch(err) {
+        } catch (err) {
             console.log(err);
+            setIsLoadingResend(false);
+        }
+    }
+    const handleSubmit = async () => {
+        try {
+            setIsLoadingSubmit(true)
+            const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp/${email.email}/${code}`;
+            const response = await fetch(apiUrl, { method: 'GET' });
+            const data = await response.json();
+            if (!data.success) {
+                alert(data.message)
+                setIsLoadingSubmit(false);
+            }
+            else {
+                // console.log(data.message);
+                setIsLoadingSubmit(false);
+                router.push({ pathname: `/reset-password`, params: { email: email.email } })
+            }
+
+        } catch (err) {
+            console.log(err);
+            setIsLoadingSubmit(false);
         }
     }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Pressable onPress={()=>router.back()}>
+                <Pressable onPress={() => router.back()}>
                     <View style={{ justifyContent: 'center' }}>
                         <Text>
                             <AntDesign name="arrowleft" size={28} color="black" />
@@ -71,14 +81,13 @@ const PasswordVerification = () => {
 
             <View style={styles.signupTextSection}>
                 <Text style={{ fontSize: 42, fontWeight: '500', fontFamily: "Regular" }}>Enter code</Text>
-                <Text style={{ fontSize: 18, fontFamily: "Regular"}}>We sent a reset password code to
-                            rebeccasmith@google.com</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular" }}>We sent a reset password code to {email.email}</Text>
             </View>
 
             <View style={{ backgroundColor: '#f3f2ee', gap: 20, marginVertical: 20, paddingHorizontal: width * 0.1, paddingVertical: 25 }}>
                 <View style={{ flexDirection: 'row', gap: 20 }}>
-                    <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#e64627',}} />
-                    <Text style={{ fontSize: 18, fontFamily: "Regular"}}>Enter your unique code here</Text>
+                    <View style={{ width: 20, height: 20, borderRadius: 50, backgroundColor: '#e64627', }} />
+                    <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Enter your unique code here</Text>
                 </View>
 
                 <OTPTextView
@@ -102,18 +111,33 @@ const PasswordVerification = () => {
                     tintColor="#000"
                 />
             </View>
-            <Pressable onPress={handleSubmit}>
-                <View style={styles.button}>
-                    <Text style={[styles.buttonText, { width: '100%',fontFamily: "Regular" }]}>
-                        Submit
-                    </Text>
-                </View>
+            <Pressable onPress={handleSubmit} style={styles.button}>
+                {
+                    isLoadingSubmit ?
+                        <ActivityIndicator color='black' animating={isLoadingSubmit} />
+                        :
+                        (
+                            <View>
+                                <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                                    Submit
+                                </Text>
+                            </View>
+                        )
+                }
+
             </Pressable>
 
             <View style={styles.alreadyHaveAnAccount}>
-                <Text style={{ fontSize: 18,fontFamily: "Regular" }}>Don't have a code?</Text>
+                <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Don't have a code?</Text>
                 <TouchableOpacity onPress={handleResendCode}>
-                    <Text style={{ fontSize: 18, color: "#6d5eff",fontFamily: "Regular" }}>Resend code</Text>
+                    {
+                        isLoadingResend ?
+                            <ActivityIndicator color='black' animating={isLoadingResend} />
+                            :
+                            (
+                                <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Resend code</Text>
+                            )
+                    }
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

@@ -1,4 +1,4 @@
-import { Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Link, router } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -30,6 +30,7 @@ const Goals = () => {
     ]
 
     const [selectedItems, setSelectedItems] = React.useState<Goal[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const toggleItemSelection = (item: Goal): void => {
         const alreadySelected = selectedItems.some(selectedItem => selectedItem.id === item.id);
@@ -41,25 +42,28 @@ const Goals = () => {
         }
     };
 
-    const handleNext = async() => {
-        const token=await AsyncStorage.getItem('token');
+    const handleNext = async () => {
+        setIsLoading(true);
+        const token = await AsyncStorage.getItem('token');
 
         const userGoals = {
             token: token,
             goals: selectedItems.map(item => item.value)
         }
         // console.log(userGoals)
-        const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-goals`
-        const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(userGoals)});
-        const data= await response.json();
-        if(!data.success){
+        const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-goals`
+        const response = await fetch(apiUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(userGoals) });
+        const data = await response.json();
+        if (!data.success) {
             alert(data.message)
+            setIsLoading(false);
         }
-        else{
+        else {
             const updatedOnboardingSteps = await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/update-onboarding-steps`, {
                 token: token,
                 onboardingSteps: 2
-              })
+            })
+            setIsLoading(false);
             router.push('/post-payment-onboarding/step-3')
         }
     }
@@ -111,12 +115,20 @@ const Goals = () => {
                             ))}
                         </View>
                     </View>
-                    <Pressable onPress={handleNext}>
-                        <View style={styles.button}>
-                            <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular"}]}>
-                                Next
-                            </Text>
-                        </View>
+                    <Pressable onPress={handleNext} style={styles.button}>
+                        {
+                            isLoading ?
+                                <ActivityIndicator color='black' animating={isLoading} />
+                                :
+                                (
+                                    <View>
+                                        <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                                            Next
+                                        </Text>
+                                    </View>
+                                )
+                        }
+
                     </Pressable>
                 </ScrollView>
             </View>

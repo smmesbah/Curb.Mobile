@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { router, useGlobalSearchParams } from 'expo-router';
 import React, { useEffect } from 'react';
-import { Alert, Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import OTPTextView from 'react-native-otp-textinput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -10,6 +10,8 @@ const { width, height } = Dimensions.get('screen');
 
 const EmailVerification = () => {
     const [code, setCode] = React.useState('');
+    const [isLoadingSubmit, setIsLoadingSubmit] = React.useState(false);
+    const [isLoadingResend, setIsLoadingResend] = React.useState(false);
     const params = useGlobalSearchParams();
     const handleChange = (code: string) => {
         // console.log(code)
@@ -18,21 +20,25 @@ const EmailVerification = () => {
 
     const handleResendCode = async () => {
         try {
+            setIsLoadingResend(true);
             // const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/forget-password`;
             // const response = await fetch(apiUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: params.email }) });
             // const data = await response.json();
-            const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/resend-otp`,{
+            const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/resend-otp`, {
                 email: params.email
             })
             const data = res.data;
             if (!data.success) {
                 alert(data.message)
+                setIsLoadingResend(false);
             }
             else {
                 alert("Code resend successfully.")
+                setIsLoadingResend(false);
             }
         } catch (err) {
             console.log(err);
+            setIsLoadingResend(false);
         }
     }
 
@@ -43,6 +49,7 @@ const EmailVerification = () => {
     const handleSubmit = async () => {
         //console.log(code)
         try {
+            setIsLoadingSubmit(true);
             // const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp/${params.email}/${code}`;
             // const response=await fetch(apiUrl, {method: 'GET'});
             const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp-and-create-user`, {
@@ -55,6 +62,7 @@ const EmailVerification = () => {
             const data = res.data;
             if (!data.success) {
                 alert(data.message)
+                setIsLoadingSubmit(false);
             }
             else {
                 AsyncStorage.setItem('CurbUser', "true")
@@ -72,15 +80,17 @@ const EmailVerification = () => {
 
                 //automatic redirect to the login page if the user not press the ok button
                 setTimeout(() => {
-                    while(router.canGoBack()){
+                    while (router.canGoBack()) {
                         router.back();
                     }
+                    setIsLoadingSubmit(false);
                     router.replace('/login');
                 }, 5000);
             }
 
         } catch (err) {
             console.log(err);
+            setIsLoadingSubmit(false);
         }
     }
 
@@ -128,23 +138,38 @@ const EmailVerification = () => {
                         // @ts-ignore
                         fontFamily: 'Regular'
                     }}
-                    // containerStyle={{ width: '80%', height: 200, paddingHorizontal: 32 }}
+                    // containedrStyle={{ width: '80%', height: 200, paddingHorizontal: 32 }}
                     tintColor="#000"
                 />
             </View>
 
-            <Pressable onPress={handleSubmit}>
-                <View style={styles.button}>
-                    <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
-                        Submit
-                    </Text>
-                </View>
+            <Pressable onPress={handleSubmit} style={styles.button}>
+                {
+                    isLoadingSubmit ?
+                        <ActivityIndicator color='black' animating={isLoadingSubmit} />
+                        :
+                        (
+                            <View>
+                                <Text style={[styles.buttonText, { width: '100%', fontFamily: "Regular" }]}>
+                                    Submit
+                                </Text>
+                            </View>
+                        )
+                }
+
             </Pressable>
 
             <View style={styles.alreadyHaveAnAccount}>
                 <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Don't have a code?</Text>
                 <TouchableOpacity onPress={handleResendCode}>
-                    <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Resend code</Text>
+                    {
+                        isLoadingResend ?
+                            <ActivityIndicator color='black' animating={isLoadingResend} />
+                            :
+                            (
+                                <Text style={{ fontSize: 18, color: "#6d5eff", fontFamily: "Regular" }}>Resend code</Text>
+                            )
+                    }
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
