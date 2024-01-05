@@ -117,19 +117,21 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                 />
             </View>
 
-            <View
+            {/* <View
                 style={{
                     gap: 30,
                     alignItems: 'center',
                     marginTop: 40,
                 }}
-            >
+            > */}
                 <Text
                     style={{
                         fontSize: 20,
                         fontWeight: '400',
                         color: '#27284e',
-                        fontFamily: "Regular"
+                        fontFamily: "Regular",
+                        marginTop: 40,
+                        marginBottom: 20
                     }}
                 >
                     How much?
@@ -168,7 +170,7 @@ const WineFizzForm = React.forwardRef((props,ref) => {
                         elevation: 5,
                     }}
                 />
-            </View>
+            {/* </View> */}
 
             <View
                 style={{

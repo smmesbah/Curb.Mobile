@@ -25,8 +25,13 @@ import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
+import { Mixpanel } from "mixpanel-react-native";
 
 const { width, height } = Dimensions.get("screen");
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -59,6 +64,7 @@ const Login = () => {
   }, []);
 
   const handleLogin = async () => {
+    mixpanel.track("Submit Login In");
     setIsLoading(true);
     if (email === "" && password === "") {
       Alert.alert(
@@ -105,6 +111,7 @@ const Login = () => {
         setIsLoading(false);
       } else {
         await AsyncStorage.setItem("token", data.token);
+        mixpanel.track("Logged In");
         // console.log(data.user.userLoginCount);
         if (data.user.userLoginCount === 0) {
           // check the onboarding steps

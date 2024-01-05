@@ -5,11 +5,16 @@ import { Link, router } from 'expo-router';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const image = { uri: "../assets/onbording1.jpg" };
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const Index = () => {
   const [rememberMe, setRememberMe] = React.useState(false);
@@ -18,6 +23,7 @@ const Index = () => {
   }
   useEffect(() => {
     redirectToScreen();
+    // console.log(process.env.EXPO_PUBLIC_MIXPANEL_TOKEN)
   }, [])
 
   // first check the user is already logged in or not
@@ -111,15 +117,21 @@ const Index = () => {
           </View>
         </ImageBackground>
 
-        <Pressable style={styles.button} onPress={() => router.push('/step-2')}>
+        <Pressable style={styles.button} onPress={() => {
+          mixpanel.track("Initiate Get Started")
+          router.push('/step-2')
+          }}>
           <Text style={styles.buttonText}>Get Started</Text>
         </Pressable>
 
 
         <View style={styles.dontHaveAccount}>
           <Text style={styles.rememberMeText}>Already have an account?</Text>
-          <TouchableOpacity>
-            <Link href="step-1" style={[styles.rememberMeText, { color: '#5B4AFF' }]}>Log in</Link>
+          <TouchableOpacity onPress={()=>{
+            mixpanel.track("Initiate Login")
+            router.push('/step-1')
+          }}>
+            <Text style={[styles.rememberMeText, { color: '#5B4AFF' }]}>Log in</Text>
             {/* <Link href="/login" style={[styles.rememberMeText, {fontWeight: '500'}]}>Sign Up here</Link> */}
           </TouchableOpacity>
         </View>

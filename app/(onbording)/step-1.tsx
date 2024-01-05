@@ -2,9 +2,14 @@ import { View, Text, SafeAreaView, ImageBackground, StyleSheet, Pressable, Touch
 import React from 'react'
 import { Link, router } from 'expo-router';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const Width=Dimensions.get('window').width
 const Height=Dimensions.get('window').height
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const Onbording1 = () => {
     const handleGetStartedPress = () => {
@@ -26,11 +31,15 @@ const Onbording1 = () => {
                 </ImageBackground>
 
                 {/* <Pressable style={styles.button} onPress={handleGetStartedPress}> */}
-                <View style={styles.button}>
-                    <Link href="/login"style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
+                <Pressable onPress={()=>{
+                    mixpanel.track("Initiate Login")
+                    router.push('/login')
+                    
+                }} style={styles.button}>
+                    <Text style={[styles.buttonText, {width: '100%', fontFamily: "Regular"}]}>
                         Log in with email
-                    </Link>
-                </View>
+                    </Text>
+                </Pressable>
 
                 <View style={styles.alreadyHaveAnAccount}>
                     <Text style={{ fontSize: 18, fontFamily: "Regular" }}>Don't have an account?</Text>

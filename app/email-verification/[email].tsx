@@ -5,8 +5,13 @@ import React, { useEffect } from 'react';
 import { ActivityIndicator, Alert, Dimensions, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import OTPTextView from 'react-native-otp-textinput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const { width, height } = Dimensions.get('screen');
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const EmailVerification = () => {
     const [code, setCode] = React.useState('');

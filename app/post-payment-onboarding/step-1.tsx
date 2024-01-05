@@ -19,8 +19,13 @@ import { Slider } from "@miblanchard/react-native-slider";
 import RadioButton from "component/ui/RadioButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { Mixpanel } from "mixpanel-react-native";
 
 const { width, height } = Dimensions.get("screen");
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const CustomMarker = () => {
   return (
@@ -65,6 +70,8 @@ const PostPaymentStep1 = () => {
           value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
         const Gender =
           gender === "Male" ? "MALE" : gender === "Female" ? "FEMALE" : "OTHER";
+
+          mixpanel.track('Submit Acquinatance Details', {'AgeRange': ageRange, 'Gender': gender})
 
         const user_metadata = {
           token: token,

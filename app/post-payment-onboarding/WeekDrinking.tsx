@@ -20,9 +20,14 @@ import ToolsIcon from "components/icons/ToolsIcon";
 import SupportIcon from "components/icons/SupportIcon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { Mixpanel } from "mixpanel-react-native";
 
 const Width = Dimensions.get("screen").width;
 const Height = Dimensions.get("screen").height;
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 // const Data = ["13 drinks", "39 units", "6000 calories", "£280"];
 
@@ -72,6 +77,7 @@ const WeekDrinking = () => {
         token: token,
         onboardingSteps: 6
       })
+      mixpanel.track('View Access Code')
       router.push("/post-payment-onboarding/Payment")
     } catch (error) {
       console.log(error)

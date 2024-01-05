@@ -5,8 +5,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
 import { useDispatch, useSelector } from 'react-redux';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const { width, height } = Dimensions.get('screen');
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const Signup = () => {
   const [fullName, setFullName] = React.useState('');
@@ -26,6 +31,7 @@ const Signup = () => {
     if (password.length >= 8 && termsCondition) {
       try {
         if (email) {
+          mixpanel.track('Submit Create Account', {'Name': fullName, 'Email': email})
           const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/auth/signup`;
           const response = await fetch(apiUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email }) });
           const data = await response.json();

@@ -18,9 +18,14 @@ import * as Progress from "react-native-progress";
 import ProcessingIcon from "components/icons/ProcessingIcon";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Mixpanel } from "mixpanel-react-native";
 
 const Width = Dimensions.get("screen").width;
 const Height = Dimensions.get("screen").height;
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const codes = ["FREECURBNHS", "FREECURBFRIEND", "FREECURB", "FREECURBHEALTH"];
 const Payment = () => {
@@ -64,6 +69,7 @@ const Payment = () => {
         })
         setTimeout(() => {
           setProcessModal(false);
+          mixpanel.track('Submit Access Code', {'Access Code': text})
           router.push("/post-payment-onboarding/success-page");
         }, 2000);
       } else {

@@ -5,8 +5,13 @@ import { router } from 'expo-router'
 import StatsComparisonCard from 'component/StatsComparisonCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const { width, height } = Dimensions.get('screen');
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const Comparison = () => {
 
@@ -46,6 +51,7 @@ const Comparison = () => {
                 token: token,
                 onboardingSteps: 5
             })
+            mixpanel.track("View Insights");
             router.push('post-payment-onboarding/WeekDrinking')
         } catch (error) {
             console.log(error);

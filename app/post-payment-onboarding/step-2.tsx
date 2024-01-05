@@ -6,8 +6,13 @@ import TopSection from 'component/PostPaymentComponents/TopSection'
 import CustomSelect from 'component/ui/CustomSelect'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import { Mixpanel } from 'mixpanel-react-native'
 
 const { width, height } = Dimensions.get('screen');
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 interface Goal {
     id: number,

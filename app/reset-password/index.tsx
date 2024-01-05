@@ -4,8 +4,13 @@ import { Link, router, useLocalSearchParams } from 'expo-router'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckedFilled } from 'components/icons/checkedFilled';
 import ShowPasswordIcon from 'components/icons/ShowPasswordIcon';
+import { Mixpanel } from 'mixpanel-react-native';
 
 const { width, height } = Dimensions.get('screen');
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
 
 const ResetPassword = () => {
   const userEmail = useLocalSearchParams();
@@ -33,6 +38,7 @@ const ResetPassword = () => {
           setIsLoading(false);
         }
         else {
+          mixpanel.track("Password Changed Succesfully");
           // console.log(data.message);
           setIsLoading(false);
           router.push('/login')

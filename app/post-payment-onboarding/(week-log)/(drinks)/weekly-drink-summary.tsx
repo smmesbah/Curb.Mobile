@@ -15,8 +15,14 @@ import HideWithKeyboard from "react-native-hide-with-keyboard";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { Mixpanel } from "mixpanel-react-native";
 
 const { width, height } = Dimensions.get("screen");
+
+const trackAutomaticEvents = true;
+const mixpanel = new Mixpanel(`${process.env.EXPO_PUBLIC_MIXPANEL_TOKEN}`, trackAutomaticEvents);
+mixpanel.init();
+
 
 interface WeeklyDrinkSummaryProps {
   day: string;
@@ -143,6 +149,7 @@ const WeeklyDrinkSummary = () => {
         token: token,
         onboardingSteps: 4
       })
+      mixpanel.track('Submit Current Habits')
       router.push("post-payment-onboarding/comparison-stat")
     } catch (error) {
       console.log(error)
