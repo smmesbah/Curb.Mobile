@@ -64,14 +64,14 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
     const wineFizzFormRef = useRef<any>();
 
     const handleAddDrinkPress = async () => {
-        setAddingDrink(null);
+        // setAddingDrink(null);
 
         if (addingDrink === 'beer-cider') {
-            beerCiderFormRef.current.handleAddDrinkPress()
+            beerCiderFormRef.current.handleAddDrinkPress(setAddingDrink)
         } else if (addingDrink === 'spirits-shots') {
-            spiritsShotsFormRef.current.handleAddDrinkPress()
+            spiritsShotsFormRef.current.handleAddDrinkPress(setAddingDrink)
         } else if (addingDrink === 'wine-fizz') {
-            wineFizzFormRef.current.handleAddDrinkPress()
+            wineFizzFormRef.current.handleAddDrinkPress(setAddingDrink)
         }
     }
 
@@ -112,35 +112,43 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
 
     return (
         <SafeAreaView style={styles.container}>
-            <Pressable
-                onPress={() => router.back()}
-                style={{ justifyContent: 'center', marginTop: 25, marginLeft: 25 }}
-            >
-                <Text>
-                    <AntDesign name="arrowleft" size={28} color="black" />
-                </Text>
-            </Pressable>
+            <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: height * 0.01,
+            paddingBottom: 5,
+          }}
+        >
+          <Pressable
+            onPress={() => router.back()}
+            style={{ justifyContent: "center", marginTop: 0, marginLeft: 25 }}
+          >
+            <Text>
+              <AntDesign name="arrowleft" size={28} color="black" />
+            </Text>
+          </Pressable>
 
-            <View style={{ marginTop: 15 }}>
-                <View style={{ gap: 35, }}>
-                    {/* <Text style={styles.headerText}>{drinks.drink[0].drinkType ? 'hello' : 'yes'}</Text> */}
-                    <Text style={styles.headerText}>{day}</Text>
-                    <Text style={styles.subheaderText}>What kind of drink would you typically have on a {day}</Text>
-                </View>
-            </View>
+          <View style={{ marginTop: 0 }}>
+            <Text style={styles.headerText}>{day}</Text>
+          </View>
+        </View>
 
             <ScrollView
                 automaticallyAdjustKeyboardInsets={true}
                 automaticallyAdjustContentInsets={true}
                 style={{
-                    backgroundColor: '#f3f2ee',
+                    backgroundColor: '#fff',
                     marginTop: 25,
+                    // height: '100%',
                 }}
-                contentContainerStyle={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
+                // contentContainerStyle={{
+                //     justifyContent: 'center',
+                //     alignItems: 'center',
+                // }}
             >
+                    
                 <View>
                     {
                         addingDrink === 'beer-cider' && <BeerCiderForm ref={beerCiderFormRef} />
@@ -173,8 +181,8 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                     style={{
                         width: '100%',
                         backgroundColor: 'white',
-                        borderWidth: 1,
-                        borderColor: '#d9d9d9',
+                        // borderWidth: 1,
+                        // borderColor: '#d9d9d9',
                         height: height * 0.12,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -189,17 +197,14 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     flexDirection: 'row',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    backgroundColor: '#000',
+                                    backgroundColor: '#0D3F4A',
                                     borderRadius: 30,
                                     height: height * 0.06,
                                     width: width * 0.8,
                                     gap: 10
                                 }}
                             >
-                                {day !== 'Your drinks' ?
-                                    <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Go to next day</Text>
-                                    : <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Submit</Text>
-                                }
+                                    <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Next</Text>
                             </Pressable>
                         ) : (
                             <Pressable
@@ -209,7 +214,7 @@ const BeerCider = ({ addDrink }: { addDrink: (drink: DrinkDetails) => void }) =>
                                     flexDirection: 'row',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    backgroundColor: '#000',
+                                    backgroundColor: '#0D3F4A',
                                     borderRadius: 30,
                                     height: height * 0.06,
                                     width: width * 0.8,
@@ -239,7 +244,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     headerText: {
-        fontSize: 40,
+        fontSize: 28,
         fontWeight: '400',
         textAlign: 'right',
         marginRight: width * 0.09,

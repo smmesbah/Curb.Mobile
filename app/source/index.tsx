@@ -1,12 +1,15 @@
 import BackArrow from 'components/icons/BackArrow'
 import React from 'react'
-import { View, Text, SafeAreaView, Pressable, StyleSheet, ScrollView, Linking } from 'react-native'
+import { View, Text, SafeAreaView, Pressable, StyleSheet, ScrollView, Linking,Dimensions } from 'react-native'
 import { Link, router } from "expo-router";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
+
 const index = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
         <View style={styles.header}>
         <Pressable
           onPress={() => router.back()}
@@ -17,13 +20,17 @@ const index = () => {
           </Text>
         </Pressable>
         <Text
-          style={{ fontSize: 30, textAlign: "center", fontFamily: "Regular" }}
+          style={{ fontSize: 30, textAlign: "right", fontFamily: "Regular" }}
         >
           Sources
         </Text>
       </View>
-      <ScrollView>
-      <View style={{ gap: 5, marginBottom: 10, marginHorizontal: 20 }}>
+      <ScrollView style={{height: height}}>
+        <View style={styles.container2}>
+          <Text>How we calculate the numbers and data</Text>
+          <Text>Lorem ipsum dolor sit amet consectetur. Viverra sagittis velit aliquet condimentum cursus odio.</Text>
+        </View>
+      <View style={{ gap: 5, marginBottom: 10, marginHorizontal: width*0.05, marginTop: 15, backgroundColor: '#f5f6f4' }}>
           <Text style={styles.text_header}>Cost of alcohol</Text>
           <Text
             style={styles.link_text}
@@ -99,6 +106,11 @@ const index = () => {
             https://statswales.gov.wales/Catalogue/Health-and-Social-Care/Welsh-Health-Survey 
           </Text>
         </View>
+        <Pressable onPress={()=>router.back()}>
+          <View style={styles.btn_container}>
+            <Text style={styles.btn_text}>Back</Text>
+          </View>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   )
@@ -114,18 +126,41 @@ const styles = StyleSheet.create({
     },
     header: {
       padding: 15,
+      backgroundColor: '#fff'
     },
     text_header: {
         fontFamily: 'Medium',
         fontSize: 18,
         textAlign: 'left',
         marginBottom: 15,
+        marginTop: 10
     },
     link_text: {
         fontSize: 17, 
         textAlign: "left", 
-        color: "#5B4AFF",
-        marginBottom: 6
+        color: "#000",
+        marginBottom: 6,
+        textDecorationLine: 'underline'
+    },
+    container2: {
+      paddingHorizontal: width*0.05,
+      backgroundColor: '#fff',
+      gap: 15,
+      paddingBottom: 15,
+      paddingTop: 10
+    },
+    btn_container: {
+      alignSelf: 'center',
+      width: width*0.9,
+      backgroundColor: '#000',
+      borderRadius: 100,
+      paddingVertical: 15,
+    },
+    btn_text: {
+      color: '#fff',
+      textAlign: 'center',
+      fontSize: 20,
+      fontFamily: 'Regular'
     }
   });
   
