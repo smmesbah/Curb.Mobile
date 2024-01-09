@@ -1,217 +1,291 @@
-import { Dimensions, Keyboard, Platform, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
-import React, { useEffect, useImperativeHandle, useState } from 'react'
-import RadioButtonRound from './ui/RadioButtonRound'
-import DropDownPicker from 'react-native-dropdown-picker'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+  Dimensions,
+  Keyboard,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  Pressable,
+} from "react-native";
+import React, { useEffect, useImperativeHandle, useState } from "react";
+import RadioButtonRound from "./ui/RadioButtonRound";
+import DropDownPicker from "react-native-dropdown-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { useDispatch } from 'react-redux'
-import { addDrink } from 'redux/actions/drinkActions'
-import { useGlobalSearchParams } from 'expo-router'
+import { useDispatch } from "react-redux";
+import { addDrink } from "redux/actions/drinkActions";
+import { useGlobalSearchParams } from "expo-router";
+import PlusIcon from "components/icons/PlusIcon";
+import MinusIcon from "components/icons/MinusIcon";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
-const WineFizzForm = React.forwardRef((props,ref) => {
-    const dispatch = useDispatch();
-    const { day } = useGlobalSearchParams();
-    const data = [
-        { value: 'Wine' },
-        { value: 'Sparkling' },
-    ]
-    const [wineFizzType, setWineFizzType] = React.useState<string>('');
-    const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState<string>('');
-    const [items, setItems] = React.useState([
-        { label: 'Small glass', value: '175ml' },
-        { label: 'Large glass', value: '250ml' },
-        { label: 'Bootle', value: '750ml' },
-    ]);
-    const [wineCount, setWineCount] = React.useState<number>(0);
+const WineFizzForm = React.forwardRef((props, ref) => {
+  const dispatch = useDispatch();
+  const { day } = useGlobalSearchParams();
+  const data = [{ value: "Wine" }, { value: "Sparkling" }];
+  const [wineFizzType, setWineFizzType] = React.useState<string>("");
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState<string>("");
+  const [items, setItems] = React.useState([
+    { label: "Small glass 175ml", value: "175ml" },
+    { label: "Large glass 250ml", value: "250ml" },
+    { label: "Bootle 750ml", value: "750ml" },
+  ]);
+  const [wineCount, setWineCount] = React.useState<number>(0);
 
-    useImperativeHandle(ref, () => ({
-        async handleAddDrinkPress() {
-            const drink = {
-                day: Array.isArray(day) || day === undefined ? '' : day,
-                drinks: {
-                    drinkQuantity: wineCount,
-                    drinkType: wineFizzType,
-                    drinkSize: value,
-                }
-            }
-            dispatch(addDrink(drink));
+  useImperativeHandle(ref, () => ({
+    async handleAddDrinkPress(setAddingDrink: (arg0: null) => void) {
+      if (wineFizzType === "" || value === "" || wineCount === 0) {
+        alert("Please fill all the fields");
+      } else {
+        setAddingDrink(null);
+        const drink = {
+          day: Array.isArray(day) || day === undefined ? "" : day,
+          drinks: {
+            drinkQuantity: wineCount,
+            drinkType: wineFizzType,
+            drinkSize: value,
+          },
+        };
+        dispatch(addDrink(drink));
 
-            const token=await AsyncStorage.getItem('token');
-            const weekly_drink={
-                token: token,
-                day: day,
-                drinkType: "WINE_FIZZ",
-                drinkName: wineFizzType,
-                drinkVolume: value,
-                drinkQuantity: wineCount
-            }
-            const apiUrl=`${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/weekly-drink`
-            const response=await fetch(apiUrl, {method: 'POST',headers: {'content-type': 'application/json'}, body: JSON.stringify(weekly_drink)}); 
-            const data= await response.json();
-                if(!data.success){
-                    alert(data.message)
-                }
+        const token = await AsyncStorage.getItem("token");
+        const weekly_drink = {
+          token: token,
+          day: day,
+          drinkType: "WINE_FIZZ",
+          drinkName: wineFizzType,
+          drinkVolume: value,
+          drinkQuantity: wineCount,
+        };
+        const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/weekly-drink`;
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(weekly_drink),
+        });
+        const data = await response.json();
+        if (!data.success) {
+          alert(data.message);
         }
-    }));
+      }
+    },
+  }));
 
-    const [keyboardOpen, setKeyboardOpen] = useState(false);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
 
-    useEffect(() => {
-        const keyboardDidShowListener = Keyboard.addListener(
-            Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
-            () => {
-              setKeyboardOpen(true);
-            //   console.log('keyboard open');
-            }
-          );
-          const keyboardDidHideListener = Keyboard.addListener(
-            Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
-            () => {
-              setKeyboardOpen(false);
-            //   console.log('keyboard closed');
-            }
-          );
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow",
+      () => {
+        setKeyboardOpen(true);
+        //   console.log('keyboard open');
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide",
+      () => {
+        setKeyboardOpen(false);
+        //   console.log('keyboard closed');
+      }
+    );
 
-          return () => {
-            keyboardDidShowListener.remove();
-            keyboardDidHideListener.remove();
-          };
-    }, []);
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
-    return (
-        <ScrollView style={{marginTop: keyboardOpen?-200: 0}}>
+  return (
+    <ScrollView
+      style={{
+        marginTop: keyboardOpen ? -200 : 0,
+        flex: 1,
+        height: height * 0.75,
+        backgroundColor: "#f5f6f4",
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 10,
+          alignItems: "flex-start",
+          marginHorizontal: width * 0.07,
+          marginTop: height * 0.03,
+        }}
+      >
         <View
+          style={{
+            width: 12,
+            height: 12,
+            borderRadius: 12,
+            backgroundColor: "#33ae9c",
+            marginTop: 6,
+          }}
+        />
+        <View>
+          <Text
             style={{
-                flex: 1,
-                alignItems: 'center',
-                marginHorizontal: 40,
-                marginTop: 25,
-                marginBottom: 15,
-                backgroundColor: 'white',
-                borderRadius: 15,
-                padding: 20,
+              fontSize: 18,
+              color: "#000",
+              fontFamily: "Regular",
+              marginBottom: 6,
             }}
-        >
-            <Text
-                style={{
-                    fontSize: 20,
-                    fontWeight: '400',
-                    color: '#27284e',
-                    textAlign: 'center',
-                    marginHorizontal: 30,
-                    marginTop: 10,
-                    marginBottom: 30,
-                    fontFamily: "Regular"
-                }}
-            >
-                What kind of wine or sparkling?
-            </Text>
-
-            <View>
-                <RadioButtonRound
-                    data={data}
-                    onSelect={(value) => setWineFizzType(value)}
-                />
-            </View>
-
-            <View
-                style={{
-                    gap: 30,
-                    alignItems: 'center',
-                    marginTop: 40,
-                }}
-            >
-                <Text
-                    style={{
-                        fontSize: 20,
-                        fontWeight: '400',
-                        color: '#27284e',
-                        fontFamily: "Regular"
-                    }}
-                >
-                    How much?
-                </Text>
-                <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    listMode="SCROLLVIEW"
-                    placeholder="Select drink"
-                    showTickIcon={false}
-                    style={{
-                        width: width * 0.65,
-                        height: height * 0.05,
-                        borderWidth: 1,
-                        borderColor: '#d9d9d9',
-                        backgroundColor: '#fff'
-                    }}
-                    textStyle={{
-                        fontSize: 17,
-                        fontWeight: '400',
-                        color: '#27284e',
-                        textAlign: 'center',
-                        fontFamily: "Regular"
-                    }}
-                    dropDownContainerStyle={{
-                        position: 'absolute',
-                        width: width * 0.65,
-                        backgroundColor: "#fff",
-                        borderColor: '#d9d9d9',
-                        zIndex: 9999,
-                        shadowColor: '#52006A',
-                        elevation: 5,
-                    }}
-                />
-            </View>
-
-            <View
-                style={{
-                    gap: 18,
-                    alignItems: 'center',
-                    marginTop: 25,
-                }}
-            >
-                <Text
-                    style={{
-                        fontSize: 20,
-                        fontWeight: '400',
-                        color: '#27284e',
-                        fontFamily: "Regular"
-                    }}
-                >
-                    How many?
-                </Text>
-                <TextInput
-                    style={{
-                        height: height * 0.1,
-                        width: width * 0.2,
-                        borderWidth: 1,
-                        borderColor: '#d9d9d9',
-                        borderRadius: 8,
-                        paddingHorizontal: 25,
-                        paddingVertical: 20,
-                        fontSize: 40,
-                        fontWeight: '400',
-                        textAlign: 'center',
-                        color: '#27284e',
-                        fontFamily: "Regular"
-                    }}
-                    onChangeText={(text) => setWineCount(Number(text))}
-                    inputMode="numeric"
-                    keyboardType="numeric"
-                />
-            </View>
+          >
+            What kind of drink would you
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "#000",
+              fontFamily: "Regular",
+              marginBottom: 6,
+            }}
+          >
+            typically have on a {day}?
+          </Text>
         </View>
-        </ScrollView>
-    )
+      </View>
+
+      <View style={{ marginTop: 25 }}>
+        <RadioButtonRound
+          data={data}
+          onSelect={(value) => setWineFizzType(value)}
+        />
+      </View>
+
+      <View
+        style={{
+          gap: 15,
+          alignItems: "flex-start",
+          marginTop: 40,
+          marginHorizontal: width * 0.07,
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            width: 12,
+            height: 12,
+            borderRadius: 12,
+            backgroundColor: "#33ae9c",
+            marginTop: 6,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "400",
+            color: "#27284e",
+            fontFamily: "Regular",
+          }}
+        >
+          Which size?
+        </Text>
+      </View>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        listMode="SCROLLVIEW"
+        placeholder="Select drink"
+        showTickIcon={false}
+        style={{
+          width: width * 0.86,
+          height: height * 0.05,
+          borderWidth: 1,
+          borderRadius: 12,
+          borderColor: "#0D3F4A",
+          marginHorizontal: width * 0.07,
+          justifyContent: "center",
+          marginTop: 20,
+        }}
+        textStyle={{
+          fontSize: 17,
+          fontWeight: "400",
+          color: "#27284e",
+          textAlign: "center",
+          fontFamily: "Regular",
+        }}
+        dropDownContainerStyle={{
+          width: width * 0.86,
+          backgroundColor: "white",
+          borderColor: "#0D3F4A",
+          zIndex: 1000,
+          shadowColor: "#52006A",
+          elevation: 5,
+          marginHorizontal: width * 0.07,
+          marginTop: 20,
+          borderRadius: 12,
+        }}
+      />
+
+      <View
+        style={{
+          gap: 15,
+          alignItems: "flex-start",
+          marginTop: 40,
+          marginHorizontal: width * 0.07,
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            width: 12,
+            height: 12,
+            borderRadius: 12,
+            backgroundColor: "#33ae9c",
+            marginTop: 6,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "400",
+            color: "#27284e",
+            fontFamily: "Regular",
+          }}
+        >
+          How many?
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: width * 0.1,
+          marginTop: 20,
+        }}
+      >
+        <Pressable
+          onPress={() =>
+            wineCount === 0 ? setWineCount(0) : setWineCount(wineCount - 1)
+          }
+        >
+          <MinusIcon />
+        </Pressable>
+        <Text style={styles.drinkCount}>{wineCount}</Text>
+        <Pressable onPress={() => setWineCount(wineCount + 1)}>
+          <PlusIcon />
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
 });
 
-export default WineFizzForm
+export default WineFizzForm;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  drinkCount: {
+    color: "#080D09",
+    fontSize: 24,
+    fontFamily: "Regular",
+  },
+});

@@ -14,11 +14,11 @@ const RadioButtonRound: React.FC<RadioButtonRoundProps> = ({ data, onSelect }) =
         setUserOption(value);
     };
     return (
-        <View style={{ flexDirection: 'row', gap: 15, flexWrap: 'wrap',justifyContent: 'center' }}>
+        <View style={{ flexDirection: 'row',gap: 25, flexWrap: 'wrap',justifyContent: 'center' }}>
             {
                 data.map((item) => {
                     return (
-                        <View key={item.value} style={{alignItems: 'center', justifyContent: 'center', flexBasis: item.value==='Sparkling'?'30%':'25%'}}>
+                        <View key={item.value} style={{alignItems: 'center', justifyContent: 'space-between', flexBasis: item.value==='Sparkling'?'30%':'25%'}}>
                             <Pressable
                                 style={
                                     item.value === userOption ? styles.selected : styles.unselected

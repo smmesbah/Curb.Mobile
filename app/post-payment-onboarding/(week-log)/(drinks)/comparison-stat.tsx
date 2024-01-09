@@ -200,13 +200,16 @@ const Comparison = () => {
                         </View>
                     </View>
                 </View>
-                <View style={{ gap: 5 }}>
-                    <Text style={{ fontSize: 17, textAlign: 'center', color: 'white', marginTop: 20, fontFamily: "Regular", marginBottom: 5 }}>Sources</Text>
-                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://beerandpub.com/data-statistics/beer-prices/')}>Cost of alcohol</Text>
-                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calculating-alcohol-units/')}>Units in alcohol</Text>
-                    <Text style={{ fontSize: 17, textAlign: 'center', color: '#5B4AFF' }} onPress={() => Linking.openURL('https://www.nhs.uk/live-well/alcohol-advice/calories-in-alcohol/')}>Calories in alcohol</Text>
-                </View>
-            </ScrollView>
+                <Pressable onPress={()=>router.push('/source')}>
+                <Text style={{
+                    color: '#fff',
+                    fontFamily: 'Regular',
+                    fontSize: 14,
+                    marginVertical: 15,
+                    textAlign: 'center'
+                }}>How do we calculate these numbers?</Text>
+                </Pressable>
+            
             <View
                 style={{
                     width: '100%',
@@ -237,6 +240,7 @@ const Comparison = () => {
                     <Text style={{ color: '#fff', fontSize: 20, fontWeight: '400', fontFamily: "Regular" }}>Next</Text>
                 </Pressable>
             </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
