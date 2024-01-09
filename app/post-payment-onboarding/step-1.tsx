@@ -60,6 +60,7 @@ const PostPaymentStep1 = () => {
     setIsLoading(true);
     if (gender !== null && postcode !== "") {
       try {
+        const formattedPostcode = postcode!.toUpperCase().replace(/\s+/g, '');
         const token = await AsyncStorage.getItem("token");
         const ageRange =
           value === 0 ? "AGE_16_24" : value === 1 ? "AGE_25_34" : "AGE_35_44";
@@ -70,7 +71,7 @@ const PostPaymentStep1 = () => {
           token: token,
           ageRange: ageRange,
           gender: Gender,
-          postcode: postcode,
+          postcode: formattedPostcode,
         };
 
         const apiUrl = `${process.env.EXPO_PUBLIC_BACKEND_URL}/api/v1/onboarding/user-metadata`;
@@ -91,6 +92,7 @@ const PostPaymentStep1 = () => {
           setIsLoading(false);
           router.push("/post-payment-onboarding/step-2");
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error)
         setIsLoading(false);

@@ -14,6 +14,12 @@ const Comparison = () => {
     const [spendPerMonth, setSpendPerMonth] = React.useState(0);
     const [spendPerYear, setSpendPerYear] = React.useState(0);
     const [insights, setInsights] = React.useState("");
+
+
+    const [insightsBasedOnPlaceHeader, setInsightsBasedOnPlaceHeader] = React.useState("");
+    const [insightsBasedOnPlacePercent, setInsightsBasedOnPlacePercent] = React.useState("");
+    const [insightsBasedOnPlaceSubheader, setInsightsBasedOnPlaceSubheader] = React.useState("")
+
     const [calories, setCalories] = React.useState(0);
 
 
@@ -33,6 +39,21 @@ const Comparison = () => {
             setSpendPerMonth(parseFloat(data.spendPerMonth))
             setSpendPerYear(parseFloat(data.spendPerYear))
             setInsights(data.insight)
+            // setInsightsBasedOnPlace(data.insightBasedOnPlace)
+            const regex = /(In [A-Za-z\s]+)\s(\d+%)([\w\s]+)$/;
+            const matches = data.insightBasedOnPlace.match(regex);
+
+            if (matches && matches.length === 4) {
+                const header = matches[1]; // "In the North East" or "In the North West" or "In Yorkshire and the Humber"
+                const percent = matches[2]; // "17%" or "3%"
+                const subheader = matches[3].trim(); // "of people are non-drinkers like you" or "of people drink harmful levels of alcohol like you"
+
+                // Now you can set these values in your state variables or use them as needed
+                setInsightsBasedOnPlaceHeader(header);
+                setInsightsBasedOnPlacePercent(percent);
+                setInsightsBasedOnPlaceSubheader(subheader);
+            }
+
             setCalories(data.totalCaloriesConsumed)
             // console.log(spendPerWeek)
         }
@@ -62,8 +83,8 @@ const Comparison = () => {
                 </Text>
             </Pressable>
             <View style={{ gap: 5, paddingRight: 20, paddingBottom: 15 }}>
-                    <Text style={styles.headerText}>How do</Text>
-                    <Text style={styles.headerText}>you compare?</Text>
+                <Text style={styles.headerText}>How do</Text>
+                <Text style={styles.headerText}>you compare?</Text>
             </View>
             <ScrollView
                 style={{
@@ -92,10 +113,15 @@ const Comparison = () => {
                         SubheaderText={insights.slice(4, insights.length)}
                     />
                     <StatsComparisonCard
-                        headerText="You're in the top"
-                        Status="10th"
-                        SubheaderText="Percentile of drink"
+                        headerText={insightsBasedOnPlaceHeader}
+                        Status={insightsBasedOnPlacePercent}
+                        SubheaderText={insightsBasedOnPlaceSubheader}
                     />
+                    {/* <StatsComparisonCard
+                        headerText={insightsBasedOnPlace.split(/\s(\d+%)\s/)[0]}
+                        Status={insightsBasedOnPlace.split(/\s(\d+%)\s/)[1]}
+                        SubheaderText={insightsBasedOnPlace.split(/\s(\d+%)\s/).slice(2).join}
+                    /> */}
 
                     <StatsComparisonCard
                         headerText=""
